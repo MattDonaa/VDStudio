@@ -1,0 +1,6 @@
+{
+  "name": "Veneer Digital Studio",
+  "description": "Premium websites and lead-capture systems for South African woodworkers, kitchen remodellers, cabinet makers, and joinery businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
