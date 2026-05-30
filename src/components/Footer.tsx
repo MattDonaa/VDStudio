@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Hammer, Github, Phone, Shield } from "lucide-react";
+import { Hammer, Github, Phone, Shield, Facebook, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -36,6 +36,16 @@ export default function Footer() {
               <span className="flex items-center gap-2">
                 ✉️ Email: hello@veneerds.co.za
               </span>
+            </div>
+
+            {/* Social Links */}
+            <div className="mt-8 flex items-center gap-4">
+              <a href="https://www.facebook.com/share/1CCiq1WXf7/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#F27D26] transition-colors" aria-label="Facebook">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="https://x.com/veneerdigital?s=11" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#F27D26] transition-colors" aria-label="X (Twitter)">
+                <Twitter className="w-5 h-5" />
+              </a>
             </div>
           </div>
 

@@ -49,11 +49,14 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
     }
   }, [selectedInterest]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Form telemetry payload object mapping
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Form telemetry payload object mapping (for internal state)
     const leadData: LeadSubmission = {
       fullName,
       businessName,
@@ -71,28 +74,21 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
       createdAt: new Date().toISOString(),
     };
 
-    // Make live validation simulation
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setLastSubmittedLead(leadData);
-
-      // Log telemetry object for debugging console logs
-      console.log("Veneer DS Lead Object Generated:", leadData);
-
-      /*
-        TODO: Connect this form to the wacrm lead capture endpoint
-        // fetch(CRM_LEAD_ENDPOINT, {
-        //   method: "POST",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify(leadData)
-        // })
-        
-        TODO: Send this enquiry to Supabase or CRM webhook
-        TODO: Track this CTA click in Google Analytics or Facebook Pixel
-        TODO: Trigger live WhatsApp follow-up redirect if user is on mobile
-      */
-    }, 1200);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+        setLastSubmittedLead(leadData);
+        console.log("Veneer DS Lead Object Generated & Submitted:", leadData);
+      })
+      .catch((error) => {
+        console.error("Error submitting form to Netlify", error);
+        setIsSubmitting(false);
+      });
   };
 
   const resetForm = () => {
@@ -179,8 +175,23 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
             <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#F27D26] to-[#A85000]"></div>
 
             {!submitSuccess ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                name="project-form"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                action="/thank-you"
+                onSubmit={handleSubmit} 
+                className="space-y-6"
+              >
                 
+                <input type="hidden" name="form-name" value="project-form" />
+                <p className="hidden">
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
+
                 {/* Visual Title */}
                 <div className="border-b border-white/5 pb-4">
                   <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist">Project Application Form</h3>
@@ -195,6 +206,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <input
                       id="fullName"
+                      name="fullName"
                       type="text"
                       required
                       value={fullName}
@@ -211,6 +223,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <input
                       id="businessName"
+                      name="businessName"
                       type="text"
                       required
                       value={businessName}
@@ -229,6 +242,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <input
                       id="phone"
+                      name="phone"
                       type="tel"
                       required
                       value={phone}
@@ -245,6 +259,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <input
                       id="email"
+                      name="email"
                       type="email"
                       required
                       value={email}
@@ -263,6 +278,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <input
                       id="businessType"
+                      name="businessType"
                       type="text"
                       required
                       value={businessType}
@@ -279,6 +295,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <input
                       id="location"
+                      name="location"
                       type="text"
                       required
                       value={location}
@@ -297,6 +314,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <select
                       id="packageInterest"
+                      name="packageInterest"
                       value={packageInterest}
                       onChange={(e) => setPackageInterest(e.target.value)}
                       className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white focus:outline-none transition duration-200"
@@ -315,6 +333,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     </label>
                     <select
                       id="timeline"
+                      name="timeline"
                       value={timeline}
                       onChange={(e) => setTimeline(e.target.value)}
                       className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white focus:outline-none transition duration-200"
@@ -333,6 +352,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   </label>
                   <input
                     id="currentWebsite"
+                    name="currentWebsite"
                     type="url"
                     value={currentWebsite}
                     onChange={(e) => setCurrentWebsite(e.target.value)}
@@ -348,6 +368,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     required
                     rows={4}
                     value={message}
@@ -362,7 +383,9 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   <div className="flex h-5 items-center">
                     <input
                       id="wantsWhatsappCrm"
+                      name="wantsWhatsappCrm"
                       type="checkbox"
+                      value="yes"
                       checked={wantsWhatsappCrm}
                       onChange={(e) => setWantsWhatsappCrm(e.target.checked)}
                       className="h-4 w-4 rounded border-gray-350 text-orange-600 focus:ring-orange-550 accent-orange-550"

@@ -72,6 +72,22 @@
     </script>
   </head>
   <body class="bg-[#050505] text-white antialiased selection:bg-orange-500/30 selection:text-orange-200">
+    <!-- Hidden static form for Netlify form detection -->
+    <form name="project-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you" hidden>
+      <input type="text" name="fullName" />
+      <input type="text" name="businessName" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="businessType" />
+      <input type="text" name="location" />
+      <select name="packageInterest"></select>
+      <select name="timeline"></select>
+      <input type="url" name="currentWebsite" />
+      <textarea name="message"></textarea>
+      <input type="checkbox" name="wantsWhatsappCrm" value="yes" />
+      <input name="bot-field" />
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
