@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2, Image as ImageIcon } from "lucide-react";
 import { SERVICE_POINTS, SERVICE_GRID_IMAGES } from "../data";
 
 interface DeepDiveProps {
@@ -73,15 +73,21 @@ export default function DeepDive({ onStartProject }: DeepDiveProps) {
             {/* Column 1 with translation offset */}
             <div className="space-y-4 pt-8">
               {/* Visual Direction (Kitchen project) */}
-              <div className="glass relative aspect-[4/5] rounded-xl overflow-hidden group">
+              <div className="glass relative aspect-[4/5] rounded-xl overflow-hidden group image-fallback">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-[#F27D26]/40 z-0">
+                  <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-center">Visual<br/>Unavailable</span>
+                </div>
                 <img
                   src={SERVICE_GRID_IMAGES.visualDirection.url}
-                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700 z-10"
                   alt="Kitchen craftsmanship direction"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent"></div>
-                <div className="absolute bottom-5 left-5 right-5">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute bottom-5 left-5 right-5 z-20">
                   <span className="text-[10px] text-[#F27D26] font-mono uppercase tracking-widest">
                     Concept Architecture
                   </span>
@@ -92,15 +98,21 @@ export default function DeepDive({ onStartProject }: DeepDiveProps) {
               </div>
 
               {/* Website Build */}
-              <div className="glass relative aspect-[4/3] rounded-xl overflow-hidden group">
+              <div className="glass relative aspect-[4/3] rounded-xl overflow-hidden group image-fallback">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-[#F27D26]/40 z-0">
+                  <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-center">Build<br/>Unavailable</span>
+                </div>
                 <img
                   src={SERVICE_GRID_IMAGES.websiteBuild.url}
-                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700 z-10"
                   alt="Fine joinery cabinetry construction details"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent"></div>
-                <div className="absolute bottom-5 left-5 right-5">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute bottom-5 left-5 right-5 z-20">
                   <span className="text-[10px] text-[#F27D26] font-mono uppercase tracking-widest">
                     Production Core
                   </span>
@@ -114,15 +126,21 @@ export default function DeepDive({ onStartProject }: DeepDiveProps) {
             {/* Column 2 */}
             <div className="space-y-4">
               {/* Lead Capture */}
-              <div className="glass relative aspect-[4/3] rounded-xl overflow-hidden group">
+              <div className="glass relative aspect-[4/3] rounded-xl overflow-hidden group image-fallback">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-[#F27D26]/40 z-0">
+                  <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-center">Capture<br/>Unavailable</span>
+                </div>
                 <img
                   src={SERVICE_GRID_IMAGES.leadCapture.url}
-                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700 z-10"
                   alt="Premium design showroom"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent"></div>
-                <div className="absolute bottom-5 left-5 right-5">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute bottom-5 left-5 right-5 z-20">
                   <span className="text-[10px] text-[#F27D26] font-mono uppercase tracking-widest">
                     WhatsApp CRM Integration
                   </span>
@@ -133,15 +151,21 @@ export default function DeepDive({ onStartProject }: DeepDiveProps) {
               </div>
 
               {/* Growth/SEO Ready */}
-              <div className="glass relative aspect-[4/5] rounded-xl overflow-hidden group">
+              <div className="glass relative aspect-[4/5] rounded-xl overflow-hidden group image-fallback">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-[#F27D26]/40 z-0">
+                  <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-center">Growth<br/>Unavailable</span>
+                </div>
                 <img
                   src={SERVICE_GRID_IMAGES.growthReady.url}
-                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700 z-10"
                   alt="Polished luxury wood panel"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent"></div>
-                <div className="absolute bottom-5 left-5 right-5">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute bottom-5 left-5 right-5 z-20">
                   <span className="text-[10px] text-[#F27D26] font-mono uppercase tracking-widest">
                     Google Visibility
                   </span>

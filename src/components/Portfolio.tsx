@@ -46,19 +46,29 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
             >
               <div>
                 {/* Mockup Top Image Container */}
-                <div className="aspect-[16/10] overflow-hidden relative bg-[#050505]">
+                <div className="aspect-[16/10] overflow-hidden relative bg-[#050505] image-fallback">
+                  {/* Fallback Elements behind the image */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-[#F27D26]/40 z-0">
+                    <LayoutTemplate className="w-8 h-8 mb-2 opacity-50" />
+                    <span className="text-[10px] uppercase font-mono tracking-widest">Preview Unavailable</span>
+                  </div>
+
                   <img
                     src={item.mockupUrl}
-                    className="object-cover w-full h-full transition duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80"
+                    className="absolute inset-0 object-cover w-full h-full transition duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80 z-10"
                     alt={`${item.title} web project blueprint`}
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                   
                   {/* Glass Card Gradients */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent z-20 pointer-events-none"></div>
                   
                   {/* Status Indicator Badges */}
-                  <div className="absolute top-4 left-4 flex flex-col gap-1.5 items-start">
+                  <div className="absolute top-4 left-4 flex flex-col gap-1.5 items-start z-20">
                     <span className="bg-[#F27D26] text-black text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded shadow-md font-geist">
                       {item.category}
                     </span>

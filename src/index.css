@@ -81,6 +81,14 @@ html {
   text-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
 }
 
+/* Image Fallback CSS Pattern */
+.image-fallback {
+  background:
+  radial-gradient(circle at top left, rgba(249,115,22,0.22), transparent 35%),
+  linear-gradient(135deg, #111111, #050505);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
 /* Custom Scrollbar for Luxury Aesthetics */
 ::-webkit-scrollbar {
   width: 8px;

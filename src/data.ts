@@ -65,19 +65,19 @@ export const MARQUEE_TAGS = [
 
 export const SERVICE_GRID_IMAGES = {
   visualDirection: {
-    url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     caption: "Visual Direction",
   },
   websiteBuild: {
-    url: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=800&auto=format&fit=crop",
+    url: "https://plus.unsplash.com/premium_vector-1682310595106-ecf4ee316a54?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     caption: "Website Build",
   },
   leadCapture: {
-    url: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=800&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     caption: "Lead Capture",
   },
   growthReady: {
-    url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     caption: "Growth Ready",
   },
 };
@@ -196,7 +196,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Knysna Kitchen Co.",
     category: "Kitchen Remodeller Website",
     description: "Bespoke solid oak cabinet builder showcase with live interactive room visualizer references.",
-    mockupUrl: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800&auto=format&fit=crop",
+    mockupUrl: "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1200&auto=format&fit=crop",
     duration: "Web Presence Concept",
     badge: "Case Study Style",
   },
@@ -205,7 +205,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Constantia Joinery Studio",
     category: "Joinery Studio Website",
     description: "High-contrast visual gallery for a Cape Town wooden window frames and door manufacturer.",
-    mockupUrl: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=800&auto=format&fit=crop",
+    mockupUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
     duration: "Responsive Showcase",
   },
   {
@@ -213,7 +213,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Outeniqua Wood Artisans",
     category: "Furniture Maker Showcase",
     description: "Elegantly framed catalogs with custom quotation triggers for luxury sleeper furniture.",
-    mockupUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+    mockupUrl: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200&auto=format&fit=crop",
     duration: "Interactive Catalog",
   },
   {
@@ -221,7 +221,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Bespoke Built-In Cupboards",
     category: "Built-In Cupboard Lead Page",
     description: "Multi-step kitchen layout estimator form driving users straight to WhatsApp appointment booking.",
-    mockupUrl: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=800&auto=format&fit=crop",
+    mockupUrl: "https://images.unsplash.com/photo-1753826944305-e36fbf8e4025?q=80&w=393&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "WhatsApp Integration",
     badge: "15% Conversion Boost",
   },
@@ -230,7 +230,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Summit Wood Renovations",
     category: "Renovation Brand Landing Page",
     description: "Local SEO landing project capturing Gauteng kitchen refacing & joinery resurfacing requests.",
-    mockupUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop",
+    mockupUrl: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop",
     duration: "Google SEO Optimized",
   },
   {
@@ -238,7 +238,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Prestige Cabinets SA",
     category: "Cabinet Maker Portfolio",
     description: "High-end product showcase for bespoke walk-in-closets and state-of-the-art office joinery.",
-    mockupUrl: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=800&auto=format&fit=crop",
+    mockupUrl: "https://images.unsplash.com/photo-1708397016786-8916880649b8?q=80&w=581&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "Lead Capture Setup",
   },
 ];
