@@ -28,16 +28,6 @@ export default function Footer() {
               Premium websites and lead-capture systems for South African woodworkers, kitchen remodellers, cabinet makers, and joinery businesses.
             </p>
 
-            {/* Quick Contact Info */}
-            <div className="mt-6 flex flex-col gap-2 font-mono text-[10px] text-white/45">
-              <span className="flex items-center gap-2">
-                📍 Location: 14 Diamond Courts, Kerk Street, Lichtenburg. South Africa, 2740
-              </span>
-              <span className="flex items-center gap-2">
-                ✉️ Email: hello@veneerds.co.za
-              </span>
-            </div>
-
             {/* Social Links */}
             <div className="mt-8 flex items-center gap-4">
               <a href="https://www.facebook.com/share/1CCiq1WXf7/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#F27D26] transition-colors" aria-label="Facebook">
@@ -138,19 +128,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom Credits row */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[10px] text-white/30 font-mono">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center gap-4 relative">
+          <p className="text-[10px] text-white/30 font-mono shrink-0">
             © 2026 Veneer Digital Studio (Pty) Ltd. All rights reserved.
           </p>
           
           {/* Legal notes */}
-          <div className="flex flex-wrap gap-6 text-[10px] text-white/30 font-mono">
-            <a href="#" className="hover:text-white transition">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition">Terms of Service</a>
-            <span className="text-[#F27D26]/75 flex items-center gap-1 font-bold">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-white/30 font-mono w-full md:absolute md:left-1/2 md:-translate-x-1/2 md:w-auto pb-4 md:pb-0 pr-0 md:pr-16 lg:pr-0">
+            <a href="/legal.html#privacy" className="hover:text-white transition">Privacy Policy</a>
+            <a href="/legal.html#terms" className="hover:text-white transition">Terms of Service</a>
+            <a href="/legal.html#popia" className="text-[#F27D26]/75 hover:text-[#F27D26] flex items-center gap-1 font-bold transition">
               <Shield className="w-3 h-3 text-[#F27D26]" />
               POPIA Compliant SA
-            </span>
+            </a>
           </div>
         </div>
 

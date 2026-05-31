@@ -49,7 +49,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden font-geist">
+    <div className="relative min-h-screen bg-[#050505] text-white overflow-clip font-geist">
       {/* Background Glow & Grid Decoration from Dark Luxury Theme Design HTML */}
       <div className="fixed inset-0 -z-10 bg-[#050505] overflow-hidden">
         <div className="absolute inset-0 bg-grid pointer-events-none"></div>

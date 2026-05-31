@@ -26,11 +26,11 @@ export default function Process() {
         </div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PROCESS_STEPS.map((step) => (
             <div
               key={step.number}
-              className="glass p-8 rounded-xl hover:border-[#F27D26]/30 transition-all duration-300 relative group flex flex-col justify-between"
+              className="glass p-10 rounded-xl hover:border-[#F27D26]/40 transition-all duration-300 relative group flex flex-col justify-between hover:-translate-y-1"
               data-aos="fade-up"
               data-aos-delay={step.number * 80}
             >
@@ -45,11 +45,11 @@ export default function Process() {
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist mb-3 group-hover:text-[#F27D26] transition-colors duration-200">
+                <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist mb-4 group-hover:text-[#F27D26] transition-colors duration-200 mt-2">
                   {step.title}
                 </h3>
                 
-                <p className="text-xs text-white/40 leading-relaxed font-geist">
+                <p className="text-sm text-white/50 leading-relaxed font-geist">
                   {step.description}
                 </p>
               </div>

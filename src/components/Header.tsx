@@ -47,7 +47,7 @@ export default function Header({ onStartProject }: HeaderProps) {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-xs uppercase tracking-widest text-white/60 hover:text-[#F27D26] transition-colors"
+                className="nav-link text-xs uppercase tracking-widest font-geist"
               >
                 {link.name}
               </a>
@@ -89,7 +89,7 @@ export default function Header({ onStartProject }: HeaderProps) {
                 key={link.name}
                 href={link.href}
                 onClick={handleLinkClick}
-                className="text-sm font-medium uppercase tracking-wider text-white/80 hover:text-orange-400 py-1.5 border-b border-white/5 last:border-0 transition"
+                className="text-sm font-medium uppercase tracking-wider text-white/80 hover:text-[#F27D26] hover:underline decoration-[#F27D26] decoration-2 underline-offset-4 py-1.5 border-b border-white/5 last:border-0 transition-all"
               >
                 {link.name}
               </a>

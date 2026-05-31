@@ -68,29 +68,29 @@ export default function LeadFlowVisual() {
           {/* Connector Line decoration */}
           <div className="hidden lg:block absolute top-[45px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-[#F27D26]/10 via-[#F27D26]/40 to-[#F27D26]/10 z-0"></div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 xl:gap-8 relative z-10">
             {pipelineSteps.map((step, idx) => (
               <div
                 key={step.id}
-                className="glass rounded-xl p-6 flex flex-col items-center text-center relative group backdrop-blur-sm hover:border-[#F27D26]/30 transition-all duration-300"
+                className="glass rounded-xl p-8 lg:p-6 xl:p-8 flex flex-col items-center text-center relative group backdrop-blur-sm hover:border-[#F27D26]/40 transition-all duration-300 shadow-lg hover:shadow-[#F27D26]/5 hover:-translate-y-1"
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
               >
                 {/* Visual Circle Badge */}
-                <div className="w-10 h-10 rounded-lg bg-[#F27D26]/10 group-hover:bg-[#F27D26]/20 flex items-center justify-center mb-4 transition-colors duration-300 shadow">
+                <div className="w-12 h-12 rounded-lg bg-[#F27D26]/10 group-hover:bg-[#F27D26]/20 flex items-center justify-center mb-5 transition-colors duration-300 shadow">
                   {step.icon}
                 </div>
 
-                <h3 className="text-xs font-bold uppercase tracking-wider text-white font-geist group-hover:text-[#F27D26] transition-colors duration-200">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist group-hover:text-[#F27D26] transition-colors duration-200 mt-2">
                   {step.label}
                 </h3>
                 
-                <p className="text-[11px] text-white/40 mt-2 leading-relaxed font-geist">
+                <p className="text-sm text-white/50 mt-3 leading-relaxed font-geist">
                   {step.desc}
                 </p>
 
                 {/* Micro chevron arrow between mobile columns */}
-                <div className="hidden lg:group-last:hidden group-last:hidden absolute -right-3 top-[36px] text-[#F27D26]/30 font-bold z-20">
+                <div className="hidden lg:group-last:hidden group-last:hidden absolute -right-4 xl:-right-5 top-[52px] text-[#F27D26]/30 font-bold z-20">
                   ➜
                 </div>
               </div>

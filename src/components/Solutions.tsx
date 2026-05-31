@@ -43,43 +43,43 @@ export default function Solutions({ onSelectSolution }: SolutionsProps) {
         </div>
 
         {/* 3 cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SOLUTIONS_PACKAGES.map((pkg, idx) => (
             <div
               key={pkg.id}
-              className="glass p-8 rounded-xl flex flex-col justify-between hover:border-[#F27D26]/30 transition duration-300 relative group"
+              className="glass p-10 rounded-xl flex flex-col justify-between hover:border-[#F27D26]/40 transition duration-300 relative group"
               data-aos="fade-up"
               data-aos-delay={idx * 100}
             >
               <div>
                 {/* Badge top right & Icon */}
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-neutral-950 border border-white/5 rounded-lg group-hover:border-[#F27D26]/35 transition-colors duration-300">
+                <div className="flex justify-between items-start mb-8">
+                  <div className="p-3 bg-neutral-950 border border-white/5 rounded-lg group-hover:border-[#F27D26]/40 transition-colors duration-300 shadow-md shadow-black/50">
                     {getIcon(pkg.id)}
                   </div>
-                  <span className="text-[9px] text-[#F27D26] font-mono border border-[#F27D26]/20 bg-[#F27D26]/10 px-2.5 py-1 rounded">
+                  <span className="text-[10px] text-[#F27D26] font-mono border border-[#F27D26]/20 bg-[#F27D26]/10 px-3 py-1.5 rounded uppercase tracking-wider font-semibold">
                     {pkg.badge}
                   </span>
                 </div>
 
                 {/* Info titles */}
-                <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist mb-2 pr-2">
+                <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist mb-3 pr-2">
                   {pkg.title}
                 </h3>
-                <p className="text-xs text-white/40 mb-6 leading-relaxed font-geist">
+                <p className="text-sm text-white/50 mb-8 leading-relaxed font-geist">
                   {pkg.description}
                 </p>
 
                 {/* Included Feature Bullet Checkbox */}
-                <div className="border-t border-white/5 pt-6">
-                  <p className="text-[9px] uppercase font-mono text-[#F27D26]/80 tracking-widest mb-4">
+                <div className="border-t border-white/10 pt-8">
+                  <p className="text-[11px] uppercase font-mono text-[#F27D26]/80 tracking-widest mb-5">
                     What's Included:
                   </p>
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-4 mb-10">
                     {pkg.includes.map((incl, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-white/70">
-                        <Check className="w-3.5 h-3.5 text-[#F27D26] shrink-0 mt-0.5" />
-                        <span className="font-geist text-xs text-white/60">{incl}</span>
+                      <li key={i} className="flex items-start gap-3 text-sm text-white/70">
+                        <Check className="w-4 h-4 text-[#F27D26] shrink-0 mt-0.5" />
+                        <span className="font-geist text-sm text-white/60">{incl}</span>
                       </li>
                     ))}
                   </ul>
@@ -87,22 +87,22 @@ export default function Solutions({ onSelectSolution }: SolutionsProps) {
               </div>
 
               {/* Bottom Card Area */}
-              <div className="border-t border-white/5 pt-6 mt-4">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-[9px] uppercase tracking-wider text-white/30 font-mono">
+              <div className="border-t border-white/10 pt-8 mt-4">
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-xs uppercase tracking-wider text-white/40 font-mono">
                     Pricing Rate
                   </span>
-                  <span className="text-[10px] text-[#F27D26] bg-[#F27D26]/10 border border-[#F27D26]/20 px-2 py-0.5 rounded font-mono font-bold lowercase">
+                  <span className="text-[11px] text-[#F27D26] bg-[#F27D26]/10 border border-[#F27D26]/20 px-2.5 py-1 rounded font-mono font-bold lowercase">
                     quoted per project
                   </span>
                 </div>
                 <button
                   onClick={() => onSelectSolution(pkg.title)}
-                  className="block w-full py-3 px-4 bg-white hover:bg-[#F27D26] text-black hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-sm text-center cursor-pointer"
+                  className="block w-full py-4 px-6 bg-white hover:bg-[#F27D26] text-black hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-sm text-center cursor-pointer shadow-lg hover:shadow-orange-500/20"
                 >
                   {pkg.ctaText}
                 </button>
-                <p className="text-center text-[9px] text-white/40 mt-3 font-mono">
+                <p className="text-center text-[10px] text-white/40 mt-4 font-mono">
                   ✦ {pkg.bottomLabel} status
                 </p>
               </div>

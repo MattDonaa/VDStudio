@@ -22,25 +22,25 @@ export default function FeatureGrid() {
 
   return (
     <section id="services" className="mx-auto max-w-7xl px-6 lg:px-8 mt-24">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {FEATURE_CARDS.map((card, idx) => (
           <div
             key={card.id}
-            className="glass p-8 rounded-xl flex flex-col gap-3 group hover:border-[#F27D26]/40 transition-all duration-300"
+            className="glass p-10 rounded-xl flex flex-col gap-4 group hover:border-[#F27D26]/40 transition-all duration-300"
             data-aos="fade-up"
             data-aos-delay={idx * 100}
           >
             {/* Icon housing */}
-            <div className="w-10 h-10 rounded-lg bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26]">
+            <div className="w-12 h-12 rounded-lg bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26]">
               {getIcon(card.iconName)}
             </div>
 
             {/* Content info */}
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist group-hover:text-[#F27D26] transition-colors">
+            <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist group-hover:text-[#F27D26] transition-colors mt-2">
               {card.title}
             </h3>
             
-            <p className="text-xs text-white/40 leading-relaxed font-geist">
+            <p className="text-sm text-white/50 leading-relaxed font-geist">
               {card.description}
             </p>
           </div>

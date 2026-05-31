@@ -33,51 +33,51 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
         </div>
 
         {/* 3 cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {PROJECT_PACKAGES.map((pkg, idx) => {
             const isPopular = pkg.isPopular;
             return (
               <div
                 key={pkg.id}
-                className={`glass p-8 rounded-xl flex flex-col justify-between transition-all duration-300 relative ${
+                className={`glass p-10 rounded-xl flex flex-col justify-between transition-all duration-300 relative ${
                   isPopular
-                    ? "border-2 border-[#F27D26] md:-translate-y-2 scale-102 bg-white/[0.04]"
-                    : "hover:border-[#F27D26]/30"
+                    ? "border-2 border-[#F27D26] md:-translate-y-2 scale-102 bg-white/[0.04] shadow-2xl shadow-orange-500/10"
+                    : "hover:border-[#F27D26]/30 hover:-translate-y-1"
                 }`}
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
               >
                 {/* Popular Pill */}
                 {isPopular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F27D26] text-black text-[9px] font-bold px-3 py-1 rounded-sm uppercase tracking-wider shadow-md">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F27D26] text-black text-[10px] font-bold px-4 py-1 rounded-sm uppercase tracking-wider shadow-md">
                     Most Popular Choice
                   </div>
                 )}
 
                 <div>
                   {/* Top copy */}
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist">
+                  <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist">
                     {pkg.title}
                   </h3>
-                  <p className="text-xs text-white/40 mt-2 min-h-[32px] font-geist">
+                  <p className="text-sm text-white/50 mt-3 min-h-[40px] font-geist leading-relaxed">
                     {pkg.description}
                   </p>
 
-                  <div className="my-6">
-                    <span className="text-3xl font-bold text-white font-geist tracking-tight">
+                  <div className="my-8">
+                    <span className="text-4xl font-bold text-white font-geist tracking-tight">
                       {pkg.price}
                     </span>
-                    <span className="text-[#F27D26]/75 text-[10px] font-bold uppercase tracking-wider block mt-1 font-mono">
+                    <span className="text-[#F27D26]/80 text-[10px] font-bold uppercase tracking-wider block mt-2 font-mono">
                       ✦ Custom Project Quotation
                     </span>
                   </div>
 
                   {/* Bullet points mapping */}
-                  <ul className="space-y-4 mb-8">
+                  <ul className="space-y-4 mb-10">
                     {pkg.features.map((feat, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-white/70">
-                        <Check className={`w-4 h-4 shrink-0 mt-0.5 ${isPopular ? "text-[#F27D26]" : "text-[#F27D26]"}`} />
-                        <span className="font-geist text-xs text-white/60">{feat}</span>
+                      <li key={i} className="flex items-start gap-3 text-sm text-white/70">
+                        <Check className={`w-4 h-4 shrink-0 mt-0.5 ${isPopular ? "text-[#F27D26]" : "text-[#F27D26]/70"}`} />
+                        <span className="font-geist text-sm text-white/60">{feat}</span>
                       </li>
                     ))}
                   </ul>
@@ -87,7 +87,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                 <div>
                   <button
                     onClick={() => onSelectPackage(pkg.title)}
-                    className={`block w-full py-3 px-4 text-center text-xs font-bold uppercase tracking-widest transition duration-300 cursor-pointer rounded-sm ${
+                    className={`block w-full py-4 px-6 text-center text-xs font-bold uppercase tracking-widest transition duration-300 cursor-pointer rounded-sm ${
                       isPopular
                         ? "bg-[#F27D26] text-black hover:bg-white hover:text-black shadow-lg shadow-orange-500/10"
                         : "border border-white/20 bg-white/5 text-white hover:bg-white hover:text-black"

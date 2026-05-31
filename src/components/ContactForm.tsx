@@ -201,7 +201,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Full Name */}
                   <div>
-                    <label htmlFor="fullName" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="fullName" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Full Name *
                     </label>
                     <input
@@ -212,13 +212,13 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="e.g. Johan van der Merwe"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
 
                   {/* Business Name */}
                   <div>
-                    <label htmlFor="businessName" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="businessName" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Cabinetry / Wood Brand Name *
                     </label>
                     <input
@@ -229,7 +229,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
                       placeholder="e.g. Cape Town Joiners"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Phone */}
                   <div>
-                    <label htmlFor="phone" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Contact Phone Number *
                     </label>
                     <input
@@ -248,13 +248,13 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. +27 82 123 4567"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Email Address *
                     </label>
                     <input
@@ -265,7 +265,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="e.g. johan@capejoinery.co.za"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
                 </div>
@@ -273,7 +273,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Type of Business */}
                   <div>
-                    <label htmlFor="businessType" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="businessType" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Type of Custom woodcraft *
                     </label>
                     <input
@@ -284,13 +284,13 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value)}
                       placeholder="e.g. Kitchen Renovation, Bespoke Cabinetry"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
 
                   {/* Location Area */}
                   <div>
-                    <label htmlFor="location" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="location" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Location / Service Area *
                     </label>
                     <input
@@ -301,7 +301,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       placeholder="e.g. Knysna, Constantia, Sandton"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
                 </div>
@@ -309,7 +309,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Package Interest */}
                   <div>
-                    <label htmlFor="packageInterest" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="packageInterest" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Build Package Target
                     </label>
                     <select
@@ -317,7 +317,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       name="packageInterest"
                       value={packageInterest}
                       onChange={(e) => setPackageInterest(e.target.value)}
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
                     >
                       <option value="Raw HTML Website Delivery">Raw HTML Website Delivery</option>
                       <option value="Website Build + Hosting Setup">Website Build + Hosting Setup</option>
@@ -328,7 +328,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
 
                   {/* Timeline Selection */}
                   <div>
-                    <label htmlFor="timeline" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                    <label htmlFor="timeline" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                       Target Project Timeline
                     </label>
                     <select
@@ -336,7 +336,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       name="timeline"
                       value={timeline}
                       onChange={(e) => setTimeline(e.target.value)}
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white focus:outline-none transition duration-200"
+                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
                     >
                       <option value="Immediately">Immediately (Ready to launch)</option>
                       <option value="1-3 Months">1-3 Months</option>
@@ -347,7 +347,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
 
                 {/* Current Website URL */}
                 <div>
-                  <label htmlFor="currentWebsite" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                  <label htmlFor="currentWebsite" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                     Current Website URL (optional)
                   </label>
                   <input
@@ -357,13 +357,13 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     value={currentWebsite}
                     onChange={(e) => setCurrentWebsite(e.target.value)}
                     placeholder="e.g. www.capejoinery.co.za"
-                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                   />
                 </div>
 
                 {/* Message Textbox */}
                 <div>
-                  <label htmlFor="message" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2">
+                  <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                     Project Requirements / Message *
                   </label>
                   <textarea
@@ -374,7 +374,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Describe your woodworking specialty, cabinet count, showroom size, or typical client project budget..."
-                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none transition duration-200"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                   ></textarea>
                 </div>
 
