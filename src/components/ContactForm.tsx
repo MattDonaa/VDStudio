@@ -7,8 +7,10 @@ import React, { useState, useEffect } from "react";
 import { Send, Check, ShieldCheck, PhoneCall, Code } from "lucide-react";
 import { LeadSubmission } from "../types";
 
-// Placeholder Endpoint declarations
-const CRM_LEAD_ENDPOINT = "YOUR_CRM_LEAD_ENDPOINT_HERE";
+// Primary submission: wacrm CRM endpoint
+// Backup: Netlify Forms remains active for safety
+// TODO: Replace temporary Vercel URL with https://crm.veneerdigital.co.za once DNS is live
+const CRM_LEAD_ENDPOINT = "https://crm.veneerdigital.co.za/api/public/website-lead";
 const WHATSAPP_NUMBER = "27657319062"; // Real business WhatsApp line
 
 interface ContactFormProps {
@@ -32,6 +34,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [crmFailed, setCrmFailed] = useState(false);
   const [lastSubmittedLead, setLastSubmittedLead] = useState<LeadSubmission | null>(null);
 
   // Sync package interest when selected from packages list
@@ -74,20 +77,45 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
       createdAt: new Date().toISOString(),
     };
 
-    fetch("/", {
+    // Primary submission: wacrm CRM endpoint
+    fetch(CRM_LEAD_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(leadData)
     })
-      .then(() => {
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error("CRM endpoint returned error");
+        }
+        
         setIsSubmitting(false);
         setSubmitSuccess(true);
+        setCrmFailed(false);
         setLastSubmittedLead(leadData);
-        console.log("Veneer DS Lead Object Generated & Submitted:", leadData);
+
+        // Backup: Netlify Forms remains active for safety
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData as any).toString(),
+        }).catch(() => {});
       })
       .catch((error) => {
-        console.error("Error submitting form to Netlify", error);
-        setIsSubmitting(false);
+        console.error("CRM submission failed:", error);
+        setCrmFailed(true);
+        
+        // Backup: Netlify Forms remains active for safety
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData as any).toString(),
+        }).finally(() => {
+          setIsSubmitting(false);
+          setSubmitSuccess(true);
+          setLastSubmittedLead(leadData);
+        });
       });
   };
 
@@ -104,6 +132,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
     setMessage("");
     setWantsWhatsappCrm(false);
     setSubmitSuccess(false);
+    setCrmFailed(false);
     setLastSubmittedLead(null);
   };
 
@@ -427,7 +456,9 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist">Application Received</h3>
                 
                 <p className="text-sm text-white/40 leading-relaxed mt-4 max-w-lg mx-auto font-light">
-                  Your project enquiry has been received. Veneer Digital Studio will review your details and respond shortly.
+                  {crmFailed 
+                    ? "Your enquiry was received. If there is a delay, Veneer Digital Studio will still follow up shortly."
+                    : "Your project enquiry has been received. Veneer Digital Studio will review your details and respond shortly."}
                 </p>
 
                 <div className="mt-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4 justify-center">
