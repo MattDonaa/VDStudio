@@ -379,15 +379,20 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   <label htmlFor="currentWebsite" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                     Current Website URL (optional)
                   </label>
-                  <input
-                    id="currentWebsite"
-                    name="currentWebsite"
-                    type="url"
-                    value={currentWebsite}
-                    onChange={(e) => setCurrentWebsite(e.target.value)}
-                    placeholder="e.g. www.capejoinery.co.za"
-                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
-                  />
+                  <div className="flex w-full bg-[#121212] border border-white/10 focus-within:border-[#F27D26]/80 rounded-sm overflow-hidden transition duration-200">
+                    <span className="flex items-center pl-4 pr-1 text-white/40 text-sm select-none pointer-events-none">
+                      https://
+                    </span>
+                    <input
+                      id="currentWebsite"
+                      name="currentWebsite"
+                      type="text"
+                      value={currentWebsite}
+                      onChange={(e) => setCurrentWebsite(e.target.value.replace(/^https?:\/\//, ''))}
+                      placeholder="www.rosebankjoinery.com"
+                      className="w-full bg-transparent px-2 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none outline-none border-none"
+                    />
+                  </div>
                 </div>
 
                 {/* Message Textbox */}
