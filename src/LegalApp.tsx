@@ -26,7 +26,7 @@ export default function LegalApp() {
       <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-br from-[#F27D26]/10 via-[#F27D26]/5 to-transparent w-full pointer-events-none rounded-full blur-[100px] opacity-70 -z-10" />
 
       {/* Header */}
-      <Header />
+      <Header onStartProject={() => { window.location.href = "/#contact"; }} />
 
       {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-start pt-32 pb-24 px-6 relative z-10 w-full max-w-5xl mx-auto">

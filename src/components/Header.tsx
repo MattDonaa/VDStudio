@@ -16,7 +16,6 @@ export default function Header({ onStartProject }: HeaderProps) {
   const navLinks = [
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
-    { name: "Delivery Paths", href: "#delivery-paths" },
     { name: "Project Packages", href: "#project-packages" },
     { name: "Lead Pipeline", href: "#lead-pipeline" },
     { name: "Process", href: "#process" },

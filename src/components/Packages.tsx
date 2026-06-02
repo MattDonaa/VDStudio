@@ -3,16 +3,253 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Check, Sparkles, HelpCircle } from "lucide-react";
-import { PROJECT_PACKAGES } from "../data";
+import React, { useState, useEffect } from "react";
+import { Check, X, HelpCircle, ArrowRight, ShieldCheck, CreditCard } from "lucide-react";
+
+// TODO: Replace payment placeholder links with Payfast, Paystack, Ozow, or approved payment gateway checkout links.
+const STARTER_PAYMENT_LINK = "https://pay.veneerdigital.co.za/checkout/starter-presence";
+const GROWTH_PAYMENT_LINK = "https://pay.veneerdigital.co.za/checkout/growth-presence";
 
 interface PackagesProps {
   onSelectPackage: (packageName: string) => void;
 }
 
+interface PackageItem {
+  id: "starter" | "growth" | "premium";
+  title: string;
+  price: string;
+  description: string;
+  included: string[];
+  excluded: string[];
+  ctaText: string;
+  smallNote: string;
+  isPopular: boolean;
+}
+
+const PACKAGES_DATA: PackageItem[] = [
+  {
+    id: "starter",
+    title: "Starter Presence",
+    price: "R699/month",
+    description: "For smaller carpentry, cabinetry, and interior businesses that need a professional online foundation without technical stress.",
+    included: [
+      "3-page website",
+      "Hosting included",
+      "SSL security certificate",
+      "WhatsApp button",
+      "Contact form",
+      "Basic SEO metadata",
+      "Basic Google Business Profile setup guidance",
+      "1 small update per month"
+    ],
+    excluded: [
+      "CRM dashboard",
+      "Automations",
+      "Monthly lead reporting",
+      "Multiple email accounts",
+      "Advanced SEO",
+      "Unlimited edits"
+    ],
+    ctaText: "Start Starter Plan",
+    smallNote: "12-month minimum term. Domain fees may be billed separately where applicable.",
+    isPopular: false
+  },
+  {
+    id: "growth",
+    title: "Growth Presence",
+    price: "R999/month",
+    description: "For growing kitchen, cabinetry, carpentry, and interior design businesses that need stronger credibility, a better portfolio, and basic enquiry tracking.",
+    included: [
+      "Up to 5-page website",
+      "Portfolio/gallery section",
+      "Review section",
+      "Google Business Profile optimisation checklist",
+      "Contact/project enquiry form",
+      "Basic lead tracking sheet",
+      "2 small updates per month",
+      "Monthly mini-report"
+    ],
+    excluded: [
+      "Full CRM",
+      "WhatsApp automation",
+      "Advanced sales pipeline",
+      "Campaign broadcasts"
+    ],
+    ctaText: "Start Growth Plan",
+    smallNote: "12-month minimum term. Best for businesses ready to look more established online.",
+    isPopular: true
+  },
+  {
+    id: "premium",
+    title: "Premium Lead System",
+    price: "From R1,699/month",
+    description: "For businesses that want website enquiries tracked, followed up, and managed through a CRM-ready lead system.",
+    included: [
+      "Everything in Growth Presence",
+      "CRM dashboard",
+      "Website leads pipeline",
+      "WhatsApp follow-up workflows",
+      "Enquiry tracking",
+      "Monthly lead report",
+      "Follow-up templates",
+      "Review request system",
+      "Tags and pipeline stages",
+      "Lead reactivation campaigns on higher tiers",
+      "Monthly strategy call on higher tiers"
+    ],
+    excluded: [],
+    ctaText: "Book Strategy Call",
+    smallNote: "Recommended for serious businesses that want to improve follow-up, lead visibility, and project conversion.",
+    isPopular: false
+  }
+];
+
 export default function Packages({ onSelectPackage }: PackagesProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPkg, setSelectedPkg] = useState<PackageItem | null>(null);
+
+  // Form states
+  const [fullName, setFullName] = useState("");
+  const [businessName, setBusinessName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [businessType, setBusinessType] = useState("");
+  const [servicesOffered, setServicesOffered] = useState("");
+  const [ownDomain, setOwnDomain] = useState("No");
+  const [preferredDomain, setPreferredDomain] = useState("");
+  const [alternativeDomain, setAlternativeDomain] = useState("");
+  const [currentWebsite, setCurrentWebsite] = useState("");
+  const [locationValue, setLocationValue] = useState("");
+  const [hasGbp, setHasGbp] = useState("Not sure");
+  const [hasLogo, setHasLogo] = useState("No");
+  const [hasPhotos, setHasPhotos] = useState("No");
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [preferredStyle, setPreferredStyle] = useState("Not sure yet");
+  const [message, setMessage] = useState("");
+  const [checkboxTerm, setCheckboxTerm] = useState(false);
+  const [checkboxDomain, setCheckboxDomain] = useState(false);
+  const [checkboxReview, setCheckboxReview] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showFormError, setShowFormError] = useState("");
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleCtaClick = (pkg: PackageItem) => {
+    if (pkg.id === "premium") {
+      // Consultation-based: scroll to main project form / enquiry structure in standard page
+      onSelectPackage("Premium Lead System");
+    } else {
+      // Starter or Growth monthly package: Open custom modal checkout form flow
+      setSelectedPkg(pkg);
+      resetFormFields();
+      setIsModalOpen(true);
+    }
+  };
+
+  const resetFormFields = () => {
+    setFullName("");
+    setBusinessName("");
+    setPhone("");
+    setEmail("");
+    setBusinessType("");
+    setServicesOffered("");
+    setOwnDomain("No");
+    setPreferredDomain("");
+    setAlternativeDomain("");
+    setCurrentWebsite("");
+    setLocationValue("");
+    setHasGbp("Not sure");
+    setHasLogo("No");
+    setHasPhotos("No");
+    setWhatsappNumber("");
+    setPreferredStyle("Not sure yet");
+    setMessage("");
+    setCheckboxTerm(false);
+    setCheckboxDomain(false);
+    setCheckboxReview(false);
+    setShowFormError("");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowFormError("");
+
+    if (!selectedPkg) return;
+
+    // Checks
+    if (!fullName || !businessName || !phone || !email || !businessType || !locationValue || !whatsappNumber) {
+      setShowFormError("Please fill out all required contact and business information fields.");
+      return;
+    }
+
+    if (!checkboxTerm || !checkboxDomain || !checkboxReview) {
+      setShowFormError("You must accept all terms and conditions checkboxes to proceed.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const bodyArgs = {
+      "form-name": "vds-package-order",
+      selectedPackage: selectedPkg.title,
+      packagePrice: selectedPkg.price,
+      fullName,
+      businessName,
+      phone,
+      email,
+      businessType,
+      servicesOffered,
+      ownDomain,
+      preferredDomain,
+      alternativeDomain,
+      currentWebsite: currentWebsite ? `https://${currentWebsite}` : "",
+      location: locationValue,
+      hasGbp,
+      hasLogo,
+      hasPhotos,
+      whatsappNumber,
+      preferredStyle,
+      message,
+      checkboxTerm: checkboxTerm ? "yes" : "no",
+      checkboxDomain: checkboxDomain ? "yes" : "no",
+      checkboxReview: checkboxReview ? "yes" : "no",
+      leadSource: "VDS Website Package Order",
+      orderStatus: "Pending Payment",
+      createdAt: new Date().toISOString()
+    };
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(bodyArgs as any).toString()
+    })
+      .then(() => {
+        setIsSubmitting(false);
+        setIsModalOpen(false);
+        const redirectLink = selectedPkg.id === "starter" ? STARTER_PAYMENT_LINK : GROWTH_PAYMENT_LINK;
+        window.location.href = redirectLink;
+      })
+      .catch((error) => {
+        console.error("VDS Package Order Netlify backup submit failed:", error);
+        setIsSubmitting(false);
+        setIsModalOpen(false);
+        const redirectLink = selectedPkg.id === "starter" ? STARTER_PAYMENT_LINK : GROWTH_PAYMENT_LINK;
+        window.location.href = redirectLink;
+      });
+  };
+
   return (
-    <section id="project-packages" className="py-24 relative overflow-hidden">
+    <section id="project-packages" className="py-24 relative overflow-hidden bg-black">
       {/* Background orange circular glow element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -22,24 +259,24 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
         <div className="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
           <div className="inline-flex items-center gap-1.5 mb-8 px-4 py-1.5 border border-[#F27D26]/30 bg-[#F27D26]/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-[#F27D26] font-mono">
             <HelpCircle className="w-3.5 h-3.5" />
-            <span>South African Industry Woodworking Quote Framework</span>
+            <span>Mouth-Watering Web Presence Solutions</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white mb-4">
             Project Packages <span className="serif-font text-[#F27D26]">Tailored to Your Craft</span>
           </h2>
-          <p className="mt-4 text-sm text-white/50 leading-relaxed font-light max-w-xl mx-auto">
-            Every build is quoted around your business size, website complexity, content readiness, and whether you need hosting or CRM setup.
+          <p className="text-white/60 text-sm md:text-base font-geist max-w-2xl mx-auto leading-relaxed">
+            Choose a managed website presence built for South African carpenters, kitchen remodellers, interior designers, cabinet makers, and woodwork businesses that want to look professional online and capture better enquiries.
           </p>
         </div>
 
         {/* 3 cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PROJECT_PACKAGES.map((pkg, idx) => {
+          {PACKAGES_DATA.map((pkg, idx) => {
             const isPopular = pkg.isPopular;
             return (
               <div
                 key={pkg.id}
-                className={`glass p-10 rounded-xl flex flex-col justify-between transition-all duration-300 relative ${
+                className={`glass p-8 rounded-xl flex flex-col justify-between transition-all duration-300 relative ${
                   isPopular
                     ? "border-2 border-[#F27D26] md:-translate-y-2 scale-102 bg-white/[0.04] shadow-2xl shadow-orange-500/10"
                     : "hover:border-[#F27D26]/30 hover:-translate-y-1"
@@ -56,38 +293,56 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
 
                 <div>
                   {/* Top copy */}
-                  <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist">
+                  <h3 className="text-lg font-bold uppercase tracking-wider text-white font-geist">
                     {pkg.title}
                   </h3>
-                  <p className="text-sm text-white/50 mt-3 min-h-[40px] font-geist leading-relaxed">
+                  <p className="text-xs text-white/50 mt-3 min-h-[48px] font-geist leading-relaxed">
                     {pkg.description}
                   </p>
 
-                  <div className="my-8">
-                    <span className="text-4xl font-bold text-white font-geist tracking-tight">
+                  <div className="my-6">
+                    <span className="text-3.5xl font-bold text-white font-geist tracking-tight">
                       {pkg.price}
                     </span>
-                    <span className="text-[#F27D26]/80 text-[10px] font-bold uppercase tracking-wider block mt-2 font-mono">
-                      ✦ Custom Project Quotation
+                    <span className="text-[#F27D26]/80 text-[9px] font-bold uppercase tracking-wider block mt-2 font-mono">
+                      ✦ Managed Web Presence
                     </span>
                   </div>
 
                   {/* Bullet points mapping */}
-                  <ul className="space-y-4 mb-10">
-                    {pkg.features.map((feat, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-white/70">
-                        <Check className={`w-4 h-4 shrink-0 mt-0.5 ${isPopular ? "text-[#F27D26]" : "text-[#F27D26]/70"}`} />
-                        <span className="font-geist text-sm text-white/60">{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mb-6">
+                    <span className="text-[10px] uppercase font-bold text-white/40 tracking-wider block mb-3 font-mono">Included:</span>
+                    <ul className="space-y-3">
+                      {pkg.included.map((feat, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs text-white/70">
+                          <Check className="w-3.5 h-3.5 shrink-0 text-emerald-400 mt-0.5" />
+                          <span className="font-geist text-xs text-white/70">{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Excluded Section */}
+                  {pkg.excluded.length > 0 && (
+                    <div className="mb-8 pt-4 border-t border-white/5">
+                      <span className="text-[10px] uppercase font-bold text-white/40 tracking-wider block mb-3 font-mono">Not Included:</span>
+                      <ul className="space-y-3">
+                        {pkg.excluded.map((feat, i) => (
+                          <li key={i} className="flex items-start gap-2 text-xs text-white/40">
+                            <X className="w-3.5 h-3.5 shrink-0 text-red-400/60 mt-0.5" />
+                            <span className="font-geist text-xs text-white/40 line-through decoration-white/10">{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
 
                 {/* Primary Button trigger */}
-                <div>
+                <div className="pt-6 border-t border-white/5 mt-auto">
                   <button
-                    onClick={() => onSelectPackage(pkg.title)}
-                    className={`block w-full py-4 px-6 text-center text-xs font-bold uppercase tracking-widest transition duration-300 cursor-pointer rounded-sm ${
+                    onClick={() => handleCtaClick(pkg)}
+                    className={`block w-full py-3.5 px-4 text-center text-xs font-bold uppercase tracking-widest transition duration-300 cursor-pointer rounded-sm ${
                       isPopular
                         ? "bg-[#F27D26] text-black hover:bg-white hover:text-black shadow-lg shadow-orange-500/10"
                         : "border border-white/20 bg-white/5 text-white hover:bg-white hover:text-black"
@@ -95,12 +350,440 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   >
                     {pkg.ctaText}
                   </button>
+                  <p className="text-[10px] text-white/30 text-center mt-3 font-geist leading-tight">
+                    {pkg.smallNote}
+                  </p>
                 </div>
               </div>
             );
           })}
         </div>
+        
+        {/* Subtle terms overlay notes */}
+        <div className="mt-16 text-center max-w-xl mx-auto space-y-1 text-[10px] text-white/30 font-mono">
+          <p>• Monthly plans are subject to a 12-month minimum contract term.</p>
+          <p>• Domain registration, email setup and annual domain renewal fees are billed separately where applicable.</p>
+          <p>• Websites remain live while the monthly package and premium support services are kept active.</p>
+          <p>• Premium Lead System requires pre-project consultation before direct approval.</p>
+        </div>
       </div>
+
+      {/* Premium Checkout Placement Modal */}
+      {isModalOpen && selectedPkg && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-y-auto">
+          <div 
+            className="relative w-full max-w-3xl bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl p-6 md:p-8 overflow-hidden max-h-[90vh] flex flex-col"
+            data-aos="zoom-in"
+            data-aos-duration="300"
+          >
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-white/10 shrink-0">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-[#F27D26] tracking-wider font-mono">
+                  Order Placement Flow
+                </span>
+                <h3 className="text-xl md:text-2xl font-bold text-white mt-1">
+                  Start Your VDS Website Plan
+                </h3>
+                <p className="text-xs text-white/50 mt-1">
+                  Selected Profile: <strong className="text-white">{selectedPkg.title}</strong> — <span className="text-[#F27D26] font-bold">{selectedPkg.price}</span>
+                </p>
+              </div>
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="p-1 rounded-sm text-white/40 hover:text-white hover:bg-white/5 transition-colors absolute top-4 right-4 md:top-6 md:right-8"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Scrollable Form Body */}
+            <form onSubmit={handleSubmit} className="flex-grow overflow-y-auto pt-6 space-y-6 pr-1 custom-scrollbar">
+              
+              {/* Internal Smart Pricing disclaimer for developer and Client Onboarding success message */}
+              <div className="p-4 bg-[#F27D26]/5 border border-[#F27D26]/20 rounded-md">
+                <p className="text-xs text-white/80 leading-relaxed font-geist">
+                  <ShieldCheck className="w-4 h-4 text-[#F27D26] inline mr-1.5 shrink-0 align-sub" />
+                  <strong>Onboarding Note:</strong> Once your order and payment are received, Veneer Digital Studio will review your details, confirm your domain requirements, and begin the onboarding process.
+                </p>
+              </div>
+
+              {/* Error indicator */}
+              {showFormError && (
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded text-xs text-red-200">
+                  {showFormError}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                {/* 1. Prefilled Read Only package representation */}
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    1. Selected Package
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
+                    value={`${selectedPkg.title} (${selectedPkg.price})`}
+                    className="w-full bg-white/[0.02] border border-white/5 rounded-sm px-4 py-3 text-sm text-[#F27D26] font-bold focus:outline-none cursor-not-allowed select-none"
+                  />
+                </div>
+
+                {/* 2. Full Name */}
+                <div>
+                  <label htmlFor="fullName" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    2. Full Name *
+                  </label>
+                  <input
+                    id="fullName"
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="e.g. John Smith"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 3. Business Name */}
+                <div>
+                  <label htmlFor="businessName" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    3. Business Name *
+                  </label>
+                  <input
+                    id="businessName"
+                    type="text"
+                    required
+                    value={businessName}
+                    onChange={(e) => setBusinessName(e.target.value)}
+                    placeholder="e.g. Cape Town Carpentry"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 4. Contact Phone Number */}
+                <div>
+                  <label htmlFor="modalPhone" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    4. Contact Phone *
+                  </label>
+                  <input
+                    id="modalPhone"
+                    type="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="e.g. +27 82 123 4567"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 5. Email Address */}
+                <div>
+                  <label htmlFor="modalEmail" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    5. Email Address *
+                  </label>
+                  <input
+                    id="modalEmail"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="e.g. hello@business.co.za"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 6. Business Type */}
+                <div>
+                  <label htmlFor="modalBusinessType" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    6. Business Type *
+                  </label>
+                  <input
+                    id="modalBusinessType"
+                    type="text"
+                    required
+                    value={businessType}
+                    onChange={(e) => setBusinessType(e.target.value)}
+                    placeholder="e.g. Cabinet Maker, Kitchen Remodeller"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 7. Main Services Offered */}
+                <div>
+                  <label htmlFor="servicesOffered" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    7. Main Services Offered
+                  </label>
+                  <input
+                    id="servicesOffered"
+                    type="text"
+                    value={servicesOffered}
+                    onChange={(e) => setServicesOffered(e.target.value)}
+                    placeholder="e.g. Built-in cupboards, Timber restoration"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 8. Do you already own a domain? */}
+                <div>
+                  <label htmlFor="ownDomain" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    8. Do you already own a domain?
+                  </label>
+                  <select
+                    id="ownDomain"
+                    value={ownDomain}
+                    onChange={(e) => setOwnDomain(e.target.value)}
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
+                  >
+                    <option value="No">No (We must register one for you)</option>
+                    <option value="Yes">Yes (I own a custom domain)</option>
+                  </select>
+                </div>
+
+                {/* 9. Preferred Domain Name */}
+                <div>
+                  <label htmlFor="preferredDomain" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    9. Preferred Domain Name
+                  </label>
+                  <input
+                    id="preferredDomain"
+                    type="text"
+                    value={preferredDomain}
+                    onChange={(e) => setPreferredDomain(e.target.value)}
+                    placeholder="e.g. capewoodwork.co.za"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 10. Alternative Domain Name */}
+                <div>
+                  <label htmlFor="alternativeDomain" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    10. Alternative Domain Name
+                  </label>
+                  <input
+                    id="alternativeDomain"
+                    type="text"
+                    value={alternativeDomain}
+                    onChange={(e) => setAlternativeDomain(e.target.value)}
+                    placeholder="e.g. capewoodcraft.co.za"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 11. Current Website URL optional */}
+                <div>
+                  <label htmlFor="modalCurrentWebsite" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    11. Current Website (optional)
+                  </label>
+                  <div className="flex w-full bg-[#121212] border border-white/10 focus-within:border-[#F27D26]/80 rounded-sm overflow-hidden transition duration-200">
+                    <span className="flex items-center pl-4 pr-1 text-white/40 text-sm select-none pointer-events-none">
+                      https://
+                    </span>
+                    <input
+                      id="modalCurrentWebsite"
+                      type="text"
+                      value={currentWebsite}
+                      onChange={(e) => setCurrentWebsite(e.target.value.replace(/^https?:\/\//, ''))}
+                      placeholder="www.rosebankjoinery.com"
+                      className="w-full bg-transparent px-2 py-3 text-sm text-white placeholder-white/20 focus:outline-none outline-none border-none"
+                    />
+                  </div>
+                </div>
+
+                {/* 12. Business location / service area */}
+                <div>
+                  <label htmlFor="modalLocation" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    12. Business Location / Service Area *
+                  </label>
+                  <input
+                    id="modalLocation"
+                    type="text"
+                    required
+                    value={locationValue}
+                    onChange={(e) => setLocationValue(e.target.value)}
+                    placeholder="e.g. Klerksdorp, NW & NW Gauteng"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 13. Do you have a Google Business Profile? */}
+                <div>
+                  <label htmlFor="hasGbp" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    13. Google Business Profile setup?
+                  </label>
+                  <select
+                    id="hasGbp"
+                    value={hasGbp}
+                    onChange={(e) => setHasGbp(e.target.value)}
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
+                  >
+                    <option value="Yes">Yes (It is verified and live)</option>
+                    <option value="No">No (I need to build one)</option>
+                    <option value="Not sure">Not sure (I might have one)</option>
+                  </select>
+                </div>
+
+                {/* 14. Do you have a logo? */}
+                <div>
+                  <label htmlFor="hasLogo" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    14. Do you have a logo?
+                  </label>
+                  <select
+                    id="hasLogo"
+                    value={hasLogo}
+                    onChange={(e) => setHasLogo(e.target.value)}
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
+                  >
+                    <option value="No">No (Veneer can assist with basic styling)</option>
+                    <option value="Yes">Yes (I already have vectors/PNG)</option>
+                  </select>
+                </div>
+
+                {/* 15. Do you have business photos? */}
+                <div>
+                  <label htmlFor="hasPhotos" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    15. Do you have business photos?
+                  </label>
+                  <select
+                    id="hasPhotos"
+                    value={hasPhotos}
+                    onChange={(e) => setHasPhotos(e.target.value)}
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
+                  >
+                    <option value="No">No (We will use high-quality carpentry stock visuals)</option>
+                    <option value="Yes">Yes (I have pictures of our setups and team)</option>
+                  </select>
+                </div>
+
+                {/* 16. WhatsApp number to use on website */}
+                <div>
+                  <label htmlFor="whatsappNumber" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    16. WhatsApp line for click-to-chat *
+                  </label>
+                  <input
+                    id="whatsappNumber"
+                    type="tel"
+                    required
+                    value={whatsappNumber}
+                    onChange={(e) => setWhatsappNumber(e.target.value)}
+                    placeholder="e.g. +27 65 731 9062"
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                  />
+                </div>
+
+                {/* 17. Preferred Website Style */}
+                <div className="md:col-span-2">
+                  <label htmlFor="preferredStyle" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    17. Preferred Website Style
+                  </label>
+                  <select
+                    id="preferredStyle"
+                    value={preferredStyle}
+                    onChange={(e) => setPreferredStyle(e.target.value)}
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
+                  >
+                    <option value="Premium dark luxury">Premium dark luxury</option>
+                    <option value="Clean modern">Clean modern</option>
+                    <option value="Warm natural wood">Warm natural wood</option>
+                    <option value="Minimal interior studio">Minimal interior studio</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                  </select>
+                </div>
+
+                {/* 18. Short description / message */}
+                <div className="md:col-span-2">
+                  <label htmlFor="modalMessage" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    18. Short Project Description / Messaging
+                  </label>
+                  <textarea
+                    id="modalMessage"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    rows={3}
+                    placeholder="Briefly describe what your business does and any special requests..."
+                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200 resize-none"
+                  />
+                </div>
+              </div>
+
+              {/* Compliance Checkboxes Section */}
+              <div className="pt-6 border-t border-white/10 space-y-3 shrink-0">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={checkboxTerm}
+                    onChange={(e) => setCheckboxTerm(e.target.checked)}
+                    className="mt-1 accent-[#F27D26] bg-[#121212] border-white/10 rounded cursor-pointer"
+                  />
+                  <span className="text-xs text-white/60 group-hover:text-white/80 transition-colors leading-relaxed selection:bg-orange-500/30">
+                    19. * I understand this plan has a 12-month minimum term.
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={checkboxDomain}
+                    onChange={(e) => setCheckboxDomain(e.target.checked)}
+                    className="mt-1 accent-[#F27D26] bg-[#121212] border-white/10 rounded cursor-pointer"
+                  />
+                  <span className="text-xs text-white/60 group-hover:text-white/80 transition-colors leading-relaxed selection:bg-orange-500/30">
+                    20. * I understand domain registration/renewal fees may be billed separately where applicable.
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={checkboxReview}
+                    onChange={(e) => setCheckboxReview(e.target.checked)}
+                    className="mt-1 accent-[#F27D26] bg-[#121212] border-white/10 rounded cursor-pointer"
+                  />
+                  <span className="text-xs text-white/60 group-hover:text-white/80 transition-colors leading-relaxed selection:bg-orange-500/30">
+                    21. * I understand VDS will review my order details before activating the monthly service.
+                  </span>
+                </label>
+              </div>
+
+              {/* Payment CTA Area */}
+              <div className="pt-6 border-t border-white/10 bg-white/[0.01] p-4 rounded-md space-y-4 shrink-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h4 className="text-sm font-bold text-white flex items-center gap-1.5 font-geist">
+                      <CreditCard className="w-4 h-4 text-[#F27D26]" />
+                      Proceed to Secure Checkout
+                    </h4>
+                    <p className="text-[10px] text-white/50 mt-1 max-w-sm">
+                      We process recurring subscription setups securely. You will sign your direct debit authorization link right after this submission.
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs text-white/40 block font-mono uppercase">Setup Price</span>
+                    <strong className="text-[#F27D26] text-xl font-geist">{selectedPkg.price}</strong>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 px-6 bg-[#F27D26] hover:bg-white text-black font-bold uppercase tracking-widest text-xs transition duration-300 flex items-center justify-center gap-2 select-none"
+                >
+                  {isSubmitting ? (
+                    <span>Registering Order Details...</span>
+                  ) : (
+                    <>
+                      <span>Proceed to Secure Payment</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

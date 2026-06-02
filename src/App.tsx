@@ -10,7 +10,6 @@ import FeatureGrid from "./components/FeatureGrid";
 import Marquee from "./components/Marquee";
 import DeepDive from "./components/DeepDive";
 import Portfolio from "./components/Portfolio";
-import Solutions from "./components/Solutions";
 import Packages from "./components/Packages";
 import LeadFlowVisual from "./components/LeadFlowVisual";
 import Process from "./components/Process";
@@ -85,9 +84,6 @@ export default function App() {
 
         {/* Portfolio Showcase Concept Blueprints */}
         <Portfolio onSelectProject={handleSelectPackageOrPath} />
-
-        {/* Solutions Delivery Options Path (Raw, Assistance, Lead capture system) */}
-        <Solutions onSelectSolution={handleSelectPackageOrPath} />
 
         {/* Project Packages structured table cards (quoted per project adapt) */}
         <Packages onSelectPackage={handleSelectPackageOrPath} />

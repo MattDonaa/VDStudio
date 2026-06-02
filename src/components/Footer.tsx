@@ -44,7 +44,7 @@ export default function Footer() {
             <h4 className="text-white text-[10px] font-bold uppercase tracking-wider mb-6">Services</h4>
             <ul className="space-y-4 text-xs text-white/40 font-geist">
               <li>
-                <a href="#delivery-paths" className="hover:text-[#F27D26] transition">
+                <a href="#services" className="hover:text-[#F27D26] transition">
                   Raw HTML Websites
                 </a>
               </li>
