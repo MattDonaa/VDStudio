@@ -5,10 +5,11 @@
 
 import React, { useState, useEffect } from "react";
 import { Check, X, HelpCircle, ArrowRight, ShieldCheck, CreditCard } from "lucide-react";
+import { motion } from "motion/react";
 
 // TODO: Replace payment placeholder links with Payfast, Paystack, Ozow, or approved payment gateway checkout links.
-const STARTER_PAYMENT_LINK = "https://pay.veneerdigital.co.za/checkout/starter-presence";
-const GROWTH_PAYMENT_LINK = "https://pay.veneerdigital.co.za/checkout/growth-presence";
+const STARTER_PAYMENT_LINK = "YOUR_STARTER_PAYMENT_LINK_HERE";
+const GROWTH_PAYMENT_LINK = "YOUR_GROWTH_PAYMENT_LINK_HERE";
 
 interface PackagesProps {
   onSelectPackage: (packageName: string) => void;
@@ -208,44 +209,107 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
       phone,
       email,
       businessType,
-      servicesOffered,
-      ownDomain,
+      mainServices: servicesOffered,
+      ownsDomain: ownDomain,
       preferredDomain,
       alternativeDomain,
       currentWebsite: currentWebsite ? `https://${currentWebsite}` : "",
       location: locationValue,
-      hasGbp,
+      hasGoogleBusinessProfile: hasGbp,
       hasLogo,
-      hasPhotos,
+      hasBusinessPhotos: hasPhotos,
       whatsappNumber,
-      preferredStyle,
+      preferredWebsiteStyle: preferredStyle,
       message,
-      checkboxTerm: checkboxTerm ? "yes" : "no",
-      checkboxDomain: checkboxDomain ? "yes" : "no",
-      checkboxReview: checkboxReview ? "yes" : "no",
+      acceptedMinimumTerm: checkboxTerm ? "true" : "false",
+      acceptedDomainNotice: checkboxDomain ? "true" : "false",
+      acceptedReviewBeforeActivation: checkboxReview ? "true" : "false",
+      paymentStatus: "Pending Payment",
+      orderStatus: "New Order",
       leadSource: "VDS Website Package Order",
-      orderStatus: "Pending Payment",
       createdAt: new Date().toISOString()
     };
 
-    fetch("/", {
+    // TODO: During beta, Netlify Forms remains the fallback lead capture system.
+    // TODO: Once CRM endpoint is stable, CRM submission can become the primary source.
+    const CRM_ORDERS_ENDPOINT = "https://crm.veneerdigital.co.za/api/website-orders";
+
+    // Strict CRM validation rules (JavaScript booleans instead of string representations)
+    const crmPayload = {
+      selectedPackage: selectedPkg.title,
+      packagePrice: selectedPkg.price,
+      fullName,
+      businessName,
+      phone,
+      email,
+      businessType,
+      mainServices: servicesOffered,
+      preferredDomain,
+      alternativeDomain,
+      ownsDomain: ownDomain === "Yes",
+      currentWebsite: currentWebsite ? `https://${currentWebsite}` : "",
+      location: locationValue,
+      hasGoogleBusinessProfile: hasGbp === "Yes",
+      hasLogo: hasLogo === "Yes",
+      hasBusinessPhotos: hasPhotos === "Yes",
+      whatsappNumber,
+      preferredWebsiteStyle: preferredStyle,
+      message,
+      acceptedMinimumTerm: checkboxTerm,
+      acceptedDomainNotice: checkboxDomain,
+      acceptedReviewBeforeActivation: checkboxReview,
+      paymentStatus: "Pending Payment",
+      orderStatus: "New Order",
+      leadSource: "VDS Website Package Order",
+      createdAt: bodyArgs.createdAt
+    };
+
+    const crmPromise = fetch(CRM_ORDERS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(crmPayload)
+    }).then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`CRM endpoint returned HTTP ${res.status}`);
+      }
+      return true;
+    });
+
+    const netlifyPromise = fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(bodyArgs as any).toString()
-    })
-      .then(() => {
+    }).then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`Netlify returned HTTP ${res.status}`);
+      }
+      return true;
+    });
+
+    Promise.allSettled([crmPromise, netlifyPromise]).then((results) => {
+      const crmResult = results[0];
+      const netlifyResult = results[1];
+
+      const crmSucceeded = crmResult.status === "fulfilled";
+      const netlifySucceeded = netlifyResult.status === "fulfilled";
+
+      if (crmSucceeded && !netlifySucceeded) {
+        console.warn("CRM website-orders succeeded but Netlify Forms backup fell back:", (netlifyResult as PromiseRejectedResult).reason);
+      }
+
+      if (crmSucceeded) {
         setIsSubmitting(false);
         setIsModalOpen(false);
         const redirectLink = selectedPkg.id === "starter" ? STARTER_PAYMENT_LINK : GROWTH_PAYMENT_LINK;
         window.location.href = redirectLink;
-      })
-      .catch((error) => {
-        console.error("VDS Package Order Netlify backup submit failed:", error);
+      } else {
+        console.error("CRM website-orders submission failed during beta:", (crmResult as PromiseRejectedResult).reason);
         setIsSubmitting(false);
-        setIsModalOpen(false);
-        const redirectLink = selectedPkg.id === "starter" ? STARTER_PAYMENT_LINK : GROWTH_PAYMENT_LINK;
-        window.location.href = redirectLink;
-      });
+        setShowFormError("We could not send your order to the VDS dashboard. Please try again or contact us directly.");
+      }
+    });
   };
 
   return (
@@ -371,10 +435,11 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
       {/* Premium Checkout Placement Modal */}
       {isModalOpen && selectedPkg && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-y-auto">
-          <div 
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
             className="relative w-full max-w-3xl bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl p-6 md:p-8 overflow-hidden max-h-[90vh] flex flex-col"
-            data-aos="zoom-in"
-            data-aos-duration="300"
           >
             {/* Modal Header */}
             <div className="flex items-start justify-between pb-4 border-b border-white/10 shrink-0">
@@ -399,7 +464,14 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
             </div>
 
             {/* Scrollable Form Body */}
-            <form onSubmit={handleSubmit} className="flex-grow overflow-y-auto pt-6 space-y-6 pr-1 custom-scrollbar">
+            <form 
+              name="vds-package-order"
+              method="POST"
+              data-netlify="true"
+              onSubmit={handleSubmit} 
+              className="flex-grow overflow-y-auto pt-6 space-y-6 pr-1 custom-scrollbar"
+            >
+              <input type="hidden" name="form-name" value="vds-package-order" />
               
               {/* Internal Smart Pricing disclaimer for developer and Client Onboarding success message */}
               <div className="p-4 bg-[#F27D26]/5 border border-[#F27D26]/20 rounded-md">
@@ -424,21 +496,39 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                     1. Selected Package
                   </label>
                   <input
+                    id="selectedPackage"
                     type="text"
+                    name="selectedPackage"
                     readOnly
-                    value={`${selectedPkg.title} (${selectedPkg.price})`}
+                    value={selectedPkg.title}
                     className="w-full bg-white/[0.02] border border-white/5 rounded-sm px-4 py-3 text-sm text-[#F27D26] font-bold focus:outline-none cursor-not-allowed select-none"
                   />
                 </div>
 
-                {/* 2. Full Name */}
+                {/* 2. Package Price */}
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    2. Package Price
+                  </label>
+                  <input
+                    id="packagePrice"
+                    type="text"
+                    name="packagePrice"
+                    readOnly
+                    value={selectedPkg.price}
+                    className="w-full bg-white/[0.02] border border-white/5 rounded-sm px-4 py-3 text-sm text-[#F27D26] font-bold focus:outline-none cursor-not-allowed select-none"
+                  />
+                </div>
+
+                {/* 3. Full Name */}
                 <div>
                   <label htmlFor="fullName" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    2. Full Name *
+                    3. Full Name *
                   </label>
                   <input
                     id="fullName"
                     type="text"
+                    name="fullName"
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
@@ -447,14 +537,15 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 3. Business Name */}
+                {/* 4. Business Name */}
                 <div>
                   <label htmlFor="businessName" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    3. Business Name *
+                    4. Business Name *
                   </label>
                   <input
                     id="businessName"
                     type="text"
+                    name="businessName"
                     required
                     value={businessName}
                     onChange={(e) => setBusinessName(e.target.value)}
@@ -463,14 +554,15 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 4. Contact Phone Number */}
+                {/* 5. Contact Phone Number */}
                 <div>
                   <label htmlFor="modalPhone" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    4. Contact Phone *
+                    5. Contact Phone *
                   </label>
                   <input
                     id="modalPhone"
                     type="tel"
+                    name="phone"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -479,14 +571,15 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 5. Email Address */}
+                {/* 6. Email Address */}
                 <div>
                   <label htmlFor="modalEmail" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    5. Email Address *
+                    6. Email Address *
                   </label>
                   <input
                     id="modalEmail"
                     type="email"
+                    name="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -495,14 +588,15 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 6. Business Type */}
+                {/* 7. Business Type */}
                 <div>
                   <label htmlFor="modalBusinessType" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    6. Business Type *
+                    7. Business Type *
                   </label>
                   <input
                     id="modalBusinessType"
                     type="text"
+                    name="businessType"
                     required
                     value={businessType}
                     onChange={(e) => setBusinessType(e.target.value)}
@@ -511,35 +605,20 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 7. Main Services Offered */}
+                {/* 8. Main Services Offered */}
                 <div>
                   <label htmlFor="servicesOffered" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    7. Main Services Offered
+                    8. Main Services Offered
                   </label>
                   <input
                     id="servicesOffered"
                     type="text"
+                    name="mainServices"
                     value={servicesOffered}
                     onChange={(e) => setServicesOffered(e.target.value)}
                     placeholder="e.g. Built-in cupboards, Timber restoration"
                     className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                   />
-                </div>
-
-                {/* 8. Do you already own a domain? */}
-                <div>
-                  <label htmlFor="ownDomain" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    8. Do you already own a domain?
-                  </label>
-                  <select
-                    id="ownDomain"
-                    value={ownDomain}
-                    onChange={(e) => setOwnDomain(e.target.value)}
-                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
-                  >
-                    <option value="No">No (We must register one for you)</option>
-                    <option value="Yes">Yes (I own a custom domain)</option>
-                  </select>
                 </div>
 
                 {/* 9. Preferred Domain Name */}
@@ -550,6 +629,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   <input
                     id="preferredDomain"
                     type="text"
+                    name="preferredDomain"
                     value={preferredDomain}
                     onChange={(e) => setPreferredDomain(e.target.value)}
                     placeholder="e.g. capewoodwork.co.za"
@@ -565,6 +645,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   <input
                     id="alternativeDomain"
                     type="text"
+                    name="alternativeDomain"
                     value={alternativeDomain}
                     onChange={(e) => setAlternativeDomain(e.target.value)}
                     placeholder="e.g. capewoodcraft.co.za"
@@ -572,10 +653,27 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 11. Current Website URL optional */}
+                {/* 11. Do you already own a domain? */}
+                <div>
+                  <label htmlFor="ownDomain" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
+                    11. Do you already own a domain?
+                  </label>
+                  <select
+                     id="ownDomain"
+                     name="ownsDomain"
+                     value={ownDomain}
+                     onChange={(e) => setOwnDomain(e.target.value)}
+                     className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
+                  >
+                    <option value="No">No (We must register one for you)</option>
+                    <option value="Yes">Yes (I own a custom domain)</option>
+                  </select>
+                </div>
+
+                {/* 12. Current Website URL optional */}
                 <div>
                   <label htmlFor="modalCurrentWebsite" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    11. Current Website (optional)
+                    12. Current Website (optional)
                   </label>
                   <div className="flex w-full bg-[#121212] border border-white/10 focus-within:border-[#F27D26]/80 rounded-sm overflow-hidden transition duration-200">
                     <span className="flex items-center pl-4 pr-1 text-white/40 text-sm select-none pointer-events-none">
@@ -584,6 +682,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                     <input
                       id="modalCurrentWebsite"
                       type="text"
+                      name="currentWebsite"
                       value={currentWebsite}
                       onChange={(e) => setCurrentWebsite(e.target.value.replace(/^https?:\/\//, ''))}
                       placeholder="www.rosebankjoinery.com"
@@ -592,14 +691,15 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   </div>
                 </div>
 
-                {/* 12. Business location / service area */}
+                {/* 13. Business location / service area */}
                 <div>
                   <label htmlFor="modalLocation" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    12. Business Location / Service Area *
+                    13. Business Location / Service Area *
                   </label>
                   <input
                     id="modalLocation"
                     type="text"
+                    name="location"
                     required
                     value={locationValue}
                     onChange={(e) => setLocationValue(e.target.value)}
@@ -608,13 +708,14 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 13. Do you have a Google Business Profile? */}
+                {/* 14. Do you have a Google Business Profile? */}
                 <div>
                   <label htmlFor="hasGbp" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    13. Google Business Profile setup?
+                    14. Google Business Profile setup?
                   </label>
                   <select
                     id="hasGbp"
+                    name="hasGoogleBusinessProfile"
                     value={hasGbp}
                     onChange={(e) => setHasGbp(e.target.value)}
                     className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
@@ -625,13 +726,14 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   </select>
                 </div>
 
-                {/* 14. Do you have a logo? */}
+                {/* 15. Do you have a logo? */}
                 <div>
                   <label htmlFor="hasLogo" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    14. Do you have a logo?
+                    15. Do you have a logo?
                   </label>
                   <select
                     id="hasLogo"
+                    name="hasLogo"
                     value={hasLogo}
                     onChange={(e) => setHasLogo(e.target.value)}
                     className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
@@ -641,13 +743,14 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   </select>
                 </div>
 
-                {/* 15. Do you have business photos? */}
+                {/* 16. Do you have business photos? */}
                 <div>
                   <label htmlFor="hasPhotos" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    15. Do you have business photos?
+                    16. Do you have business photos?
                   </label>
                   <select
                     id="hasPhotos"
+                    name="hasBusinessPhotos"
                     value={hasPhotos}
                     onChange={(e) => setHasPhotos(e.target.value)}
                     className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3 text-sm text-white focus:outline-none transition duration-200"
@@ -657,14 +760,15 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   </select>
                 </div>
 
-                {/* 16. WhatsApp number to use on website */}
+                {/* 17. WhatsApp number to use on website */}
                 <div>
                   <label htmlFor="whatsappNumber" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    16. WhatsApp line for click-to-chat *
+                    17. WhatsApp line for click-to-chat *
                   </label>
                   <input
                     id="whatsappNumber"
                     type="tel"
+                    name="whatsappNumber"
                     required
                     value={whatsappNumber}
                     onChange={(e) => setWhatsappNumber(e.target.value)}
@@ -673,13 +777,14 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   />
                 </div>
 
-                {/* 17. Preferred Website Style */}
+                {/* 18. Preferred Website Style */}
                 <div className="md:col-span-2">
                   <label htmlFor="preferredStyle" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    17. Preferred Website Style
+                    18. Preferred Website Style
                   </label>
                   <select
                     id="preferredStyle"
+                    name="preferredWebsiteStyle"
                     value={preferredStyle}
                     onChange={(e) => setPreferredStyle(e.target.value)}
                     className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
@@ -692,13 +797,14 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   </select>
                 </div>
 
-                {/* 18. Short description / message */}
+                {/* 19. Short description / message */}
                 <div className="md:col-span-2">
                   <label htmlFor="modalMessage" className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-2 font-mono">
-                    18. Short Project Description / Messaging
+                    19. Short Project Description / Messaging
                   </label>
                   <textarea
                     id="modalMessage"
+                    name="message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     rows={3}
@@ -713,36 +819,39 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
+                    name="acceptedMinimumTerm"
                     checked={checkboxTerm}
                     onChange={(e) => setCheckboxTerm(e.target.checked)}
                     className="mt-1 accent-[#F27D26] bg-[#121212] border-white/10 rounded cursor-pointer"
                   />
                   <span className="text-xs text-white/60 group-hover:text-white/80 transition-colors leading-relaxed selection:bg-orange-500/30">
-                    19. * I understand this plan has a 12-month minimum term.
+                    20. * I understand this plan has a 12-month minimum term.
                   </span>
                 </label>
 
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
+                    name="acceptedDomainNotice"
                     checked={checkboxDomain}
                     onChange={(e) => setCheckboxDomain(e.target.checked)}
                     className="mt-1 accent-[#F27D26] bg-[#121212] border-white/10 rounded cursor-pointer"
                   />
                   <span className="text-xs text-white/60 group-hover:text-white/80 transition-colors leading-relaxed selection:bg-orange-500/30">
-                    20. * I understand domain registration/renewal fees may be billed separately where applicable.
+                    21. * I understand domain registration/renewal fees may be billed separately where applicable.
                   </span>
                 </label>
 
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
+                    name="acceptedReviewBeforeActivation"
                     checked={checkboxReview}
                     onChange={(e) => setCheckboxReview(e.target.checked)}
                     className="mt-1 accent-[#F27D26] bg-[#121212] border-white/10 rounded cursor-pointer"
                   />
                   <span className="text-xs text-white/60 group-hover:text-white/80 transition-colors leading-relaxed selection:bg-orange-500/30">
-                    21. * I understand VDS will review my order details before activating the monthly service.
+                    22. * I understand VDS will review my order details before activating the monthly service.
                   </span>
                 </label>
               </div>
@@ -781,7 +890,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                 </button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       )}
     </section>

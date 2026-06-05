@@ -7,10 +7,9 @@ import React, { useState, useEffect } from "react";
 import { Send, Check, ShieldCheck, PhoneCall, Code } from "lucide-react";
 import { LeadSubmission } from "../types";
 
-// Primary submission: wacrm CRM endpoint
-// Backup: Netlify Forms remains active for safety
-// TODO: Replace temporary Vercel URL with https://crm.veneerdigital.co.za once DNS is live
-const CRM_LEAD_ENDPOINT = "https://crm.veneerdigital.co.za/api/public/website-lead";
+// TODO: During beta, Netlify Forms remains the fallback lead capture system.
+// TODO: Once CRM endpoint is stable, CRM submission can become the primary source.
+const CRM_LEAD_ENDPOINT = "https://crm.veneerdigital.co.za/api/website-enquiries";
 const WHATSAPP_NUMBER = "27657319062"; // Real business WhatsApp line
 
 interface ContactFormProps {
@@ -35,6 +34,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [crmFailed, setCrmFailed] = useState(false);
+  const [inlineError, setInlineError] = useState("");
   const [lastSubmittedLead, setLastSubmittedLead] = useState<LeadSubmission | null>(null);
 
   // Sync package interest when selected from packages list
@@ -44,8 +44,10 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
         setPackageInterest("Raw HTML Website Delivery");
       } else if (selectedInterest.includes("Hosting Setup")) {
         setPackageInterest("Website Build + Hosting Setup");
-      } else if (selectedInterest.includes("Premium Lead-Capture") || selectedInterest.includes("Lead System")) {
+      } else if (selectedInterest.includes("Premium Lead-Capture")) {
         setPackageInterest("Premium Lead-Capture Website System");
+      } else if (selectedInterest.includes("Lead System") || selectedInterest.includes("Premium Lead System")) {
+        setPackageInterest("Premium Lead System");
       } else {
         setPackageInterest(selectedInterest);
       }
@@ -55,6 +57,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setInlineError("");
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -66,7 +69,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
       phone,
       email,
       businessType,
-      currentWebsite,
+      currentWebsite: currentWebsite ? `https://${currentWebsite}` : "",
       location,
       packageInterest,
       timeline,
@@ -77,46 +80,58 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
       createdAt: new Date().toISOString(),
     };
 
-    // Primary submission: wacrm CRM endpoint
-    fetch(CRM_LEAD_ENDPOINT, {
+    const crmPromise = fetch(CRM_LEAD_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(leadData)
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error("CRM endpoint returned error");
-        }
-        
+    }).then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`CRM endpoint returned HTTP ${res.status}`);
+      }
+      return true;
+    });
+
+    const netlifyPromise = fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    }).then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`Netlify returned HTTP ${res.status}`);
+      }
+      return true;
+    });
+
+    Promise.allSettled([crmPromise, netlifyPromise]).then((results) => {
+      const crmResult = results[0];
+      const netlifyResult = results[1];
+
+      const crmSucceeded = crmResult.status === "fulfilled";
+      const netlifySucceeded = netlifyResult.status === "fulfilled";
+
+      if (crmSucceeded && !netlifySucceeded) {
+        console.warn("CRM website-enquiries succeeded but Netlify Forms backup fell back:", (netlifyResult as PromiseRejectedResult).reason);
+      }
+      if (!crmSucceeded && netlifySucceeded) {
+        console.warn("Netlify backup succeeded but CRM website-enquiries submission failed during beta:", (crmResult as PromiseRejectedResult).reason);
+      }
+
+      if (crmSucceeded || netlifySucceeded) {
         setIsSubmitting(false);
         setSubmitSuccess(true);
-        setCrmFailed(false);
+        setCrmFailed(!crmSucceeded);
         setLastSubmittedLead(leadData);
-
-        // Backup: Netlify Forms remains active for safety
-        fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData as any).toString(),
-        }).catch(() => {});
-      })
-      .catch((error) => {
-        console.error("CRM submission failed:", error);
-        setCrmFailed(true);
-        
-        // Backup: Netlify Forms remains active for safety
-        fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData as any).toString(),
-        }).finally(() => {
-          setIsSubmitting(false);
-          setSubmitSuccess(true);
-          setLastSubmittedLead(leadData);
+      } else {
+        console.error("Both primary CRM and Backup Netlify channels failed:", {
+          crmError: (crmResult as PromiseRejectedResult).reason,
+          netlifyError: (netlifyResult as PromiseRejectedResult).reason
         });
-      });
+        setIsSubmitting(false);
+        setInlineError("Submission failed. Both primary CRM and backup channels are unreachable. Please try again or contact us directly via WhatsApp.");
+      }
+    });
   };
 
   const resetForm = () => {
@@ -133,6 +148,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
     setWantsWhatsappCrm(false);
     setSubmitSuccess(false);
     setCrmFailed(false);
+    setInlineError("");
     setLastSubmittedLead(null);
   };
 
@@ -351,6 +367,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       <option value="Raw HTML Website Delivery">Raw HTML Website Delivery</option>
                       <option value="Website Build + Hosting Setup">Website Build + Hosting Setup</option>
                       <option value="Premium Lead-Capture Website System">Premium Lead-Capture Website System</option>
+                      <option value="Premium Lead System">Premium Lead System</option>
                       <option value="Not sure yet">Not sure yet</option>
                     </select>
                   </div>
@@ -435,6 +452,13 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   </div>
                 </div>
 
+                {/* Inline Error Notice */}
+                {inlineError && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/30 rounded text-xs text-red-200 animate-fade-in">
+                    {inlineError}
+                  </div>
+                )}
+
                 {/* Secure Submit Button */}
                 <button
                   type="submit"
@@ -461,9 +485,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist">Application Received</h3>
                 
                 <p className="text-sm text-white/40 leading-relaxed mt-4 max-w-lg mx-auto font-light">
-                  {crmFailed 
-                    ? "Your enquiry was received. If there is a delay, Veneer Digital Studio will still follow up shortly."
-                    : "Your project enquiry has been received. Veneer Digital Studio will review your details and respond shortly."}
+                  Your project enquiry has been received. Veneer Digital Studio will review your details and respond shortly.
                 </p>
 
                 <div className="mt-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4 justify-center">
