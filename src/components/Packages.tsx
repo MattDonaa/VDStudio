@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Check, X, HelpCircle, ArrowRight, ShieldCheck, CreditCard } from "lucide-react";
-import { motion } from "motion/react";
 
 // TODO: Replace payment placeholder links with Payfast, Paystack, Ozow, or approved payment gateway checkout links.
 const STARTER_PAYMENT_LINK = "YOUR_STARTER_PAYMENT_LINK_HERE";
@@ -30,77 +29,64 @@ interface PackageItem {
 const PACKAGES_DATA: PackageItem[] = [
   {
     id: "starter",
-    title: "Starter Presence",
+    title: "Premium Website Presence",
     price: "R699/month",
-    description: "For smaller carpentry, cabinetry, and interior businesses that need a professional online foundation without technical stress.",
+    description: "For woodworkers and kitchen businesses that need a high-end website that makes their workmanship look professional online.",
     included: [
-      "3-page website",
-      "Hosting included",
-      "SSL security certificate",
-      "WhatsApp button",
-      "Contact form",
-      "Basic SEO metadata",
-      "Basic Google Business Profile setup guidance",
-      "1 small update per month"
+      "Premium homepage and service sections",
+      "Mobile-friendly design",
+      "Gallery or project showcase",
+      "Contact and WhatsApp calls-to-action",
+      "SEO-ready structure",
+      "Raw HTML delivery option available"
     ],
     excluded: [
-      "CRM dashboard",
-      "Automations",
-      "Monthly lead reporting",
-      "Multiple email accounts",
-      "Advanced SEO",
-      "Unlimited edits"
+      "Lead dashboard connection",
+      "Lead status tracking",
+      "Review request template support"
     ],
-    ctaText: "Start Starter Plan",
-    smallNote: "12-month minimum term. Domain fees may be billed separately where applicable.",
+    ctaText: "Explore Website Presence",
+    smallNote: "12-month minimum term. Build for high workmanship prestige.",
     isPopular: false
   },
   {
     id: "growth",
-    title: "Growth Presence",
+    title: "Website + Launch Setup",
     price: "R999/month",
-    description: "For growing kitchen, cabinetry, carpentry, and interior design businesses that need stronger credibility, a better portfolio, and basic enquiry tracking.",
+    description: "For businesses that want the website built, deployed, and connected to hosting and domain setup without technical confusion.",
     included: [
-      "Up to 5-page website",
-      "Portfolio/gallery section",
-      "Review section",
-      "Google Business Profile optimisation checklist",
-      "Contact/project enquiry form",
-      "Basic lead tracking sheet",
-      "2 small updates per month",
-      "Monthly mini-report"
+      "Website build and deployment support",
+      "Domain and hosting connection guidance",
+      "Contact form setup",
+      "WhatsApp button setup",
+      "Google-ready metadata",
+      "Launch support"
     ],
     excluded: [
-      "Full CRM",
-      "WhatsApp automation",
-      "Advanced sales pipeline",
-      "Campaign broadcasts"
+      "Lead status tracking",
+      "WhatsApp-ready follow-up workflow",
+      "Review request template support"
     ],
-    ctaText: "Start Growth Plan",
-    smallNote: "12-month minimum term. Best for businesses ready to look more established online.",
+    ctaText: "Plan My Launch",
+    smallNote: "12-month minimum term. Best for complete stress-free launch guidance.",
     isPopular: true
   },
   {
     id: "premium",
-    title: "Premium Lead System",
+    title: "Website Lead Control System",
     price: "From R1,699/month",
-    description: "For businesses that want website enquiries tracked, followed up, and managed through a CRM-ready lead system.",
+    description: "For serious wood, cabinetry, and kitchen businesses that want every enquiry captured, tracked, and ready for WhatsApp follow-up.",
     included: [
-      "Everything in Growth Presence",
-      "CRM dashboard",
-      "Website leads pipeline",
-      "WhatsApp follow-up workflows",
-      "Enquiry tracking",
-      "Monthly lead report",
-      "Follow-up templates",
-      "Review request system",
-      "Tags and pipeline stages",
-      "Lead reactivation campaigns on higher tiers",
-      "Monthly strategy call on higher tiers"
+      "Website enquiry capture",
+      "Lead dashboard connection",
+      "Lead status tracking",
+      "WhatsApp-ready follow-up workflow",
+      "Review request template support",
+      "Monthly monitoring and support"
     ],
     excluded: [],
-    ctaText: "Book Strategy Call",
-    smallNote: "Recommended for serious businesses that want to improve follow-up, lead visibility, and project conversion.",
+    ctaText: "See the Lead System",
+    smallNote: "Recommended for serious businesses wanting to master their incoming enquiries.",
     isPopular: false
   }
 ];
@@ -108,6 +94,7 @@ const PACKAGES_DATA: PackageItem[] = [
 export default function Packages({ onSelectPackage }: PackagesProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPkg, setSelectedPkg] = useState<PackageItem | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   // Form states
   const [fullName, setFullName] = useState("");
@@ -179,6 +166,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
     setCheckboxDomain(false);
     setCheckboxReview(false);
     setShowFormError("");
+    setIsSuccess(false);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -301,9 +289,12 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
 
       if (crmSucceeded) {
         setIsSubmitting(false);
-        setIsModalOpen(false);
         const redirectLink = selectedPkg.id === "starter" ? STARTER_PAYMENT_LINK : GROWTH_PAYMENT_LINK;
-        window.location.href = redirectLink;
+        if (redirectLink && redirectLink.startsWith("http") && !redirectLink.includes("YOUR_")) {
+          window.location.href = redirectLink;
+        } else {
+          setIsSuccess(true);
+        }
       } else {
         console.error("CRM website-orders submission failed during beta:", (crmResult as PromiseRejectedResult).reason);
         setIsSubmitting(false);
@@ -424,22 +415,27 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
         </div>
         
         {/* Subtle terms overlay notes */}
-        <div className="mt-16 text-center max-w-xl mx-auto space-y-1 text-[10px] text-white/30 font-mono">
-          <p>• Monthly plans are subject to a 12-month minimum contract term.</p>
-          <p>• Domain registration, email setup and annual domain renewal fees are billed separately where applicable.</p>
-          <p>• Websites remain live while the monthly package and premium support services are kept active.</p>
-          <p>• Premium Lead System requires pre-project consultation before direct approval.</p>
+        <div className="mt-16 text-center max-w-2xl mx-auto space-y-3 text-[11px] text-white/40 leading-relaxed font-sans" data-aos="fade-up">
+          <p className="text-white/60 font-medium leading-relaxed">
+            The monthly system fee keeps your lead dashboard active, your forms connected, your enquiry capture monitored, and your follow-up workflow ready — so your website continues working as a sales system, not just an online brochure.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-[10px] text-[#F27D26]/70 font-mono text-center pt-2 border-t border-white/5 uppercase tracking-wider">
+            <span>• Lead dashboard access</span>
+            <span>• WhatsApp-ready view</span>
+            <span>• Enquiry tracking</span>
+            <span>• System monitoring</span>
+          </div>
+          <p className="text-[10px] text-white/30 font-mono pt-2">
+            * Monthly packages are subject to a 12-month minimum contract term. Domain registration, email setup and annual domain renewal fees are billed separately where applicable.
+          </p>
         </div>
       </div>
 
       {/* Premium Checkout Placement Modal */}
       {isModalOpen && selectedPkg && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md overflow-y-auto">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-full max-w-3xl bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl p-6 md:p-8 overflow-hidden max-h-[90vh] flex flex-col"
+          <div 
+            className="relative w-full max-w-3xl bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl p-6 md:p-8 overflow-hidden max-h-[90vh] flex flex-col animate-[zoomIn_0.2s_ease-out]"
           >
             {/* Modal Header */}
             <div className="flex items-start justify-between pb-4 border-b border-white/10 shrink-0">
@@ -464,22 +460,43 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
             </div>
 
             {/* Scrollable Form Body */}
-            <form 
-              name="vds-package-order"
-              method="POST"
-              data-netlify="true"
-              onSubmit={handleSubmit} 
-              className="flex-grow overflow-y-auto pt-6 space-y-6 pr-1 custom-scrollbar"
-            >
-              <input type="hidden" name="form-name" value="vds-package-order" />
-              
-              {/* Internal Smart Pricing disclaimer for developer and Client Onboarding success message */}
-              <div className="p-4 bg-[#F27D26]/5 border border-[#F27D26]/20 rounded-md">
-                <p className="text-xs text-white/80 leading-relaxed font-geist">
-                  <ShieldCheck className="w-4 h-4 text-[#F27D26] inline mr-1.5 shrink-0 align-sub" />
-                  <strong>Onboarding Note:</strong> Once your order and payment are received, Veneer Digital Studio will review your details, confirm your domain requirements, and begin the onboarding process.
+            {isSuccess ? (
+              <div className="flex-grow flex flex-col items-center justify-center text-center py-12 px-4 space-y-6 animate-[fadeIn_0.3s_ease-out]">
+                <div className="w-16 h-16 rounded-full bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26] animate-bounce shrink-0">
+                  <Check className="w-8 h-8" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">Order Received Successfully</h2>
+                <p className="text-sm text-white/60 max-w-md leading-relaxed font-geist">
+                  Your enquiry has been received. Veneer Digital Studio will review your details and respond shortly response.
                 </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSuccess(false);
+                    setIsModalOpen(false);
+                  }}
+                  className="px-8 py-3.5 bg-[#F27D26] hover:bg-white text-black font-bold uppercase tracking-widest text-[11px] rounded-sm transition-all"
+                >
+                  Close Window
+                </button>
               </div>
+            ) : (
+              <form 
+                name="vds-package-order"
+                method="POST"
+                data-netlify="true"
+                onSubmit={handleSubmit} 
+                className="flex-grow overflow-y-auto pt-6 space-y-6 pr-1 custom-scrollbar"
+              >
+                <input type="hidden" name="form-name" value="vds-package-order" />
+                
+                {/* Internal Smart Pricing disclaimer for developer and Client Onboarding success message */}
+                <div className="p-4 bg-[#F27D26]/5 border border-[#F27D26]/20 rounded-md">
+                  <p className="text-xs text-white/80 leading-relaxed font-geist">
+                    <ShieldCheck className="w-4 h-4 text-[#F27D26] inline mr-1.5 shrink-0 align-sub" />
+                    <strong>Onboarding Note:</strong> Once your order and payment are received, Veneer Digital Studio will review your details, confirm your domain requirements, and begin the onboarding process.
+                  </p>
+                </div>
 
               {/* Error indicator */}
               {showFormError && (
@@ -890,7 +907,8 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                 </button>
               </div>
             </form>
-          </motion.div>
+          )}
+          </div>
         </div>
       )}
     </section>

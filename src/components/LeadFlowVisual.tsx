@@ -9,57 +9,57 @@ export default function LeadFlowVisual() {
   const pipelineSteps = [
     {
       id: "visitor",
-      label: "1. Website Visit",
-      desc: "Niche local contractor searches trigger landing page hits.",
+      label: "1. Website Visitor",
+      desc: "An interested client arrives on your high-end online presence.",
       icon: <Users className="w-5 h-5 text-[#F27D26]" />,
     },
     {
-      id: "view",
-      label: "2. View Work",
-      desc: "Client navigates through high-res luxury design catalogs.",
-      icon: <Eye className="w-5 h-5 text-[#F27D26]" />,
-    },
-    {
       id: "submit",
-      label: "3. Submit Enquiry",
-      desc: "Form compiles name, scope, timeline, and area variables.",
+      label: "2. Project Enquiry",
+      desc: "Visitor submits a structured interest form with layout specs.",
       icon: <ClipboardCheck className="w-5 h-5 text-[#F27D26]" />,
     },
     {
-      id: "qualify",
-      label: "4. Auto-Qualify",
-      desc: "Lead is organized by budget and kitchen type automatically.",
-      icon: <HelpCircle className="w-5 h-5 text-[#F27D26]" />,
+      id: "dashboard",
+      label: "3. Lead Dashboard",
+      desc: "Enquiry details instantly populate your simple tracking console.",
+      icon: <Eye className="w-5 h-5 text-[#F27D26]" />,
     },
     {
       id: "whatsapp",
-      label: "5. WhatsApp Chat",
-      desc: "Direct integration prompts immediate call confirmation clicks.",
+      label: "4. WhatsApp Follow-up",
+      desc: "Open chat automatically pre-filled with project scope notes.",
       icon: <PhoneCall className="w-5 h-5 text-[#F27D26] animate-bounce" />,
     },
     {
-      id: "pipeline",
-      label: "6. CRM Pipeline",
-      desc: "Captured telemetry safely pushes into wacrm tracking sheets.",
+      id: "quote",
+      label: "5. Quote / Site Visit",
+      desc: "Dispatch your official proposal or schedule a live workspace walkthrough.",
+      icon: <HelpCircle className="w-5 h-5 text-[#F27D26]" />,
+    },
+    {
+      id: "won",
+      label: "6. Won Job",
+      desc: "Secure high-value carpentry, cupboard, or kitchen contracts.",
       icon: <Workflow className="w-5 h-5 text-[#F27D26]" />,
     },
   ];
 
   return (
-    <section id="lead-pipeline" className="py-24 bg-[#050505]/60 border-b border-white/5 relative">
+    <section id="lead-flow" className="py-24 bg-[#050505]/60 border-b border-white/5 relative">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
         {/* Caption */}
         <div className="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
           <div className="inline-flex items-center gap-1.5 mb-8 px-4 py-1.5 border border-[#F27D26]/30 bg-[#F27D26]/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-[#F27D26] font-mono">
             <LayoutList className="w-3.5 h-3.5" />
-            <span>High-Converting Lead Funnel Architecture</span>
+            <span>Structured Lead Funnel Journey</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white">
-            From Visitor to <span className="serif-font text-[#F27D26]">WhatsApp-Ready Lead</span>
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white animate-fade-in">
+            From website visitor <span className="serif-font text-[#F27D26]">to followed-up lead.</span>
           </h2>
           <p className="mt-4 text-sm text-white/50 leading-relaxed font-light max-w-xl mx-auto">
-            Your website should not only look beautiful. It should help organise enquiries before they disappear inside WhatsApp.
+            Your website should not only look premium. It should help your team see who enquired, what they need, and who still needs follow-up.
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export default function LeadFlowVisual() {
                   {step.label}
                 </h3>
                 
-                <p className="text-sm text-white/50 mt-3 leading-relaxed font-geist">
+                <p className="text-xs text-white/50 mt-3 leading-relaxed font-geist">
                   {step.desc}
                 </p>
 
@@ -96,6 +96,13 @@ export default function LeadFlowVisual() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Closing Flow text line */}
+        <div className="text-center mt-12" data-aos="fade-up">
+          <p className="text-sm font-semibold font-mono tracking-widest text-[#F27D26] uppercase">
+            No more guessing who enquired, who replied, and who still needs follow-up.
+          </p>
         </div>
 
         {/* Future CRM details alert card */}

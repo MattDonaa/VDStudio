@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import FeatureGrid from "./components/FeatureGrid";
+import PainPoints from "./components/PainPoints";
+import WebsiteComparison from "./components/WebsiteComparison";
 import Marquee from "./components/Marquee";
 import DeepDive from "./components/DeepDive";
 import Portfolio from "./components/Portfolio";
@@ -75,6 +77,12 @@ export default function App() {
 
         {/* Niche Core Feature Grid */}
         <FeatureGrid />
+
+        {/* Real Carpenter & Contractor Pain Points */}
+        <PainPoints />
+
+        {/* This is not just another website comparison */}
+        <WebsiteComparison />
 
         {/* Strategic Woodworking Marquee continuous ticker */}
         <Marquee />

@@ -26,17 +26,16 @@ export default function Hero({ onStartProject, onExploreServices }: HeroProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F27D26] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#F27D26]"></span>
               </span>
-              <span>Accepting New Website Projects</span>
+              <span>Built for woodworkers, kitchen remodellers & cabinet makers</span>
             </div>
 
             {/* Central Headline */}
             <h1 
-              className="text-5xl sm:text-7xl font-light tracking-tight mt-2 text-white pb-2 leading-[1.05]"
+              className="text-4xl sm:text-6xl font-light tracking-tight mt-2 text-white pb-2 leading-[1.1]"
               data-aos="fade-up"
             >
-              Build a web presence worthy of your{" "}
-              <br className="hidden sm:block" />
-              <span className="serif-font text-[#F27D26]">craftsmanship.</span>
+              Stop losing kitchen, cupboard, and carpentry <br className="hidden sm:block" />
+              <span className="serif-font text-[#F27D26]">enquiries inside WhatsApp.</span>
             </h1>
 
             {/* Subtext */}
@@ -45,7 +44,7 @@ export default function Hero({ onStartProject, onExploreServices }: HeroProps) {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              Veneer Digital Studio builds premium websites, WhatsApp-ready lead systems, and Google-ready online presences for South African woodworkers, cabinetry studios, kitchen builders, and luxury furniture makers.
+              Veneer Digital Studio builds premium websites for woodworkers, cabinet makers, and kitchen remodellers — connected to a simple lead dashboard so every enquiry is captured, tracked, and ready for WhatsApp follow-up.
             </p>
 
             {/* Primary CTA and Secondary CTA match Dark Luxury theme */}
@@ -56,17 +55,24 @@ export default function Hero({ onStartProject, onExploreServices }: HeroProps) {
                 data-aos="fade-up" 
                 data-aos-delay="200"
               >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Start Project</span>
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Book a Website Audit</span>
                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </button>
 
               <button 
-                onClick={onExploreServices}
+                onClick={() => {
+                  const workflowSec = document.getElementById("lead-flow");
+                  if (workflowSec) {
+                    workflowSec.scrollIntoView({ behavior: "smooth" });
+                  } else {
+                    onExploreServices();
+                  }
+                }}
                 className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest text-[11px] rounded-sm hover:bg-white/5 transition-all cursor-pointer w-full sm:w-auto text-center"
                 data-aos="fade-up" 
                 data-aos-delay="300"
               >
-                View Services
+                See How Leads Are Captured
               </button>
             </div>
             
