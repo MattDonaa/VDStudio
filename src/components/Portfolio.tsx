@@ -100,13 +100,25 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
               <div className="px-6 pb-6 relative">
                 <div className="flex items-center justify-between border-t border-white/5 pt-4">
                   <span className="text-[10px] text-white/40 font-mono">{item.duration}</span>
-                  <button
-                    onClick={() => onSelectProject(item.category)}
-                    className="text-xs text-[#F27D26] hover:text-[#F27D26]/80 font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer"
-                  >
-                    Deploy This Style
-                    <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#F27D26]" />
-                  </button>
+                  {item.externalUrl ? (
+                    <a
+                      href={item.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-[#F27D26] hover:text-[#F27D26]/80 font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      Deploy This Style
+                      <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#F27D26]" />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => onSelectProject(item.category)}
+                      className="text-xs text-[#F27D26] hover:text-[#F27D26]/80 font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      Deploy This Style
+                      <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#F27D26]" />
+                    </button>
+                  )}
                 </div>
               </div>
             </article>

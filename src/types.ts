@@ -25,6 +25,7 @@ export interface PortfolioItem {
   mockupUrl: string;
   duration: string;
   badge?: string;
+  externalUrl?: string;
 }
 
 export interface DeliverablePackage {
