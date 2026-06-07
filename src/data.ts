@@ -231,11 +231,12 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: "port-5",
-    title: "Summit Wood Renovations",
+    title: "Velum Design Haven",
     category: "Renovation Brand Landing Page",
-    description: "Local SEO landing project capturing Gauteng kitchen refacing & joinery resurfacing requests.",
+    description: "Design Haven establishes beautiful structural architecture where materials, shapes, and lighting layers synchronize perfectly to offer elevated living comfort at the Heart of Pretoria, Gauteng.",
     mockupUrl: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop",
     duration: "Google SEO Optimized",
+    externalUrl: "https://velumdesign.netlify.app/",
   },
   {
     id: "port-6",
