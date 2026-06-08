@@ -18,6 +18,7 @@ import Process from "./components/Process";
 import ContactForm from "./components/ContactForm";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Footer from "./components/Footer";
+import CookieConsent from "./components/CookieConsent";
 
 export default function App() {
   const [selectedInterest, setSelectedInterest] = useState("");
@@ -110,6 +111,9 @@ export default function App() {
 
         {/* Custom luxury South African copy footer */}
         <Footer />
+
+        {/* Premium Cookie Consent Popup */}
+        <CookieConsent />
         
       </div>
     </div>

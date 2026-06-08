@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://veneerdigital.co.za/sitemap.xml

@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LegalContent from "./components/LegalContent";
+import CookieConsent from "./components/CookieConsent";
 
 export default function LegalApp() {
-  const [activeTab, setActiveTab] = useState<"terms" | "privacy" | "popia">("terms");
+  const [activeTab, setActiveTab] = useState<"terms" | "privacy" | "popia" | "cookies">("terms");
 
   // Read hash on mount and listen to hashchange
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
-      if (hash === "terms" || hash === "privacy" || hash === "popia") {
-        setActiveTab(hash as "terms" | "privacy" | "popia");
+      if (hash === "terms" || hash === "privacy" || hash === "popia" || hash === "cookies") {
+        setActiveTab(hash as "terms" | "privacy" | "popia" | "cookies");
       }
     };
 
@@ -35,6 +36,9 @@ export default function LegalApp() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Premium Cookie Consent Popup */}
+      <CookieConsent />
     </div>
   );
 }

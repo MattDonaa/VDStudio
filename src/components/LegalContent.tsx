@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { ArrowLeft } from "lucide-react";
 
 interface LegalContentProps {
-  activeTab: "terms" | "privacy" | "popia";
-  setActiveTab: (tab: "terms" | "privacy" | "popia") => void;
+  activeTab: "terms" | "privacy" | "popia" | "cookies";
+  setActiveTab: (tab: "terms" | "privacy" | "popia" | "cookies") => void;
 }
 
 export default function LegalContent({ activeTab, setActiveTab }: LegalContentProps) {
   
-  const handleTabClick = (tab: "terms" | "privacy" | "popia") => {
+  const handleTabClick = (tab: "terms" | "privacy" | "popia" | "cookies") => {
     setActiveTab(tab);
     window.location.hash = tab;
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -46,7 +46,7 @@ export default function LegalContent({ activeTab, setActiveTab }: LegalContentPr
       <div className="flex flex-col md:flex-row gap-8 lg:gap-12 w-full items-start">
         {/* Tab Controls */}
         <div className="md:w-1/3 shrink-0 flex flex-col gap-3 sticky top-32 z-10 w-full">
-          {(["terms", "privacy", "popia"] as const).map((tab) => (
+          {(["terms", "privacy", "popia", "cookies"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => handleTabClick(tab)}
@@ -65,6 +65,7 @@ export default function LegalContent({ activeTab, setActiveTab }: LegalContentPr
                   {tab === "terms" && "1. Terms of Service"}
                   {tab === "privacy" && "2. Privacy Policy"}
                   {tab === "popia" && "3. POPIA Policy"}
+                  {tab === "cookies" && "4. Cookie Policy"}
                 </span>
                 {activeTab === tab && (
                   <span className="w-1.5 h-1.5 rounded-full bg-[#F27D26] animate-pulse" />
@@ -93,6 +94,7 @@ export default function LegalContent({ activeTab, setActiveTab }: LegalContentPr
           {activeTab === "terms" && <TermsOfService />}
           {activeTab === "privacy" && <PrivacyPolicy />}
           {activeTab === "popia" && <PopiaPolicy />}
+          {activeTab === "cookies" && <CookiePolicy />}
           
           <div className="mt-20 block md:hidden">
             <h4 className="text-white font-geist text-sm mb-4 text-center">Questions about these policies? Contact Veneer Digital Studio.</h4>
@@ -530,6 +532,73 @@ function PopiaPolicy() {
         Veneer Digital Studio<br/>
         Email: <a href="mailto:studio@veneerdigital.co.za" className="text-[#F27D26] hover:underline">studio@veneerdigital.co.za</a><br/>
         Website: <a href="https://www.veneerdigital.co.za" className="text-[#F27D26] hover:underline">https://www.veneerdigital.co.za</a></p>
+      </section>
+    </div>
+  );
+}
+
+function CookiePolicy() {
+  return (
+    <div className="space-y-10 text-white/70 font-geist leading-relaxed text-[15px]">
+      <div>
+        <h2 className="text-3xl font-serif text-white mb-2">Cookie Policy</h2>
+        <p className="text-sm text-[#F27D26]">Updated: January 31st, 2026</p>
+      </div>
+
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">1. What Cookies Are</h3>
+        <p>
+          Cookies are small text files stored in your web browser or device memory when you visit websites. They help the website remember your actions and preferences over a period of time, ensuring a smoother, safer, and more personalized user journey.
+        </p>
+      </section>
+
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">2. How We Use Cookies</h3>
+        <p className="mb-3">
+          Veneer Digital Studio uses both session cookies (which disappear when you close your browser) and persistent cookies (which remain on your device until they expire or are cleared). We categorize cookies as follows:
+        </p>
+        <ul className="list-disc pl-5 space-y-2.5">
+          <li>
+            <strong>Essential Cookies:</strong> Required for core website functions, security checks, form submissions, and remembering your consent preferences. Without these, the website cannot perform basic services properly. These are always active.
+          </li>
+          <li>
+            <strong>Analytics & Optimization:</strong> Help us measure visitor traffic and understand how users navigate our site where enabled. This data helps us improve the user interface and performance over time.
+          </li>
+          <li>
+            <strong>Marketing & Social Cookies:</strong> Used to track campaign efficiency and deliver relevant advertisements where active. If enabled, this tracks performance metrics on platforms like Meta Pixel or Google Ads.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">3. LocalStorage Consent Storage</h3>
+        <p>
+          To ensure we respect your choices without bothering you on every visit, we securely store your cookie consent preferences in your browser's <code>localStorage</code> under the key <code>vds_cookie_consent</code>. This decision is stored as a structured JSON object containing your specific preferences and the timestamp of consent.
+        </p>
+      </section>
+
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">4. Meta Pixel & Third-Party Trackers</h3>
+        <p>
+          Where enabled or if activated by our team, third-party trackers (such as Google Analytics or Meta Pixel) may read or write cookie identifiers to analyze digital campaigns or build target groups for cabinetry and remodeling businesses. We strictly disable these script elements unless you have given analytical and marketing consent.
+        </p>
+      </section>
+
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">5. Changing Your Preferences</h3>
+        <p>
+          You are in full control of your data. You can inspect or clear cookies inside your browser settings at any time. Alternatively, you can easily open your preference settings directly on our website by clicking the <strong>Cookie Preferences</strong> link located in the footer of any page, allowing you to re-adjust settings instantly.
+        </p>
+      </section>
+
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">6. Contact Information</h3>
+        <p>
+          If you have any questions about this Cookie Policy or how we handle tracking choices, please contact our team at:
+          <br /><br />
+          <strong>Veneer Digital Studio</strong><br />
+          Email: <a href="mailto:matt@veneerdigital.co.za" className="text-[#F27D26] hover:underline">matt@veneerdigital.co.za</a>
+        </p>
       </section>
     </div>
   );

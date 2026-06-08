@@ -134,9 +134,16 @@ export default function Footer() {
           </p>
           
           {/* Legal notes */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-white/30 font-mono w-full md:absolute md:left-1/2 md:-translate-x-1/2 md:w-auto pb-4 md:pb-0 pr-0 md:pr-16 lg:pr-0">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-[10px] text-white/30 font-mono w-full md:absolute md:left-1/2 md:-translate-x-1/2 md:w-auto pb-4 md:pb-0 pr-0 md:pr-16 lg:pr-0">
             <a href="/legal.html#privacy" className="hover:text-white transition">Privacy Policy</a>
             <a href="/legal.html#terms" className="hover:text-white transition">Terms of Service</a>
+            <a href="/legal.html#cookies" className="hover:text-white transition">Cookie Policy</a>
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
+              className="hover:text-white transition cursor-pointer bg-transparent border-0 p-0 text-left"
+            >
+              Cookie Preferences
+            </button>
             <a href="/legal.html#popia" className="text-[#F27D26]/75 hover:text-[#F27D26] flex items-center gap-1 font-bold transition">
               <Shield className="w-3 h-3 text-[#F27D26]" />
               POPIA Compliant SA

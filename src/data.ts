@@ -240,11 +240,12 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: "port-6",
-    title: "Prestige Cabinets SA",
+    title: "Vuyo Design Studio",
     category: "Cabinet Maker Portfolio",
-    description: "High-end product showcase for bespoke walk-in-closets and state-of-the-art office joinery.",
-    mockupUrl: "https://images.unsplash.com/photo-1708397016786-8916880649b8?q=80&w=581&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Hello! I'm Vuyo, an independent interior designer with over 15 years of passionate dedication to creating beautiful, livable spaces. Based in Mahikeng, South Africa,",
+    mockupUrl: "https://images.unsplash.com/photo-1687422810663-c316494f725a?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "Lead Capture Setup",
+    externalUrl: "https://vuyodesigns.netlify.app/",
   },
 ];
 
