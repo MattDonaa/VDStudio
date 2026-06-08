@@ -30,32 +30,33 @@ export default function Process() {
           {PROCESS_STEPS.map((step) => (
             <div
               key={step.number}
-              className="glass p-10 rounded-xl hover:border-[#F27D26]/40 transition-all duration-300 relative group flex flex-col justify-between hover:-translate-y-1"
+              className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 sm:p-10 hover:border-[#F27D26]/25 hover:bg-[#0c0c0c]/90 hover:shadow-[0_20px_48px_rgba(242,125,38,0.05),0_0_24px_rgba(242,125,38,0.02)] transition-all duration-500 hover:-translate-y-1.5 flex flex-col justify-between relative overflow-hidden group"
               data-aos="fade-up"
               data-aos-delay={step.number * 80}
             >
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] pointer-events-none" />
               <div>
                 {/* Step badge overlay */}
                 <div className="flex justify-between items-start mb-6">
-                  <span className="text-[9px] uppercase font-mono tracking-wider text-[#F27D26] bg-[#F27D26]/10 border border-[#F27D26]/20 px-2.5 py-1 rounded">
+                  <span className="text-[9px] uppercase font-mono tracking-wider text-[#F27D26] bg-[#F27D26]/10 border border-[#F27D26]/20 px-2.5 py-1 rounded-full">
                     Phase 0{step.number}
                   </span>
-                  <span className="text-5xl font-extrabold text-white/5 group-hover:text-[#F27D26]/10 transition-colors duration-300 font-instrument-serif italic">
+                  <span className="text-5xl font-extrabold text-white/5 group-hover:text-[#F27D26]/15 transition-colors duration-300 font-instrument-serif italic">
                     {step.number}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist mb-4 group-hover:text-[#F27D26] transition-colors duration-200 mt-2">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist mb-3 group-hover:text-[#F27D26] transition-colors duration-200 mt-2">
                   {step.title}
                 </h3>
                 
-                <p className="text-sm text-white/50 leading-relaxed font-geist">
+                <p className="text-xs sm:text-[13px] text-white/50 leading-relaxed font-geist">
                   {step.description}
                 </p>
               </div>
 
               {/* Little bottom line border decor */}
-              <div className="w-8 h-1 bg-[#F27D26]/10 group-hover:bg-[#F27D26]/65 rounded mt-6 transition-all duration-350"></div>
+              <div className="w-8 h-1 bg-[#F27D26]/10 group-hover:bg-[#F27D26]/80 rounded-full mt-6 transition-all duration-350 shadow-[0_0_8px_#F27D26]"></div>
             </div>
           ))}
         </div>

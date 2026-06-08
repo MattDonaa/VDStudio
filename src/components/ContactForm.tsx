@@ -216,8 +216,8 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
           </div>
 
           {/* Right Column Interactive Form Form */}
-          <div className="lg:col-span-7 bg-[#050505] glass p-8 rounded-xl relative overflow-hidden" data-aos="fade-left">
-            <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#F27D26] to-[#A85000]"></div>
+          <div className="lg:col-span-7 bg-[#080808]/50 backdrop-blur-xl border border-white/5 p-8 sm:p-10 rounded-3xl relative overflow-hidden" data-aos="fade-left">
+            <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-[#F27D26] to-transparent rounded-t-3xl"></div>
 
             {!submitSuccess ? (
               <form 
@@ -257,7 +257,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="e.g. Johan van der Merwe"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
 
@@ -274,7 +274,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
                       placeholder="e.g. Cape Town Joiners"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
                 </div>
@@ -293,7 +293,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. +27 82 123 4567"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
 
@@ -310,7 +310,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="e.g. johan@capejoinery.co.za"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value)}
                       placeholder="e.g. Kitchen Renovation, Bespoke Cabinetry"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
 
@@ -346,7 +346,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       placeholder="e.g. Knysna, Constantia, Sandton"
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                     />
                   </div>
                 </div>
@@ -362,7 +362,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       name="packageInterest"
                       value={packageInterest}
                       onChange={(e) => setPackageInterest(e.target.value)}
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
                     >
                       <option value="Raw HTML Website Delivery">Raw HTML Website Delivery</option>
                       <option value="Website Build + Hosting Setup">Website Build + Hosting Setup</option>
@@ -382,7 +382,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                       name="timeline"
                       value={timeline}
                       onChange={(e) => setTimeline(e.target.value)}
-                      className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
+                      className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none transition duration-200"
                     >
                       <option value="Immediately">Immediately (Ready to launch)</option>
                       <option value="1-3 Months">1-3 Months</option>
@@ -396,7 +396,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   <label htmlFor="currentWebsite" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">
                     Current Website URL (optional)
                   </label>
-                  <div className="flex w-full bg-[#121212] border border-white/10 focus-within:border-[#F27D26]/80 rounded-sm overflow-hidden transition duration-200">
+                  <div className="flex w-full bg-[#080808]/85 border border-white/10 focus-within:border-[#F27D26]/80 rounded-xl overflow-hidden transition duration-200">
                     <span className="flex items-center pl-4 pr-1 text-white/40 text-sm select-none pointer-events-none">
                       https://
                     </span>
@@ -425,7 +425,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Describe your woodworking specialty, cabinet count, showroom size, or typical client project budget..."
-                    className="w-full bg-[#121212] border border-white/10 focus:border-[#F27D26]/80 rounded-sm px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
+                    className="w-full bg-[#080808]/85 border border-white/10 focus:border-[#F27D26]/80 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none transition duration-200"
                   ></textarea>
                 </div>
 
@@ -463,7 +463,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#F27D26] hover:bg-white text-black text-xs font-bold uppercase tracking-widest disabled:from-neutral-700 disabled:to-neutral-800 py-4 px-6 rounded-sm text-center transition duration-300 shadow-xl shadow-orange-500/5 flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full bg-gradient-to-r from-[#F27D26] to-[#D56512] hover:brightness-110 text-black text-xs font-bold uppercase tracking-widest disabled:from-neutral-700 disabled:to-neutral-800 py-4 px-6 rounded-full text-center transition-all duration-300 shadow-xl shadow-orange-500/15 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
@@ -488,10 +488,10 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                   Your project enquiry has been received. Veneer Digital Studio will review your details and respond shortly.
                 </p>
 
-                <div className="mt-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="mt-5 pt-5 border-t border-white/5 flex flex-col sm:flex-row gap-4 justify-center">
                   <button
                     onClick={resetForm}
-                    className="px-6 py-3 rounded-sm border border-white/20 hover:bg-white/5 text-xs font-bold uppercase tracking-widest text-[#F27D26] hover:text-white transition cursor-pointer"
+                    className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 text-[10px] font-bold uppercase tracking-widest text-[#F27D26] hover:text-white transition-all duration-200 cursor-pointer"
                   >
                     Submit Another Inquiry
                   </button>
@@ -499,7 +499,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Veneer%20Digital%20Studio%20I%20just%20submitted%20my%20form%20for%20${businessName}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#F27D26] hover:bg-white border border-[#F27D26] hover:border-white text-xs font-bold uppercase tracking-widest text-black transition duration-300 rounded-sm"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#F27D26] to-[#D56512] hover:brightness-110 text-[10px] font-bold uppercase tracking-widest text-black transition-all duration-300 rounded-full"
                   >
                     <PhoneCall className="w-3.5 h-3.5" />
                     <span>Direct WhatsApp Fasttrack</span>

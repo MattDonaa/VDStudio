@@ -325,30 +325,33 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
         </div>
 
         {/* 3 cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
           {PACKAGES_DATA.map((pkg, idx) => {
             const isPopular = pkg.isPopular;
             return (
               <div
                 key={pkg.id}
-                className={`glass p-8 rounded-xl flex flex-col justify-between transition-all duration-300 relative ${
+                className={`flex flex-col justify-between transition-all duration-500 relative ${
                   isPopular
-                    ? "border-2 border-[#F27D26] md:-translate-y-2 scale-102 bg-white/[0.04] shadow-2xl shadow-orange-500/10"
-                    : "hover:border-[#F27D26]/30 hover:-translate-y-1"
+                    ? "border-2 border-[#F27D26] bg-[#0c0c0c]/85 md:-translate-y-2.5 scale-[1.02] shadow-2xl shadow-orange-550/15 rounded-3xl p-8 md:p-9 overflow-visible"
+                    : "bg-[#080808]/50 backdrop-blur-xl border border-white/5 hover:border-[#F27D26]/25 hover:bg-[#0c0c0c]/90 rounded-3xl p-8 hover:-translate-y-1 shadow-lg transition-all duration-300 overflow-hidden"
                 }`}
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
               >
+                {/* Subtle highlight overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] rounded-3xl pointer-events-none" />
+
                 {/* Popular Pill */}
                 {isPopular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F27D26] text-black text-[10px] font-bold px-4 py-1 rounded-sm uppercase tracking-wider shadow-md">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F27D26] text-black text-[9px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md shadow-orange-500/25 z-20">
                     Most Popular Choice
                   </div>
                 )}
 
                 <div>
                   {/* Top copy */}
-                  <h3 className="text-lg font-bold uppercase tracking-wider text-white font-geist">
+                  <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist">
                     {pkg.title}
                   </h3>
                   <p className="text-xs text-white/50 mt-3 min-h-[48px] font-geist leading-relaxed">
@@ -356,7 +359,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                   </p>
 
                   <div className="my-6">
-                    <span className="text-3.5xl font-bold text-white font-geist tracking-tight">
+                    <span className="text-3xl sm:text-3.5xl font-bold text-white font-geist tracking-tight">
                       {pkg.price}
                     </span>
                     <span className="text-[#F27D26]/80 text-[9px] font-bold uppercase tracking-wider block mt-2 font-mono">
@@ -383,7 +386,7 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                       <span className="text-[10px] uppercase font-bold text-white/40 tracking-wider block mb-3 font-mono">Not Included:</span>
                       <ul className="space-y-3">
                         {pkg.excluded.map((feat, i) => (
-                          <li key={i} className="flex items-start gap-2 text-xs text-white/40">
+                           <li key={i} className="flex items-start gap-2 text-xs text-white/40">
                             <X className="w-3.5 h-3.5 shrink-0 text-red-400/60 mt-0.5" />
                             <span className="font-geist text-xs text-white/40 line-through decoration-white/10">{feat}</span>
                           </li>
@@ -397,10 +400,10 @@ export default function Packages({ onSelectPackage }: PackagesProps) {
                 <div className="pt-6 border-t border-white/5 mt-auto">
                   <button
                     onClick={() => handleCtaClick(pkg)}
-                    className={`block w-full py-3.5 px-4 text-center text-xs font-bold uppercase tracking-widest transition duration-300 cursor-pointer rounded-sm ${
+                    className={`block w-full py-3.5 px-4 text-center text-[10px] font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer rounded-full ${
                       isPopular
-                        ? "bg-[#F27D26] text-black hover:bg-white hover:text-black shadow-lg shadow-orange-500/10"
-                        : "border border-white/20 bg-white/5 text-white hover:bg-white hover:text-black"
+                        ? "bg-gradient-to-r from-[#F27D26] to-[#D56512] text-black hover:from-white hover:to-white shadow-lg shadow-orange-500/20 hover:shadow-white/10"
+                        : "border border-white/10 bg-white/5 text-white hover:bg-white hover:text-black hover:border-transparent hover:shadow-[0_0_20px_rgba(255,255,255,0.06)]"
                     }`}
                   >
                     {pkg.ctaText}

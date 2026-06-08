@@ -35,7 +35,7 @@ export default function Hero({ onStartProject, onExploreServices }: HeroProps) {
               data-aos="fade-up"
             >
               Stop losing kitchen, cupboard, and carpentry <br className="hidden sm:block" />
-              <span className="serif-font text-[#F27D26]">enquiries inside WhatsApp.</span>
+              <span className="serif-font animate-text-shimmer shadow-orange-500/20">enquiries inside WhatsApp.</span>
             </h1>
 
             {/* Subtext */}
@@ -51,12 +51,11 @@ export default function Hero({ onStartProject, onExploreServices }: HeroProps) {
             <div className="mt-10 flex flex-col sm:flex-row items-center gap-6">
               <button 
                 onClick={onStartProject}
-                className="group relative px-10 py-4 bg-[#F27D26] text-black font-bold uppercase tracking-widest text-[11px] rounded-sm overflow-hidden transition-transform active:scale-95 cursor-pointer w-full sm:w-auto text-center"
+                className="group relative px-9 py-4 bg-gradient-to-r from-[#F27D26] to-[#D56512] hover:brightness-110 text-black font-bold uppercase tracking-widest text-[11px] rounded-full shadow-[0_0_24px_rgba(242,125,38,0.25)] hover:shadow-[0_0_36px_rgba(242,125,38,0.45)] transition-all duration-300 active:scale-95 cursor-pointer w-full sm:w-auto text-center"
                 data-aos="fade-up" 
                 data-aos-delay="200"
               >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Book a Website Audit</span>
-                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                Book a Website Audit
               </button>
 
               <button 
@@ -68,7 +67,7 @@ export default function Hero({ onStartProject, onExploreServices }: HeroProps) {
                     onExploreServices();
                   }
                 }}
-                className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest text-[11px] rounded-sm hover:bg-white/5 transition-all cursor-pointer w-full sm:w-auto text-center"
+                className="px-8 py-4 border border-white/10 text-white/70 font-semibold uppercase tracking-widest text-[11px] rounded-full hover:bg-white/5 hover:border-white/20 hover:text-white hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300 cursor-pointer w-full sm:w-auto text-center"
                 data-aos="fade-up" 
                 data-aos-delay="300"
               >

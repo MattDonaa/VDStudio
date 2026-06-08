@@ -44,14 +44,17 @@ export default function WebsiteComparison() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-12">
         {/* Normal Website Left Column */}
         <div 
-          className="glass p-8 md:p-10 rounded-xl border border-white/5 relative group hover:border-white/10 transition-all duration-300"
+          className="bg-[#080808]/50 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-white/5 relative group hover:border-white/10 transition-all duration-500"
           data-aos="fade-right"
         >
+          {/* Subtle inner highlight */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] pointer-events-none" />
+
           <div className="flex items-center justify-between border-b border-white/5 pb-6 mb-8">
-            <h3 className="text-lg font-medium text-white/70">
+            <h3 className="text-base font-bold uppercase tracking-wider text-white/50">
               Normal Website
             </h3>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-white/30 px-2.5 py-1 bg-white/5 rounded">
+            <span className="text-[9px] font-mono uppercase tracking-wider text-white/30 px-2.5 py-1 bg-white/5 rounded-full">
               Brochure Only
             </span>
           </div>
@@ -62,7 +65,7 @@ export default function WebsiteComparison() {
                 <span className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 mt-0.5">
                   <X className="w-3.5 h-3.5 text-red-400" />
                 </span>
-                <span className="text-sm text-white/50 font-geist">
+                <span className="text-xs sm:text-[13px] text-white/40 font-geist">
                   {point}
                 </span>
               </li>
@@ -72,17 +75,19 @@ export default function WebsiteComparison() {
 
         {/* Veneer Digital Studio Right Column */}
         <div 
-          className="glass p-8 md:p-10 rounded-xl border border-[#F27D26]/20 relative group hover:border-[#F27D26]/40 transition-all duration-300 bg-[#F27D26]/[0.01]"
+          className="bg-[#0c0c0c]/90 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-[#F27D26]/30 relative group hover:border-[#F27D26]/50 shadow-xl shadow-orange-550/5 transition-all duration-500"
           data-aos="fade-left"
         >
           {/* Highlight Accent Top Bar */}
           <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#F27D26] to-transparent rounded-t-xl opacity-80"></div>
+          {/* Subtle inner highlight */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] pointer-events-none" />
           
           <div className="flex items-center justify-between border-b border-[#F27D26]/10 pb-6 mb-8">
-            <h3 className="text-lg font-bold text-[#F27D26]">
-              Veneer Digital Studio System
+            <h3 className="text-base font-bold uppercase tracking-wider text-[#F27D26]">
+              Veneer Digital System
             </h3>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#F27D26] px-2.5 py-1 bg-[#F27D26]/10 rounded font-bold">
+            <span className="text-[9px] font-mono uppercase tracking-wider text-[#F27D26] px-2.5 py-1 bg-[#F27D26]/10 rounded-full font-bold">
               Sales Engine
             </span>
           </div>
@@ -90,10 +95,10 @@ export default function WebsiteComparison() {
           <ul className="space-y-4">
             {vdsPoints.map((point, i) => (
               <li key={i} className="flex items-start gap-4">
-                <span className="w-5 h-5 rounded-full bg-[#F27D26]/10 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="w-5 h-5 rounded-full bg-[#F27D26]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_8px_rgba(242,125,38,0.25)]">
                   <Check className="w-3.5 h-3.5 text-[#F27D26]" />
                 </span>
-                <span className="text-sm text-white font-geist font-medium">
+                <span className="text-xs sm:text-[13px] text-white font-geist font-semibold">
                   {point}
                 </span>
               </li>

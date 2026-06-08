@@ -26,21 +26,24 @@ export default function FeatureGrid() {
         {FEATURE_CARDS.map((card, idx) => (
           <div
             key={card.id}
-            className="glass p-10 rounded-xl flex flex-col gap-4 group hover:border-[#F27D26]/40 transition-all duration-300"
+            className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 sm:p-10 flex flex-col gap-4 group hover:border-[#F27D26]/25 hover:bg-[#0c0c0c]/90 hover:-translate-y-1.5 hover:shadow-[0_22px_48px_rgba(242,125,38,0.06),0_0_24px_rgba(242,125,38,0.02)] transition-all duration-500 relative overflow-hidden"
             data-aos="fade-up"
             data-aos-delay={idx * 100}
           >
+            {/* Subtle premium inner highlights */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.05] pointer-events-none" />
+
             {/* Icon housing */}
-            <div className="w-12 h-12 rounded-lg bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26]">
+            <div className="w-12 h-12 rounded-2xl bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26] border border-[#F27D26]/10 group-hover:border-[#F27D26]/30 transition-all duration-300">
               {getIcon(card.iconName)}
             </div>
 
             {/* Content info */}
-            <h3 className="text-base font-bold uppercase tracking-wider text-white font-geist group-hover:text-[#F27D26] transition-colors mt-2">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white font-geist group-hover:text-[#F27D26] transition-colors mt-2">
               {card.title}
             </h3>
             
-            <p className="text-sm text-white/50 leading-relaxed font-geist">
+            <p className="text-xs sm:text-[13px] text-white/50 leading-relaxed font-geist">
               {card.description}
             </p>
           </div>

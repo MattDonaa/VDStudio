@@ -48,11 +48,14 @@ export default function PainPoints() {
         {painPoints.map((item, idx) => (
           <div 
             key={idx}
-            className="glass p-8 rounded-xl border border-white/5 hover:border-[#F27D26]/30 transition-all duration-300 group flex flex-col gap-4"
+            className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-[#F27D26]/25 hover:bg-[#0c0c0c]/90 hover:shadow-[0_20px_48px_rgba(242,125,38,0.05),0_0_24px_rgba(242,125,38,0.02)] hover:-translate-y-1.5 transition-all duration-500 group flex flex-col gap-4 relative overflow-hidden"
             data-aos="fade-up"
             data-aos-delay={idx * 100}
           >
-            <div className="w-10 h-10 rounded-lg bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26] group-hover:scale-105 duration-300">
+            {/* Subtle premium inner highlight */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] pointer-events-none" />
+
+            <div className="w-10 h-10 rounded-2xl bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26] border border-[#F27D26]/10 group-hover:scale-105 duration-300">
               {item.icon}
             </div>
 
@@ -60,7 +63,7 @@ export default function PainPoints() {
               {item.title}
             </h3>
 
-            <p className="text-xs text-white/50 leading-relaxed font-geist">
+            <p className="text-xs sm:text-[13px] text-white/50 leading-relaxed font-geist">
               {item.description}
             </p>
           </div>

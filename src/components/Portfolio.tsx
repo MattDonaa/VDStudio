@@ -40,10 +40,13 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
           {PORTFOLIO_ITEMS.map((item, idx) => (
             <article
               key={item.id}
-              className="glass rounded-xl overflow-hidden hover:border-[#F27D26]/40 transition-all duration-300 flex flex-col justify-between"
+              className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-3xl overflow-hidden hover:border-[#F27D26]/20 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_48px_rgba(242,125,38,0.05)] flex flex-col justify-between group relative"
               data-aos="fade-up"
               data-aos-delay={idx * 100}
             >
+              {/* Subtle inner light overlay */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-white/[0.04] pointer-events-none" />
+
               <div>
                 {/* Mockup Top Image Container */}
                 <div className="aspect-[16/10] overflow-hidden relative bg-[#050505] image-fallback">
@@ -55,7 +58,7 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
 
                   <img
                     src={item.mockupUrl}
-                    className="absolute inset-0 object-cover w-full h-full transition duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80 z-10"
+                    className="absolute inset-0 object-cover w-full h-full transition duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-85 z-10"
                     alt={`${item.title} web project blueprint`}
                     referrerPolicy="no-referrer"
                     loading="lazy"
@@ -65,15 +68,15 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
                   />
                   
                   {/* Glass Card Gradients */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent z-20 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/95 via-transparent to-transparent z-20 pointer-events-none"></div>
                   
                   {/* Status Indicator Badges */}
                   <div className="absolute top-4 left-4 flex flex-col gap-1.5 items-start z-20">
-                    <span className="bg-[#F27D26] text-black text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded shadow-md font-geist">
+                    <span className="bg-[#F27D26] text-black text-[9px] uppercase tracking-widest font-bold px-3 py-1 rounded-full shadow-md font-geist">
                       {item.category}
                     </span>
                     {item.badge && (
-                      <span className="bg-[#050505]/95 border border-[#F27D26]/30 backdrop-blur-sm text-[#F27D26] text-[8px] uppercase tracking-widest font-mono px-2 py-0.5 rounded shadow">
+                      <span className="bg-[#050505]/95 border border-[#F27D26]/30 backdrop-blur-sm text-[#F27D26] text-[8px] uppercase tracking-widest font-mono px-2 py-0.5 rounded-full shadow">
                         {item.badge}
                       </span>
                     )}
@@ -86,11 +89,11 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
                     Demo Blueprint Model
                   </span>
                   
-                  <h3 className="text-lg font-medium text-white group-hover:text-[#F27D26] transition-colors duration-200">
+                  <h3 className="text-base font-bold text-white group-hover:text-[#F27D26] transition-colors duration-200">
                     {item.title}
                   </h3>
                   
-                  <p className="mt-3 text-xs text-white/40 leading-relaxed font-geist">
+                  <p className="mt-3 text-xs text-white/50 leading-relaxed font-geist">
                     {item.description}
                   </p>
                 </div>
@@ -105,18 +108,18 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
                       href={item.externalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-[#F27D26] hover:text-[#F27D26]/80 font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs text-[#F27D26] hover:text-[#FF9B54] font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer transition-colors duration-200"
                     >
                       Deploy This Style
-                      <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#F27D26]" />
+                      <ExternalLink className="w-3 h-3 ml-1" />
                     </a>
                   ) : (
                     <button
                       onClick={() => onSelectProject(item.category)}
-                      className="text-xs text-[#F27D26] hover:text-[#F27D26]/80 font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs text-[#F27D26] hover:text-[#FF9B54] font-bold uppercase tracking-widest inline-flex items-center gap-1 cursor-pointer transition-colors duration-200"
                     >
                       Deploy This Style
-                      <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#F27D26]" />
+                      <ExternalLink className="w-3 h-3 ml-1" />
                     </button>
                   )}
                 </div>
