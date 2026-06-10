@@ -31,6 +31,10 @@
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
+<<<<<<< HEAD
+=======
+    "vite": "^6.2.3",
+>>>>>>> 99a8fbb (Resolve merge conflict markers)
     "vite-plugin-prerender": "^1.0.8"
   }
 }
