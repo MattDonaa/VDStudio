@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /signup
+Disallow: /account
+Disallow: /settings
+Disallow: /preview
+Disallow: /test
+
+Sitemap: https://www.veneerdigital.co.za/sitemap.xml
