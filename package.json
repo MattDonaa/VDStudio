@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
+<<<<<<< HEAD
     "build": "node scripts/generate-sitemap.mjs && vite build && node scripts/prerender.mjs",
+=======
+    "build": "vite build",
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"
@@ -14,6 +18,7 @@
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
+<<<<<<< HEAD
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "lucide-react": "^0.546.0",
@@ -25,6 +30,17 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+=======
+    "lucide-react": "^0.546.0",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^6.2.3",
+    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "motion": "^12.23.24"
+  },
+  "devDependencies": {
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
@@ -32,6 +48,10 @@
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.3",
+<<<<<<< HEAD
     "vite-plugin-prerender": "^1.0.8"
+=======
+    "@types/express": "^4.17.21"
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
   }
 }

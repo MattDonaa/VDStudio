@@ -15,17 +15,24 @@ import Portfolio from "./components/Portfolio";
 import Packages from "./components/Packages";
 import LeadFlowVisual from "./components/LeadFlowVisual";
 import Process from "./components/Process";
+<<<<<<< HEAD
 import FAQ, { FAQ_DATA } from "./components/FAQ";
+=======
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
 import ContactForm from "./components/ContactForm";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Footer from "./components/Footer";
 import CookieConsent from "./components/CookieConsent";
+<<<<<<< HEAD
 import SEO from "./components/SEO";
 import { agencyOrganizationSchema, getFAQSchema, getServiceSchema } from "./lib/schema";
+=======
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
 
 export default function App() {
   const [selectedInterest, setSelectedInterest] = useState("");
 
+<<<<<<< HEAD
   const homeSchemas = [
     agencyOrganizationSchema,
     getFAQSchema(FAQ_DATA),
@@ -35,6 +42,8 @@ export default function App() {
     )
   ];
 
+=======
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
   // Smooth scroll helper
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -64,12 +73,15 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#050505] text-white overflow-clip font-geist">
+<<<<<<< HEAD
       <SEO
         title="Veneer Digital Studio | Premium Websites & Local SEO in South Africa"
         description="Premium website design, local SEO, and custom digital systems for South African woodworkers, cabinet makers, joiners, cupboard specialists, and kitchen remodellers."
         canonical="https://www.veneerdigital.co.za"
         jsonLd={homeSchemas}
       />
+=======
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
       {/* Background Glow & Grid Decoration from Dark Luxury Theme Design HTML */}
       <div className="fixed inset-0 -z-10 bg-[#050505] overflow-hidden">
         <div className="absolute inset-0 bg-grid pointer-events-none"></div>
@@ -121,9 +133,12 @@ export default function App() {
         {/* Delivery Timeline / 6 step process mapping */}
         <Process />
 
+<<<<<<< HEAD
         {/* Visible Frequently Asked Questions section before Lead form */}
         <FAQ />
 
+=======
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
         {/* Conversion Lead capture qualified application form */}
         <ContactForm selectedInterest={selectedInterest} />
 

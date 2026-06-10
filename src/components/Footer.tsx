@@ -108,6 +108,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+<<<<<<< HEAD
                 <a href="#faq" className="hover:text-[#F27D26] transition">
                   Frequently Asked Questions
                 </a>
@@ -118,6 +119,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+=======
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
                 <a href="#portfolio" className="hover:text-[#F27D26] transition">
                   Portfolio Blueprints
                 </a>
@@ -127,6 +130,14 @@ export default function Footer() {
                   Contact Studio
                 </a>
               </li>
+<<<<<<< HEAD
+=======
+              <li>
+                <a href="#contact" className="hover:text-[#F27D26] transition">
+                  Website Audit Inquiry
+                </a>
+              </li>
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
             </ul>
           </div>
 

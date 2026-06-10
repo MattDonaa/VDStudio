@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
+<<<<<<< HEAD
 Disallow: /admin
 Disallow: /dashboard
 Disallow: /login
@@ -11,3 +12,6 @@ Disallow: /preview
 Disallow: /test
 
 Sitemap: https://www.veneerdigital.co.za/sitemap.xml
+=======
+Sitemap: https://veneerdigital.co.za/sitemap.xml
+>>>>>>> 07e6250aa189921d68ecceaa3a5f60cdb432e289
