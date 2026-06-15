@@ -10,6 +10,11 @@ export function getSupabase(): SupabaseClient | null {
   const meta = import.meta as any;
   const url = meta.env?.NEXT_PUBLIC_SUPABASE_URL || meta.env?.VITE_SUPABASE_URL;
   const key = meta.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || meta.env?.VITE_SUPABASE_ANON_KEY;
+  console.log("ENV CHECK", {
+  VITE_SUPABASE_URL: meta.env?.VITE_SUPABASE_URL,
+  VITE_SUPABASE_ANON_KEY: meta.env?.VITE_SUPABASE_ANON_KEY,
+  MODE: meta.env?.MODE
+});
 
   if (!url || !key || url === "YOUR_SUPABASE_URL" || key === "YOUR_SUPABASE_ANON_KEY") {
     console.warn(
