@@ -2,7 +2,11 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 let supabaseInstance: SupabaseClient | null = null;
 
-export function getSupabase(): SupabaseClient | null {
+export function getSupabase(console.log("Supabase ENV:", {
+  url: import.meta.env.VITE_SUPABASE_URL,
+  keyExists: !!import.meta.env.VITE_SUPABASE_ANON_KEY,
+  mode: import.meta.env.MODE
+});): SupabaseClient | null {
   if (typeof window === "undefined") return null;
 
   if (supabaseInstance) return supabaseInstance;
