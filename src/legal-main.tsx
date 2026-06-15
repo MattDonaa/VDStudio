@@ -23,3 +23,4 @@ if (rootElement.hasChildNodes()) {
 } else {
   createRoot(rootElement).render(app);
 }
+

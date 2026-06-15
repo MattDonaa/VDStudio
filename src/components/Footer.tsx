@@ -127,11 +127,6 @@ export default function Footer() {
                   Contact Studio
                 </a>
               </li>
-              <li>
-                <a href="#contact" className="hover:text-[#F27D26] transition">
-                  Website Audit Inquiry
-                </a>
-              </li>
             </ul>
           </div>
 

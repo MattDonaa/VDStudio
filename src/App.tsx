@@ -22,8 +22,20 @@ import Footer from "./components/Footer";
 import CookieConsent from "./components/CookieConsent";
 import SEO from "./components/SEO";
 import { agencyOrganizationSchema, getFAQSchema, getServiceSchema } from "./lib/schema";
+import { RouterProvider, useRouter, scrollToElement } from "./lib/router";
+import BlogView from "./components/BlogView";
+import AdminBlogView from "./components/AdminBlogView";
 
 export default function App() {
+  return (
+    <RouterProvider>
+      <SubApp />
+    </RouterProvider>
+  );
+}
+
+function SubApp() {
+  const { pathname, navigate } = useRouter();
   const [selectedInterest, setSelectedInterest] = useState("");
 
   const homeSchemas = [
@@ -37,9 +49,17 @@ export default function App() {
 
   // Smooth scroll helper
   const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
+    console.log("[App.tsx scrollToContact] called. pathname:", pathname);
+    if (pathname !== "/") {
+      console.log("[App.tsx scrollToContact] Navigating from", pathname, "to Home page ('/')");
+      navigate("/");
+      setTimeout(() => {
+        console.log("[App.tsx scrollToContact] Deferred scroll running after transition");
+        scrollToElement("contact");
+      }, 150);
+    } else {
+      console.log("[App.tsx scrollToContact] Already on Home, scrolling index contact");
+      scrollToElement("contact");
     }
   };
 
@@ -59,8 +79,34 @@ export default function App() {
         once: true,
         offset: 50,
       });
+      // @ts-ignore
+      window.AOS.refresh();
     }
-  }, []);
+  }, [pathname]);
+
+  // --- SPO SPO-CMS ROUTING HANDLERS ---
+  
+  if (pathname === "/blog" || pathname === "/blog/") {
+    return <BlogView onStartProject={scrollToContact} />;
+  }
+
+  if (pathname.startsWith("/blog/") && pathname !== "/blog/") {
+    const slug = pathname.substring(6).replace(/\/$/, "");
+    return <BlogView slug={slug} onStartProject={scrollToContact} />;
+  }
+
+  if (pathname === "/admin/blog" || pathname === "/admin/blog/") {
+    return <AdminBlogView action="list" onStartProject={scrollToContact} />;
+  }
+
+  if (pathname === "/admin/blog/new" || pathname === "/admin/blog/new/") {
+    return <AdminBlogView action="new" onStartProject={scrollToContact} />;
+  }
+
+  if (pathname.startsWith("/admin/blog/edit/")) {
+    const editId = pathname.substring(17).replace(/\/$/, "");
+    return <AdminBlogView action="edit" editId={editId} onStartProject={scrollToContact} />;
+  }
 
   return (
     <div className="relative min-h-screen bg-[#050505] text-white overflow-clip font-geist">
@@ -79,6 +125,7 @@ export default function App() {
 
       {/* Main Core Shell */}
       <div className="relative z-10">
+        
         {/* Sticky glass-morphism header */}
         <Header onStartProject={scrollToContact} />
 
@@ -134,6 +181,7 @@ export default function App() {
 
         {/* Premium Cookie Consent Popup */}
         <CookieConsent />
+        
       </div>
     </div>
   );

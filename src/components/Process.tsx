@@ -8,7 +8,7 @@ import { PROCESS_STEPS } from "../data";
 
 export default function Process() {
   return (
-    <section id="process" className="py-24 bg-black/60 relative">
+    <section id="process" className="scroll-mt-28 py-24 bg-black/60 relative">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
         {/* Header Titles */}

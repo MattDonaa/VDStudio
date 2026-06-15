@@ -21,7 +21,7 @@ export default function FeatureGrid() {
   };
 
   return (
-    <section id="services" className="mx-auto max-w-7xl px-6 lg:px-8 mt-24">
+    <section id="services" className="scroll-mt-28 mx-auto max-w-7xl px-6 lg:px-8 mt-24">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {FEATURE_CARDS.map((card, idx) => (
           <div

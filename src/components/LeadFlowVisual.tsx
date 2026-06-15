@@ -46,7 +46,7 @@ export default function LeadFlowVisual() {
   ];
 
   return (
-    <section id="lead-flow" className="py-24 bg-[#050505]/60 border-b border-white/5 relative">
+    <section id="lead-flow" className="scroll-mt-28 py-24 bg-[#050505]/60 border-b border-white/5 relative">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
         {/* Caption */}

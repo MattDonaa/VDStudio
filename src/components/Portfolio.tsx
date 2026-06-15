@@ -12,7 +12,7 @@ interface PortfolioProps {
 
 export default function Portfolio({ onSelectProject }: PortfolioProps) {
   return (
-    <section id="portfolio" className="py-24 bg-neutral-900/30 border-y border-white/5 relative">
+    <section id="portfolio" className="scroll-mt-28 py-24 bg-neutral-900/30 border-y border-white/5 relative">
       <div className="absolute top-0 inset-x-0 h-[250px] bg-gradient-to-b from-orange-950/5 to-transparent pointer-events-none"></div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

@@ -41,7 +41,7 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 relative overflow-hidden">
+    <section id="faq" className="scroll-mt-28 py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#F27D26]/[0.01] blur-[150px] pointer-events-none -z-10" />
 

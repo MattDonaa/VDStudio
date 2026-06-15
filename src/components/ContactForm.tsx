@@ -153,7 +153,7 @@ export default function ContactForm({ selectedInterest }: ContactFormProps) {
   };
 
   return (
-    <section id="contact" className="py-24 relative z-10">
+    <section id="contact" className="scroll-mt-28 py-24 relative z-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
