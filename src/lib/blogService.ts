@@ -224,24 +224,24 @@ export const blogService = {
     const supabase = getSupabase();
     if (supabase) {
       try {
-        let query = supabase
+        const { data, error } = await supabase
           .from("blog_posts")
-          .select("*");
-        
-        if (onlyPublished) {
-          query = query.eq("status", "published");
-        }
-        
-        // Order by published_at descending
-        query = query.order("published_at", { ascending: false });
+          .select("*")
+          .order("created_at", { ascending: false });
 
-        const { data, error } = await query;
+        console.log("BLOG DATA", data);
+        console.log("BLOG ERROR", error);
+
         if (error) {
           console.error("Supabase blog fetch error:", error);
         } else if (data) {
-          console.log("Supabase blog posts:", data);
-          if (data.length > 0) {
-            return data.map(mapToBlogPost);
+          console.log("Supabase blog posts (all):", data);
+          let filteredData = data;
+          if (onlyPublished) {
+            filteredData = data.filter((item: any) => item.status === "published" || item.published === true);
+          }
+          if (filteredData.length > 0) {
+            return filteredData.map(mapToBlogPost);
           }
         }
       } catch (err) {
@@ -263,14 +263,19 @@ export const blogService = {
         const { data, error } = await supabase
           .from("blog_posts")
           .select("*")
-          .eq("slug", slug)
-          .maybeSingle();
+          .order("created_at", { ascending: false });
+
+        console.log("BLOG DATA", data);
+        console.log("BLOG ERROR", error);
 
         if (error) {
           console.error("Supabase single fetch error:", error);
         } else if (data) {
-          console.log("Supabase blog post by slug:", data);
-          return mapToBlogPost(data);
+          console.log("Supabase blog post by slug lookup:", data);
+          const found = data.find((item: any) => item.slug === slug);
+          if (found) {
+            return mapToBlogPost(found);
+          }
         }
       } catch (err) {
         console.error("Supabase fetch by slug failed:", err);
@@ -290,13 +295,18 @@ export const blogService = {
         const { data, error } = await supabase
           .from("blog_posts")
           .select("*")
-          .eq("id", id)
-          .maybeSingle();
+          .order("created_at", { ascending: false });
+
+        console.log("BLOG DATA", data);
+        console.log("BLOG ERROR", error);
 
         if (error) {
           console.error("Supabase getPostById fetch error:", error);
         } else if (data) {
-          return mapToBlogPost(data);
+          const found = data.find((item: any) => item.id === id);
+          if (found) {
+            return mapToBlogPost(found);
+          }
         }
       } catch (err) {
         console.error("Supabase single get failed:", err);
