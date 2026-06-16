@@ -5,8 +5,11 @@ const DOMAIN = 'https://www.veneerdigital.co.za';
 
 const routes = [
   { url: '/', changefreq: 'weekly', priority: '1.0' },
-  { url: '/legal.html', changefreq: 'monthly', priority: '0.5' },
-  { url: '/thank-you.html', changefreq: 'monthly', priority: '0.3' }
+  { url: '/thank-you.html', changefreq: 'monthly', priority: '0.3' },
+  { url: '/privacy-policy', changefreq: 'monthly', priority: '0.5' },
+  { url: '/terms-and-conditions', changefreq: 'monthly', priority: '0.5' },
+  { url: '/popia-compliance', changefreq: 'monthly', priority: '0.5' },
+  { url: '/cookie-policy', changefreq: 'monthly', priority: '0.5' }
 ];
 
 const today = new Date().toISOString().split('T')[0];

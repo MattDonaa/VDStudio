@@ -165,8 +165,10 @@ const STATIC_ROOT_CONTENT = `
   <footer class="py-12 border-t border-white/5 max-w-5xl mx-auto text-center text-xs text-white/30">
     <p class="mb-4">© 2026 Veneer Digital Studio (Pty) Ltd. All rights reserved. Registered in South Africa.</p>
     <div class="flex justify-center gap-4 text-[10px] font-mono">
-      <a href="/legal.html#privacy" class="hover:text-white">Privacy Policy</a>
-      <a href="/legal.html#terms" class="hover:text-white">Terms of Service</a>
+      <a href="/privacy-policy" class="hover:text-white">Privacy Policy</a>
+      <a href="/terms-and-conditions" class="hover:text-white">Terms of Service</a>
+      <a href="/popia-compliance" class="hover:text-white">POPIA Compliance</a>
+      <a href="/cookie-policy" class="hover:text-white">Cookie Policy</a>
       <a href="/sitemap.xml" class="hover:text-white">Sitemap XML</a>
     </div>
   </footer>

@@ -3,9 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from "react";
 import { Hammer, Github, Phone, Shield, Facebook, Twitter } from "lucide-react";
+import { useRouter } from "../lib/router";
 
 export default function Footer() {
+  const { navigate } = useRouter();
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      // Let standard hash scrolling handle it if on home, or redirect
+      return;
+    }
+    e.preventDefault();
+    navigate(href);
+  };
+
   return (
     <footer className="border-t border-white/5 bg-[#020202] pt-16 pb-12 relative z-10" data-aos="fade-up">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -140,16 +153,16 @@ export default function Footer() {
           
           {/* Legal notes */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-[10px] text-white/30 font-mono w-full md:absolute md:left-1/2 md:-translate-x-1/2 md:w-auto pb-4 md:pb-0 pr-0 md:pr-16 lg:pr-0">
-            <a href="/legal.html#privacy" className="hover:text-white transition">Privacy Policy</a>
-            <a href="/legal.html#terms" className="hover:text-white transition">Terms of Service</a>
-            <a href="/legal.html#cookies" className="hover:text-white transition">Cookie Policy</a>
+            <a href="/privacy-policy" onClick={(e) => handleLinkClick(e, "/privacy-policy")} className="hover:text-white transition">Privacy Policy</a>
+            <a href="/terms-and-conditions" onClick={(e) => handleLinkClick(e, "/terms-and-conditions")} className="hover:text-white transition">Terms of Service</a>
+            <a href="/cookie-policy" onClick={(e) => handleLinkClick(e, "/cookie-policy")} className="hover:text-white transition">Cookie Policy</a>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
               className="hover:text-white transition cursor-pointer bg-transparent border-0 p-0 text-left"
             >
               Cookie Preferences
             </button>
-            <a href="/legal.html#popia" className="text-[#F27D26]/75 hover:text-[#F27D26] flex items-center gap-1 font-bold transition">
+            <a href="/popia-compliance" onClick={(e) => handleLinkClick(e, "/popia-compliance")} className="text-[#F27D26]/75 hover:text-[#F27D26] flex items-center gap-1 font-bold transition">
               <Shield className="w-3 h-3 text-[#F27D26]" />
               POPIA Compliant SA
             </a>

@@ -25,6 +25,10 @@ import { agencyOrganizationSchema, getFAQSchema, getServiceSchema } from "./lib/
 import { RouterProvider, useRouter, scrollToElement } from "./lib/router";
 import BlogView from "./components/BlogView";
 import AdminBlogView from "./components/AdminBlogView";
+import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
+import TermsPage from "./components/TermsPage";
+import PopiaPage from "./components/PopiaPage";
+import CookiePolicyPage from "./components/CookiePolicyPage";
 
 export default function App() {
   return (
@@ -106,6 +110,39 @@ function SubApp() {
   if (pathname.startsWith("/admin/blog/edit/")) {
     const editId = pathname.substring(17).replace(/\/$/, "");
     return <AdminBlogView action="edit" editId={editId} onStartProject={scrollToContact} />;
+  }
+
+  // --- NEW STANDALONE LEGAL ROUTING HANDLERS ---
+  if (pathname === "/legal.html" || pathname === "/legal" || pathname === "/legal/") {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.replace("#", "");
+      if (hash === "privacy") {
+        navigate("/privacy-policy");
+      } else if (hash === "cookies" || hash === "cookie") {
+        navigate("/cookie-policy");
+      } else if (hash === "popia") {
+        navigate("/popia-compliance");
+      } else {
+        navigate("/terms-and-conditions");
+      }
+    }
+    return null;
+  }
+
+  if (pathname === "/privacy-policy" || pathname === "/privacy-policy/") {
+    return <PrivacyPolicyPage />;
+  }
+
+  if (pathname === "/terms-and-conditions" || pathname === "/terms-and-conditions/") {
+    return <TermsPage />;
+  }
+
+  if (pathname === "/popia-compliance" || pathname === "/popia-compliance/") {
+    return <PopiaPage />;
+  }
+
+  if (pathname === "/cookie-policy" || pathname === "/cookie-policy/") {
+    return <CookiePolicyPage />;
   }
 
   return (
