@@ -126,6 +126,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/growth-tools" onClick={(e) => handleLinkClick(e, "/growth-tools")} className="hover:text-[#F27D26] transition">
+                  Growth Tools
+                </a>
+              </li>
+              <li>
                 <a href="/sitemap.xml" className="hover:text-[#F27D26] transition">
                   Sitemap XML
                 </a>

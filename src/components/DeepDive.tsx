@@ -5,10 +5,18 @@
 
 import { ArrowRight, Sparkles, CheckCircle2, Image as ImageIcon } from "lucide-react";
 import { SERVICE_POINTS, SERVICE_GRID_IMAGES } from "../data";
+import RelatedToolsInline from "./RelatedToolsInline";
 
 interface DeepDiveProps {
   onStartProject: () => void;
 }
+
+const getRelatedTools = (id: string) => {
+  if (id === "dp-1") return ["website-grader"];
+  if (id === "dp-2") return ["lost-revenue-calculator", "ai-readiness-assessment", "quote-follow-up-generator", "review-request-generator"];
+  if (id === "dp-3") return ["google-profile-score", "contractor-roi-calculator"];
+  return [];
+};
 
 export default function DeepDive({ onStartProject }: DeepDiveProps) {
   return (
@@ -51,6 +59,7 @@ export default function DeepDive({ onStartProject }: DeepDiveProps) {
                     <p className="mt-2 text-sm text-white/40 leading-relaxed font-geist">
                       {pt.description}
                     </p>
+                    <RelatedToolsInline toolIds={getRelatedTools(pt.id)} />
                   </div>
                 ))}
               </div>

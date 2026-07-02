@@ -69,6 +69,7 @@ export default function Header({ onStartProject }: HeaderProps) {
     { name: "Services", href: "#services" },
     { name: "Live Demos", href: "#portfolio" },
     { name: "Lead System", href: "#lead-flow" },
+    { name: "Growth Tools", href: "/growth-tools" },
     { name: "Blog", href: "/blog" },
     { name: "Process", href: "#process" },
     { name: "Contact", href: "#contact" },

@@ -29,6 +29,9 @@ import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 import TermsPage from "./components/TermsPage";
 import PopiaPage from "./components/PopiaPage";
 import CookiePolicyPage from "./components/CookiePolicyPage";
+import FeaturedToolSection from "./components/FeaturedToolSection";
+import GrowthToolsPage from "./components/GrowthToolsPage";
+import GrowthToolDetailView from "./components/GrowthToolDetailView";
 
 export default function App() {
   return (
@@ -110,6 +113,16 @@ function SubApp() {
   if (pathname.startsWith("/admin/blog/edit/")) {
     const editId = pathname.substring(17).replace(/\/$/, "");
     return <AdminBlogView action="edit" editId={editId} onStartProject={scrollToContact} />;
+  }
+
+  // --- GROWTH TOOLS ROUTING HANDLERS ---
+  if (pathname === "/growth-tools" || pathname === "/growth-tools/") {
+    return <GrowthToolsPage />;
+  }
+
+  if (pathname.startsWith("/growth-tools/") && pathname !== "/growth-tools/") {
+    const toolId = pathname.substring(14).replace(/\/$/, "");
+    return <GrowthToolDetailView toolId={toolId} />;
   }
 
   // --- NEW STANDALONE LEGAL ROUTING HANDLERS ---
@@ -200,6 +213,9 @@ function SubApp() {
 
         {/* Custom Visual Pipeline workflow from visitor to whatsapp lead */}
         <LeadFlowVisual />
+
+        {/* Free Growth Tools Featured Section */}
+        <FeaturedToolSection />
 
         {/* Delivery Timeline / 6 step process mapping */}
         <Process />

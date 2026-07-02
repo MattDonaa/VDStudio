@@ -24,7 +24,7 @@ export function getSupabase(): SupabaseClient | null {
 
   try {
     supabaseInstance = createClient(url, key);
-    console.log("Supabase client initialized", supabaseInstance);
+    console.log("Supabase client successfully initialized");
     return supabaseInstance;
   } catch (err) {
     console.error("Failed to initialize Supabase client:", err);
