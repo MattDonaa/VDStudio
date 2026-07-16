@@ -1,20 +1,23 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Veneer Digital Studio — veneerdigital.co.za
 
-# Run and deploy your AI Studio app
+Static website for Veneer Digital Studio: premium websites and WhatsApp
+lead-capture systems for South African businesses.
 
-This contains everything you need to run your app locally.
+## What's here
 
-View your app in AI Studio: https://ai.studio/apps/837df2ea-feda-4430-9ecd-ca5ad9b9123b
+| File | Purpose |
+|---|---|
+| `index.html` | The whole site (single-page app with clean-URL routing) |
+| `contact.php` | Emails enquiry-form submissions via PHP `mail()` |
+| `.htaccess` | Clean URLs (`/about`, `/privacy`, ...), HTTPS redirect, caching, security headers |
+| `robots.txt` / `sitemap.xml` | Search-engine crawling and indexing |
+| `assets/` | Images |
+| `HOW-TO-UPLOAD.txt` | Plain-English Hostinger deployment guide |
 
-## Run Locally
+## Deploying
 
-**Prerequisites:**  Node.js
+Upload everything except `HOW-TO-UPLOAD.txt` (and this README) to the
+hosting `public_html` folder. Full step-by-step instructions are in
+[HOW-TO-UPLOAD.txt](HOW-TO-UPLOAD.txt).
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+No build step — plain HTML, CSS and vanilla JavaScript.

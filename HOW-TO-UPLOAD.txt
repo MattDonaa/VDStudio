@@ -1,0 +1,62 @@
+HOW TO PUT THIS WEBSITE LIVE ON HOSTINGER
+=========================================
+A simple, step-by-step guide. No coding needed.
+
+WHAT YOU HAVE
+-------------
+This folder is your complete website. These are the files that must go live:
+
+  index.html          <- the website itself
+  contact.php         <- makes the enquiry form email you
+  .htaccess           <- makes clean links (/about, /privacy) work + forces HTTPS
+  robots.txt          <- helps Google find the site
+  sitemap.xml         <- lists your pages for Google
+  assets/             <- the images folder (keep it as-is)
+
+DO NOT upload the ".claude" folder or this "HOW-TO-UPLOAD.txt" file.
+They are only for editing and are not part of the live site.
+
+STEP-BY-STEP
+------------
+1. Log in to Hostinger (hpanel.hostinger.com).
+2. Open your website, then click "File Manager".
+3. Open the folder called "public_html".
+4. If there is a default file already in there (like a Hostinger
+   "default.php" or an old index.html), delete it first.
+5. Upload EVERYTHING from this folder EXCEPT the ".claude" folder and
+   this text file:
+      - index.html
+      - contact.php
+      - .htaccess          (see note below)
+      - robots.txt
+      - sitemap.xml
+      - the whole "assets" folder
+   Tip: the easiest way is to select these files, right-click > compress
+   into a .zip, upload the .zip into public_html, then use "Extract".
+6. Visit your domain (https://veneerdigital.co.za). It should be live.
+
+ABOUT THE .htaccess FILE
+------------------------
+The name starts with a dot, so File Manager may hide it. Turn on
+"Show hidden files" (Settings, top-right of File Manager) so you can see
+and upload it. It is important - without it, links like /privacy will
+show a "Not Found" error.
+
+THE ENQUIRY FORM (IMPORTANT)
+----------------------------
+The "Discuss your project" / contact form sends enquiries to
+matt@veneerdigital.co.za using Hostinger's built-in mail (contact.php).
+
+Please TEST it once after uploading: fill in the form and send it, then
+check that the email arrives (check the spam folder too).
+
+If emails do not arrive, Hostinger's basic mail is sometimes blocked.
+The reliable fix is to send through your Hostinger mailbox using SMTP.
+Ask your developer to switch contact.php to SMTP (PHPMailer) with your
+email login - it is a small change. In the meantime, visitors can always
+reach you with the WhatsApp button in the bottom-right corner.
+
+THE WHATSAPP BUTTON
+-------------------
+The green button (bottom-right) opens a WhatsApp chat to +27 65 731 9062.
+Test it on your phone to confirm it opens the right chat.
