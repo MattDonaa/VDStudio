@@ -221,14 +221,22 @@
 
     .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
     .nav-link {
-      position: relative; padding: 9px 15px; border-radius: 999px;
+      position: relative; padding: 9px 15px;
       font-size: 14.5px; font-weight: 600; color: var(--text-2);
       font-family: "Sora", sans-serif;
-      transition: color 0.2s var(--ease), background 0.2s var(--ease);
+      transition: color 0.2s var(--ease);
       background: none; border: none;
     }
+    .nav-link::after {
+      content: ""; position: absolute; left: 15px; right: 15px; bottom: 3px; height: 2px;
+      border-radius: 2px; background: var(--grad);
+      transform: scaleX(0); transform-origin: left center;
+      transition: transform 0.28s var(--ease);
+    }
     .nav-link:hover { color: var(--white); }
-    .nav-link.active { color: var(--brand-3); background: var(--grad-soft); }
+    .nav-link:hover::after,
+    .nav-link.active::after { transform: scaleX(1); }
+    .nav-link.active { color: var(--brand-3); }
 
     .nav-cta { display: inline-flex; }
     .nav-actions { display: flex; align-items: center; gap: 12px; }
@@ -748,27 +756,40 @@
       display: flex; align-items: center; gap: 12px;
     }
     .wa-cta {
-      background: var(--surface); border: 1px solid var(--line-2); color: var(--text-1);
-      font-family: "Sora", sans-serif; font-size: 14px; font-weight: 600; white-space: nowrap;
-      padding: 11px 16px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), color 0.2s var(--ease);
+      position: relative; overflow: hidden;
+      background: var(--grad); border: none; color: var(--ink-900);
+      font-family: "Sora", sans-serif; font-size: 14px; font-weight: 700; white-space: nowrap;
+      padding: 12px 18px; border-radius: 999px; box-shadow: var(--shadow-brand);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
     }
-    .wa-cta:hover { border-color: #25D366; color: #25D366; transform: translateY(-2px); }
+    .wa-cta:hover { transform: translateY(-2px); box-shadow: 0 26px 60px -18px rgba(242,125,38,0.62); }
     .wa-btn {
-      position: relative; width: 60px; height: 60px; border-radius: 50%; flex: 0 0 auto;
+      position: relative; overflow: hidden; width: 60px; height: 60px; border-radius: 50%; flex: 0 0 auto;
       display: grid; place-items: center; background: #25D366; color: #fff;
       box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
       animation: wa-pulse 2.2s infinite; transition: transform 0.2s var(--ease);
     }
     .wa-btn:hover { transform: scale(1.06); animation-play-state: paused;
       box-shadow: 0 10px 30px rgba(37, 211, 102, 0.55); }
-    .wa-btn svg { width: 34px; height: 34px; }
+    .wa-btn svg { width: 34px; height: 34px; position: relative; z-index: 1; }
+    /* Glassy lightning-flash sweep on hover (both WhatsApp controls) */
+    .wa-cta::before, .wa-btn::before {
+      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.65) 50%, transparent 80%);
+      transform: translateX(-130%) skewX(-18deg); pointer-events: none;
+      transition: transform 0.6s var(--ease);
+    }
+    .wa-cta:hover::before, .wa-btn:hover::before { transform: translateX(130%) skewX(-18deg); }
     @keyframes wa-pulse {
       0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55), 0 8px 22px rgba(37, 211, 102, 0.35); }
       70%  { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0), 0 8px 22px rgba(37, 211, 102, 0.35); }
       100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 8px 22px rgba(37, 211, 102, 0.35); }
     }
-    @media (prefers-reduced-motion: reduce) { .wa-btn { animation: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .wa-btn { animation: none; }
+      .wa-cta::before, .wa-btn::before { display: none; }
+      .nav-link::after { transition: none; }
+    }
     @media (max-width: 560px) {
       .wa-float { right: 16px; bottom: 16px; }
       .wa-cta { display: none; }
