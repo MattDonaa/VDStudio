@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Demo showcase sites are fictional concept builds - keep them out of search
+Disallow: /demo/
 
 Sitemap: https://veneerdigital.co.za/sitemap.xml

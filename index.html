@@ -56,7 +56,8 @@
     "makesOffer": [
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Design" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lead Capture" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bookings" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Google Business Profile Setup" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO Optimization" } }
     ]
   }
   </script>
@@ -333,6 +334,8 @@
        Services grid
        ========================================================= */
     .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 54px; }
+    .svc-grid.four { grid-template-columns: repeat(2, 1fr); }
+    .svc-card .svc-go { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
     .svc-card {
       position: relative; background: var(--surface); border: 1px solid var(--line);
       border-radius: var(--radius-card); padding: 32px 28px; overflow: hidden;
@@ -502,6 +505,42 @@
     /* =========================================================
        CTA band
        ========================================================= */
+    /* Demo showcase (concept builds) */
+    .showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 44px; }
+    .demo-card {
+      display: flex; flex-direction: column; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .demo-card:hover { border-color: var(--line-2); transform: translateY(-4px); }
+    .demo-chrome {
+      display: flex; align-items: center; gap: 9px; padding: 10px 13px;
+      background: var(--ink-900); border-bottom: 1px solid var(--line);
+    }
+    .demo-chrome .dots { display: flex; gap: 5px; flex: 0 0 auto; }
+    .demo-chrome .dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--line-2); }
+    .demo-chrome .url {
+      flex: 1; min-width: 0; font-size: 11.5px; color: var(--text-3);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: var(--surface-2); border-radius: 6px; padding: 4px 9px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .demo-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .demo-tag {
+      align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--brand-3); background: var(--grad-soft); border: 1px solid var(--line-2);
+      padding: 4px 10px; border-radius: 999px; margin-bottom: 13px;
+    }
+    .demo-body h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .demo-body > p { color: var(--text-2); font-size: 14px; flex: 1; margin: 0; }
+    .demo-live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-3); margin-top: 14px; }
+    .demo-live .pulse { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: demo-pulse 2s infinite; }
+    @keyframes demo-pulse { 70% { box-shadow: 0 0 0 7px rgba(52,211,153,0); } 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+    .demo-body .btn { margin-top: 14px; align-self: flex-start; }
+    @media (max-width: 900px) { .showcase-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .showcase-grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .demo-live .pulse { animation: none; } }
+
     .cta-band { position: relative; }
     .cta-inner {
       position: relative; overflow: hidden; border-radius: 26px; padding: clamp(40px, 6vw, 72px);
@@ -798,6 +837,22 @@
     }
 
     /* =========================================================
+       Two-door fork (choose your path, under the hero)
+       ========================================================= */
+    .fork { padding: 6px 0 44px; }
+    .fork-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .fork-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card);
+      padding: 32px; display: flex; flex-direction: column;
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .fork-card:hover { border-color: var(--line-2); transform: translateY(-3px); }
+    .fork-card h3 { font-size: 1.4rem; margin: 12px 0 10px; }
+    .fork-card p { color: var(--text-2); max-width: 48ch; flex: 1; }
+    .fork-card .step-actions { margin-top: 20px; }
+    @media (max-width: 760px) { .fork-grid { grid-template-columns: 1fr; } .fork-card { padding: 24px; } }
+
+    /* =========================================================
        Review marquee (sliding banner under hero)
        ========================================================= */
     .review-marquee {
@@ -915,7 +970,9 @@
       .nav-link { padding: 14px 16px; font-size: 16px; border-radius: 12px; }
       .nav-toggle { display: inline-flex; }
       .nav-cta.desktop-only { display: none; }
-      .step-card { grid-template-columns: 1fr; gap: 18px; }
+      .step-card { grid-template-columns: 1fr; gap: 18px; padding: 24px; }
+      /* Let long button labels wrap instead of forcing horizontal overflow */
+      .btn { white-space: normal; }
       .step-badge { width: 66px; height: 66px; font-size: 1.6rem; }
       .vds-form { grid-template-columns: 1fr; }
       .progress { grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -927,6 +984,19 @@
       .mstep.active { grid-template-columns: 1fr; }
       .modal-head, .modal-body { padding-left: 20px; padding-right: 20px; }
       .modal-progress, .modal-steplabel { margin-left: 20px; margin-right: 20px; padding-left: 0; padding-right: 0; }
+    }
+
+    /* ---------- Small phones ---------- */
+    @media (max-width: 480px) {
+      .wrap { padding-left: 16px; padding-right: 16px; }
+      .step-card { padding: 18px; }
+      .legal-body, .legal-head, .prompt-box pre { overflow-wrap: anywhere; }
+      .hero-badge { display: none; }
+      .g-rating { flex-wrap: wrap; justify-content: center; max-width: 100%; padding: 12px 16px; gap: 10px; }
+      /* Keep the hero from clipping even if the webfont is slow and a wider fallback loads */
+      .hero h1 { font-size: clamp(1.85rem, 8.5vw, 2.5rem); }
+      .hero .eyebrow { flex-wrap: wrap; }
+      h1, h2, h3 { overflow-wrap: break-word; }
     }
 
     /* ---------- Reduced motion ---------- */
@@ -952,6 +1022,7 @@
           <li><button class="nav-link active" data-route="home">Home</button></li>
           <li><button class="nav-link" data-route="about">About</button></li>
           <li><button class="nav-link" data-route="services">Services</button></li>
+          <li><button class="nav-link" data-route="home" data-scroll="work">Our Work</button></li>
           <li><button class="nav-link" data-route="pricing">Pricing</button></li>
           <li><button class="nav-link" data-route="contact">Contact</button></li>
         </ul>
@@ -1017,7 +1088,7 @@
                 <span class="dot">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                <span><b>Lead-ready in days</b><span>Design, capture, bookings</span></span>
+                <span><b>Lead-ready in days</b><span>Design, capture, get found</span></span>
               </div>
             </div>
           </div>
@@ -1034,13 +1105,43 @@
             </li>
             <li class="trust-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/></svg>
-              <span>Online bookings that work</span>
+              <span>Found first on Google</span>
             </li>
             <li class="trust-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke-linejoin="round"/></svg>
               <span>Fast, mobile-first delivery</span>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <!-- ===== TWO-DOOR FORK: pick your path ===== -->
+      <div class="fork">
+        <div class="wrap">
+          <div class="fork-grid reveal">
+            <article class="fork-card">
+              <span class="eyebrow">Done for you</span>
+              <h3>Want it built for you?</h3>
+              <p>We design, write and launch the whole thing — website, WhatsApp lead capture,
+                Google Business Profile and SEO. You run your business; we handle every technical step.</p>
+              <div class="step-actions">
+                <button class="btn btn-primary" data-modal data-interest="New website">Start my project</button>
+                <button class="btn btn-ghost" data-route="pricing">See pricing</button>
+              </div>
+            </article>
+            <article class="fork-card">
+              <span class="eyebrow">Do it yourself &mdash; free</span>
+              <h3>Want to build it yourself?</h3>
+              <p>Use our free prompt builder: answer a few questions about your business, copy the
+                personalised prompt we generate, and let Claude build your website. No coding, no cost.</p>
+              <div class="step-actions">
+                <button class="btn btn-ghost" data-scroll="journey">
+                  Start the 4 free steps
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
 
@@ -1052,13 +1153,13 @@
           <span class="rm-chip"><span class="stars-rate" aria-label="4.5 out of 5"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"Clients book online now, my calendar stays full."</span><span class="rm-who">Nadia P, Cape Town</span></span>
           <span class="rm-chip"><span class="stars-rate" aria-label="4.5 out of 5"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"We rank on page one and leads hit WhatsApp."</span><span class="rm-who">Rajesh N, Durban</span></span>
           <span class="rm-chip"><span class="stars-rate" aria-label="4.5 out of 5"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"Professional from first message to launch."</span><span class="rm-who">Lerato v, Pretoria</span></span>
-          <span class="rm-chip"><span class="stars-rate" aria-label="4.5 out of 5"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"The booking system pays for itself every month."</span><span class="rm-who">Sarah B, Bloemfontein</span></span>
+          <span class="rm-chip"><span class="stars-rate" aria-label="4.5 out of 5"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"We show up on Google Maps now — the calls doubled."</span><span class="rm-who">Sarah B, Bloemfontein</span></span>
           <!-- Set B (duplicate for seamless loop) -->
           <span class="rm-chip" aria-hidden="true"><span class="stars-rate"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"Live in three days and enquiries came the same week."</span><span class="rm-who">Thabo M, Johannesburg</span></span>
           <span class="rm-chip" aria-hidden="true"><span class="stars-rate"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"Clients book online now, my calendar stays full."</span><span class="rm-who">Nadia P, Cape Town</span></span>
           <span class="rm-chip" aria-hidden="true"><span class="stars-rate"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"We rank on page one and leads hit WhatsApp."</span><span class="rm-who">Rajesh N, Durban</span></span>
           <span class="rm-chip" aria-hidden="true"><span class="stars-rate"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"Professional from first message to launch."</span><span class="rm-who">Lerato v, Pretoria</span></span>
-          <span class="rm-chip" aria-hidden="true"><span class="stars-rate"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"The booking system pays for itself every month."</span><span class="rm-who">Sarah B, Bloemfontein</span></span>
+          <span class="rm-chip" aria-hidden="true"><span class="stars-rate"><span class="sr-base">★★★★★</span><span class="sr-fill" style="width:90%">★★★★★</span></span><span class="rm-score">4.5</span><span class="rm-sep"></span><span class="rm-quote">"We show up on Google Maps now — the calls doubled."</span><span class="rm-who">Sarah B, Bloemfontein</span></span>
         </div>
       </div>
 
@@ -1067,23 +1168,24 @@
         <div class="wrap">
           <div class="head-block reveal">
             <span class="eyebrow">What we do</span>
-            <h2>Three services, one goal: <span class="grad-text">more booked work</span></h2>
-            <p class="lead">We design the website, wire up how leads reach you, and make it simple for
-              customers to book. Every part is built around how your business actually runs.</p>
+            <h2>Four services, one goal: <span class="grad-text">more booked work</span></h2>
+            <p class="lead">We design the website, wire up how leads reach you, and make sure customers
+              actually find you on Google. Every part is built around how your business runs.</p>
           </div>
 
-          <div class="svc-grid">
+          <div class="svc-grid four">
             <article class="svc-card reveal d1">
               <div class="svc-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3" stroke-linecap="round"/></svg>
               </div>
-              <h3>Website Designs</h3>
+              <h3>Website Design</h3>
               <p>Modern, fast websites that reflect the quality of your work and read clearly on every screen.</p>
               <ul>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Mobile-first, quick to load</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Search-friendly structure</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Written around your services</li>
               </ul>
+              <div class="svc-go"><button class="btn btn-ghost" data-route="website-design">Learn more</button></div>
             </article>
 
             <article class="svc-card reveal d2">
@@ -1097,19 +1199,35 @@
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call and email</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Fewer missed leads</li>
               </ul>
+              <div class="svc-go"><button class="btn btn-ghost" data-route="lead-capture">Learn more</button></div>
             </article>
 
             <article class="svc-card reveal d3">
               <div class="svc-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 14l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6"/></svg>
               </div>
-              <h3>Bookings</h3>
-              <p>Let customers request a slot without the back-and-forth, so your calendar fills itself.</p>
+              <h3>Google Business Profile</h3>
+              <p>Show up on Google Maps and local search when nearby customers look for what you do.</p>
               <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Request-a-booking flow</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Clear service and pricing info</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Less admin, more work done</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Profile set up and verified</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Photos, services and hours done right</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>More calls from Maps</li>
               </ul>
+              <div class="svc-go"><button class="btn btn-ghost" data-route="google-business">Learn more</button></div>
+            </article>
+
+            <article class="svc-card reveal d4">
+              <div class="svc-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 7v6h-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>SEO Optimization</h3>
+              <p>Climb the search results for the services and areas you actually work in, month by month.</p>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Rank for local searches</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Pages tuned for your keywords</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Traffic that turns into enquiries</li>
+              </ul>
+              <div class="svc-go"><button class="btn btn-ghost" data-route="seo">Learn more</button></div>
             </article>
           </div>
         </div>
@@ -1121,57 +1239,39 @@
           <div class="head-block head-center reveal">
             <span class="eyebrow">Your website in four steps</span>
             <h2>From business idea to live website, <span class="grad-text">the easy way</span></h2>
-            <p class="lead">Buy your domain and hosting, tell us about your business, copy the personalised
-              prompt we build for you, and paste it into Claude to generate your site. We are here whenever
-              you want it handled for you.</p>
+            <p class="lead">Tell us about your business, copy the personalised prompt we build for you,
+              paste it into Claude to generate your site, then get hosting and put it live. The first three
+              steps cost nothing &mdash; and we are here whenever you want it handled for you.</p>
           </div>
 
           <!-- Progress -->
           <div class="progress" id="progress" role="list" aria-label="Journey progress">
             <button class="progress-step reached" data-step="1" role="listitem">
               <div class="bar"></div>
-              <span class="idx"><span class="num">1</span> Domain &amp; hosting</span>
-              <span class="cap">Secure your web address</span>
+              <span class="idx"><span class="num">1</span> Business details</span>
+              <span class="cap">Tell us about you &mdash; free</span>
             </button>
             <button class="progress-step" data-step="2" role="listitem">
               <div class="bar"></div>
-              <span class="idx"><span class="num">2</span> Business details</span>
-              <span class="cap">Tell us about you</span>
+              <span class="idx"><span class="num">2</span> Copy your prompt</span>
+              <span class="cap">Personalised for you</span>
             </button>
             <button class="progress-step" data-step="3" role="listitem">
               <div class="bar"></div>
-              <span class="idx"><span class="num">3</span> Copy your prompt</span>
-              <span class="cap">Personalised for you</span>
+              <span class="idx"><span class="num">3</span> Generate in Claude</span>
+              <span class="cap">Your site, built</span>
             </button>
             <button class="progress-step" data-step="4" role="listitem">
               <div class="bar"></div>
-              <span class="idx"><span class="num">4</span> Generate in Claude</span>
-              <span class="cap">Your site, built</span>
+              <span class="idx"><span class="num">4</span> Hosting &amp; go live</span>
+              <span class="cap">Put it on the internet</span>
             </button>
           </div>
 
           <div class="steps">
-            <!-- Step 1 -->
+            <!-- Step 1: business details -->
             <article class="step-card reveal" id="step-1">
               <div class="step-badge" aria-hidden="true">1</div>
-              <div class="step-body">
-                <h3>Get your domain and hosting</h3>
-                <p>Every website needs a home. We recommend Hostinger for reliable, affordable hosting
-                  and domains in South Africa. Set up your account first so your site has somewhere to live.</p>
-                <div class="step-actions">
-                  <a class="btn btn-primary" href="https://www.hostinger.com?REFERRALCODE=VDSTUDIO"
-                     target="_blank" rel="noopener sponsored" data-complete="1">
-                    Get hosting on Hostinger
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </a>
-                  <span class="step-note">Opens in a new tab. This is our affiliate link, at no extra cost to you.</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Step 2 -->
-            <article class="step-card reveal" id="step-2">
-              <div class="step-badge" aria-hidden="true">2</div>
               <div class="step-body">
                 <h3>Tell us about your business</h3>
                 <p>Fill in the details below. We use them to build a personalised website-generation prompt.
@@ -1246,9 +1346,9 @@
               </div>
             </article>
 
-            <!-- Step 3 -->
-            <article class="step-card reveal" id="step-3">
-              <div class="step-badge" aria-hidden="true">3</div>
+            <!-- Step 2: the prompt -->
+            <article class="step-card reveal" id="step-2">
+              <div class="step-badge" aria-hidden="true">2</div>
               <div class="step-body">
                 <h3>Review and copy your prompt</h3>
                 <p>Here is your personalised website-generation prompt. Read it over, then copy it. You can
@@ -1263,24 +1363,21 @@
                     </button>
                   </div>
                   <div class="prompt-box" id="promptBox" aria-live="polite">
-                    <p class="prompt-empty" id="promptEmpty">Your prompt will appear here once you complete step 2 above.</p>
+                    <p class="prompt-empty" id="promptEmpty">Your prompt will appear here once you complete step 1 above.</p>
                     <pre id="promptText" hidden></pre>
                   </div>
                 </div>
               </div>
             </article>
 
-            <!-- Step 4 -->
-            <article class="step-card reveal" id="step-4">
-              <div class="step-badge" aria-hidden="true">4</div>
+            <!-- Step 3: generate in Claude -->
+            <article class="step-card reveal" id="step-3">
+              <div class="step-badge" aria-hidden="true">3</div>
               <div class="step-body">
                 <h3>Paste it into Claude and generate</h3>
-                <p>Open Claude, paste your prompt, and let it build your website project. Then follow the
-                  setup and deployment instructions it gives you to get it live. Prefer to skip the work?
-                  We will take it from here and handle the whole build for you.</p>
-                <p class="step-note" style="margin-top:12px;" id="hostNote">Note: with the simple website option,
-                  Claude gives you plain HTML files. Upload them to your Hostinger File Manager (the public_html folder)
-                  and your site is live — standard shared hosting is all you need.</p>
+                <p>New to Claude? It is a free AI assistant at claude.ai &mdash; you paste your prompt in,
+                  and it writes your whole website for you. Open it, paste, and watch your site take shape.
+                  Prefer to skip the work? We will take it from here and handle the whole build for you.</p>
                 <div class="step-actions">
                   <a class="btn btn-primary" href="https://claude.ai" target="_blank" rel="noopener">
                     Open Claude
@@ -1289,6 +1386,27 @@
                   <button class="btn btn-ghost" data-modal data-interest="Have VDS build my site">
                     Have us build it instead
                   </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Step 4: hosting, last — when motivation is highest -->
+            <article class="step-card reveal" id="step-4">
+              <div class="step-badge" aria-hidden="true">4</div>
+              <div class="step-body">
+                <h3>Get hosting and put your site live</h3>
+                <p>Your website is built &mdash; now it needs a home on the internet. We recommend Hostinger
+                  for reliable, affordable hosting and .co.za domains in South Africa.</p>
+                <p class="step-note" style="margin-top:12px;" id="hostNote">Note: with the simple website option,
+                  Claude gives you plain HTML files. Upload them to your Hostinger File Manager (the public_html folder)
+                  and your site is live — standard shared hosting is all you need.</p>
+                <div class="step-actions">
+                  <a class="btn btn-primary" href="https://www.hostinger.com?REFERRALCODE=VDSTUDIO"
+                     target="_blank" rel="noopener sponsored" data-complete="4">
+                    Get hosting on Hostinger
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                  <span class="step-note">Opens in a new tab. This is our affiliate link, at no extra cost to you.</span>
                 </div>
               </div>
             </article>
@@ -1306,7 +1424,7 @@
               <div class="feat-list">
                 <div class="feat-item">
                   <span class="ic" aria-hidden="true">🎯</span>
-                  <div><h4>Built around your leads</h4><p>Every page points customers toward getting in touch or booking. Design serves the outcome.</p></div>
+                  <div><h4>Built around your leads</h4><p>Every page points customers toward getting in touch. Design serves the outcome.</p></div>
                 </div>
                 <div class="feat-item">
                   <span class="ic" aria-hidden="true">💬</span>
@@ -1324,10 +1442,122 @@
               <div class="panel-mini">
                 <div><div class="n grad-text">Design</div><div class="l">Premium, on-brand websites</div></div>
                 <div><div class="n grad-text">Capture</div><div class="l">Leads via WhatsApp</div></div>
-                <div><div class="n grad-text">Bookings</div><div class="l">Fill your calendar</div></div>
+                <div><div class="n grad-text">Google</div><div class="l">Get found locally</div></div>
                 <div><div class="n grad-text">Local</div><div class="l">Pretoria, Joburg, Cape Town</div></div>
               </div>
             </aside>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DEMO SHOWCASE: concept builds ===== -->
+      <div class="section-pad" id="work">
+        <div class="wrap">
+          <div class="head-block head-center reveal">
+            <span class="eyebrow">Concept builds</span>
+            <h2>See the quality <span class="grad-text">before you commit</span></h2>
+            <p class="lead">These are live concept sites we built to show what is possible &mdash; fictional
+              businesses, real craftsmanship. Open any one and explore it as if it were your own.</p>
+          </div>
+          <div class="showcase-grid">
+
+            <article class="demo-card reveal">
+              <div class="demo-chrome" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url">veneerdigital.co.za/demo/onestone</span>
+              </div>
+              <div class="demo-body">
+                <span class="demo-tag">Interior Design</span>
+                <h3>OneStone Interiors</h3>
+                <p>A premium interior design &amp; d&eacute;cor studio &mdash; custom TV units, drywall ceilings,
+                  cove lighting and cabinetry, with a full portfolio.</p>
+                <a class="btn btn-primary" href="/demo/onestone/" target="_blank" rel="noopener">
+                  View live demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="demo-card reveal d1">
+              <div class="demo-chrome" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url">veneerdigital.co.za/demo/vuyo-designs</span>
+              </div>
+              <div class="demo-body">
+                <span class="demo-tag">Luxury Home Design</span>
+                <h3>Vuyo Designs</h3>
+                <p>An elegant, editorial home-design brand with a refined product showcase and a warm,
+                  high-end feel throughout.</p>
+                <a class="btn btn-primary" href="/demo/vuyo-designs/" target="_blank" rel="noopener">
+                  View live demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="demo-card reveal d2">
+              <div class="demo-chrome" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url">veneerdigital.co.za/demo/novacode</span>
+              </div>
+              <div class="demo-body">
+                <span class="demo-tag">Coding &amp; Robotics</span>
+                <h3>NovaCode Academy</h3>
+                <p>A coding &amp; robotics academy for schools &mdash; a full multi-page site with services,
+                  curriculum and SEO landing pages for every province.</p>
+                <a class="btn btn-primary" href="/demo/novacode/" target="_blank" rel="noopener">
+                  View live demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="demo-card reveal">
+              <div class="demo-chrome" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url">veneerdigital.co.za/demo/dental-clinic</span>
+              </div>
+              <div class="demo-body">
+                <span class="demo-tag">Dental Practice</span>
+                <h3>BrightSmile Dental</h3>
+                <p>A dental practice with a real, working online booking system &mdash; pick a service, choose
+                  a time slot, and a private admin dashboard behind it.</p>
+                <span class="demo-live"><span class="pulse"></span> Live online booking</span>
+                <a class="btn btn-primary" href="/demo/dental-clinic/" target="_blank" rel="noopener">
+                  View live demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="demo-card reveal d1">
+              <div class="demo-chrome" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url">veneerdigital.co.za/demo/lingenfelder</span>
+              </div>
+              <div class="demo-body">
+                <span class="demo-tag">Custom Woodwork</span>
+                <h3>Lingenfelder Joinery</h3>
+                <p>A custom cabinetry &amp; joinery workshop with a project gallery and live online
+                  appointment booking for consultations.</p>
+                <span class="demo-live"><span class="pulse"></span> Live online booking</span>
+                <a class="btn btn-primary" href="/demo/lingenfelder/" target="_blank" rel="noopener">
+                  View live demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="demo-card reveal d2" style="justify-content:center;align-items:center;text-align:center;padding:8px;">
+              <div class="demo-body" style="align-items:center;">
+                <span class="demo-tag">Your business next</span>
+                <h3>Could be your site</h3>
+                <p>Like what you see? We build the same quality around your business &mdash; done for you, or
+                  free with our prompt builder.</p>
+                <button class="btn btn-ghost" data-modal data-interest="Saw the demos">Start my project</button>
+              </div>
+            </article>
+
           </div>
         </div>
       </div>
@@ -1374,7 +1604,7 @@
             <div class="value-grid reveal d2">
               <div class="value-card"><div class="ic" aria-hidden="true">🏗️</div><h4>Practical craft</h4><p>Clean, considered builds. No clutter, no filler, just what moves your business forward.</p></div>
               <div class="value-card"><div class="ic" aria-hidden="true">🤝</div><h4>Clear process</h4><p>You always know what happens next, from first message to a live, working site.</p></div>
-              <div class="value-card"><div class="ic" aria-hidden="true">📈</div><h4>Lead focused</h4><p>We measure success by enquiries and bookings, not just how the site looks.</p></div>
+              <div class="value-card"><div class="ic" aria-hidden="true">📈</div><h4>Lead focused</h4><p>We measure success by enquiries and calls, not just how the site looks.</p></div>
               <div class="value-card"><div class="ic" aria-hidden="true">🇿🇦</div><h4>Local and remote</h4><p>Rooted in South Africa, working with businesses in every province.</p></div>
             </div>
           </div>
@@ -1407,16 +1637,16 @@
         <div class="wrap">
           <div class="head-block reveal">
             <span class="eyebrow">Our services</span>
-            <h1 style="font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:16px;">Everything you need to turn a website into booked work</h1>
-            <p class="lead">Three focused services that work together. Start with one, or let us handle all of it.</p>
+            <h1 style="font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:16px;">Everything you need to get found, chosen and contacted</h1>
+            <p class="lead">Four focused services that work together. Start with one, or let us handle all of it.</p>
           </div>
 
-          <div class="svc-grid">
+          <div class="svc-grid four">
             <article class="svc-card reveal d1">
               <div class="svc-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3" stroke-linecap="round"/></svg>
               </div>
-              <h3>Website Designs</h3>
+              <h3>Website Design</h3>
               <p>A premium, mobile-first website built around your services, your area, and the way you want
                 customers to get in touch. Clean structure that search engines and people both understand.</p>
               <ul>
@@ -1425,6 +1655,10 @@
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Copy written around your services</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Search-friendly, semantic build</li>
               </ul>
+              <div class="svc-go">
+                <button class="btn btn-primary" data-modal data-interest="Website Design">Start my website</button>
+                <button class="btn btn-ghost" data-route="website-design">Full details</button>
+              </div>
             </article>
 
             <article class="svc-card reveal d2">
@@ -1440,21 +1674,48 @@
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Pre-filled enquiry messages</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Fewer leads lost to slow replies</li>
               </ul>
+              <div class="svc-go">
+                <button class="btn btn-primary" data-modal data-interest="Lead Capture">Capture my leads</button>
+                <button class="btn btn-ghost" data-route="lead-capture">Full details</button>
+              </div>
             </article>
 
             <article class="svc-card reveal d3">
               <div class="svc-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 14l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6"/></svg>
               </div>
-              <h3>Bookings</h3>
-              <p>Give customers a clear way to request a slot without a single phone call. Fewer missed
-                messages, less admin, and a calendar that fills itself while you work.</p>
+              <h3>Google Business Profile</h3>
+              <p>When someone nearby searches for what you do, your business should be the one they see on
+                Google Maps &mdash; with photos, reviews, hours and a tap-to-call button that works.</p>
               <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Request-a-booking flow</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Clear service and pricing details</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Works alongside WhatsApp</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Less back-and-forth admin</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Profile created, verified and claimed</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Categories, services and areas set up properly</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Photos and posts that build trust</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>A plan to gather real reviews</li>
               </ul>
+              <div class="svc-go">
+                <button class="btn btn-primary" data-modal data-interest="Google Business Profile">Get me on Google</button>
+                <button class="btn btn-ghost" data-route="google-business">Full details</button>
+              </div>
+            </article>
+
+            <article class="svc-card reveal d4">
+              <div class="svc-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 7v6h-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>SEO Optimization</h3>
+              <p>Being online is not the same as being found. We tune your site so it ranks for the services
+                you offer in the areas you work, and keeps climbing month after month.</p>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Keyword research for your trade and area</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Page titles, content and structure tuned</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Local landing pages that rank</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Plain-language progress reports</li>
+              </ul>
+              <div class="svc-go">
+                <button class="btn btn-primary" data-modal data-interest="SEO Optimization">Boost my rankings</button>
+                <button class="btn btn-ghost" data-route="seo">Full details</button>
+              </div>
             </article>
           </div>
 
@@ -1466,7 +1727,7 @@
           <div class="faq" id="faq">
             <div class="faq-item">
               <button class="faq-q" aria-expanded="false">What kind of businesses do you work with?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></button>
-              <div class="faq-a"><p>Any industry. We build for trades, salons, consultants, retailers, health practices and more. If your business needs enquiries and bookings, the approach works.</p></div>
+              <div class="faq-a"><p>Any industry. We build for trades, salons, consultants, retailers, health practices and more. If your business needs enquiries and customers, the approach works.</p></div>
             </div>
             <div class="faq-item">
               <button class="faq-q" aria-expanded="false">How does WhatsApp lead capture work?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></button>
@@ -1543,7 +1804,7 @@
               <ul>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in the Launch Special</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Google Business Profile optimisation</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Advanced booking system</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>On-page SEO optimisation</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>WhatsApp lead generation</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly support and content edits</li>
               </ul>
@@ -1558,7 +1819,7 @@
               <div class="price-from">Scoped to your project</div>
               <ul>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Growth</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Advanced bookings and systems</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full local SEO campaign</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom integrations</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support options</li>
               </ul>
@@ -1625,7 +1886,7 @@
               <span class="stars" aria-label="5 out of 5 stars">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.2l1.4-6.8L2.3 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.2l1.4-6.8L2.3 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.2l1.4-6.8L2.3 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.2l1.4-6.8L2.3 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.2l1.4-6.8L2.3 9l6.9-.7z"/></svg>
               </span>
-              <p class="rev-quote">"I run a small guesthouse and needed bookings without the admin. The booking system Matt built pays for itself every month."</p>
+              <p class="rev-quote">"I run a small guesthouse and nobody could find us online. Since Matt set up our Google profile and site, we show up on Maps and the phone rings."</p>
               <div class="rev-author"><span class="rev-avatar">SB</span><div><b>Sarah Botha</b><span>Karoo View Guesthouse, Bloemfontein</span></div></div>
             </article>
 
@@ -1726,6 +1987,150 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ============================= SERVICE: WEBSITE DESIGN ============================= -->
+    <section class="page" id="page-website-design" aria-label="Website Design service">
+      <div class="section-pad"><div class="wrap">
+        <div class="head-block reveal">
+          <span class="eyebrow">Our services &mdash; Website Design</span>
+          <h1 style="font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:16px;">A website that makes customers choose <span class="grad-text">you</span></h1>
+          <p class="lead">Your website is your shop front, open 24 hours a day. We design and build it from
+            scratch around your business: what you do, where you work, and how you want customers to reach
+            you. No templates, no fluff &mdash; a fast, professional site that turns visitors into enquiries.</p>
+        </div>
+        <div class="value-grid reveal d1">
+          <div class="value-card"><div class="ic" aria-hidden="true">🎨</div><h4>Designed for your business</h4><p>Custom layout, colours and copy written around your actual services and service area — it looks like you, not a template.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">📱</div><h4>Perfect on every phone</h4><p>Most of your customers browse on mobile data. Your site loads fast and reads clearly on any screen size.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">🔍</div><h4>Built to be found</h4><p>Search-friendly structure from day one: clean pages, proper titles and the groundwork Google needs to rank you.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">💬</div><h4>Enquiries built in</h4><p>Every page guides visitors toward contacting you — WhatsApp, call or email — so the site earns its keep.</p></div>
+        </div>
+        <div class="cta-band" style="margin-top:clamp(48px,6vw,80px);">
+          <div class="cta-inner reveal">
+            <span class="eyebrow" style="justify-content:center;">Ready when you are</span>
+            <h2>Ready for a website that wins you work?</h2>
+            <p class="lead">Tell us about your business and we will map out your site, timeline and price — no obligation.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" data-modal data-interest="Website Design">Start my website</button>
+              <button class="btn btn-ghost" data-route="pricing">See pricing</button>
+            </div>
+          </div>
+        </div>
+        <div class="legal-nav reveal">
+          <button class="btn btn-ghost" data-route="lead-capture">Lead Capture</button>
+          <button class="btn btn-ghost" data-route="google-business">Google Business Profile</button>
+          <button class="btn btn-ghost" data-route="seo">SEO Optimization</button>
+          <button class="btn btn-ghost" data-route="services">All services</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ============================= SERVICE: LEAD CAPTURE ============================= -->
+    <section class="page" id="page-lead-capture" aria-label="Lead Capture service">
+      <div class="section-pad"><div class="wrap">
+        <div class="head-block reveal">
+          <span class="eyebrow">Our services &mdash; Lead Capture</span>
+          <h1 style="font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:16px;">Never miss another enquiry, <span class="grad-text">even while you work</span></h1>
+          <p class="lead">A visitor who cannot reach you in ten seconds moves on to the next business. We wire
+            your website so every enquiry lands somewhere you will actually see it &mdash; usually WhatsApp,
+            the app you already check all day.</p>
+        </div>
+        <div class="value-grid reveal d1">
+          <div class="value-card"><div class="ic" aria-hidden="true">🟢</div><h4>WhatsApp buttons everywhere</h4><p>One tap opens a chat with your business, often with the message already written. Customers reach you on the app they use daily.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">📞</div><h4>Click-to-call and email</h4><p>Phone numbers that dial when tapped, email links that open ready to send. Zero friction between interest and contact.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">📝</div><h4>Simple enquiry forms</h4><p>Short, focused forms that send straight to your inbox — asking only what you need to quote the job.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">⏱️</div><h4>Faster replies win jobs</h4><p>The first business to respond usually gets the work. Instant notifications mean that business is yours.</p></div>
+        </div>
+        <div class="cta-band" style="margin-top:clamp(48px,6vw,80px);">
+          <div class="cta-inner reveal">
+            <span class="eyebrow" style="justify-content:center;">Stop the leaks</span>
+            <h2>How many enquiries slipped past you this month?</h2>
+            <p class="lead">Let us wire your website to WhatsApp so the next curious visitor becomes a conversation, not a missed chance.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" data-modal data-interest="Lead Capture">Capture my leads</button>
+              <button class="btn btn-ghost" data-route="pricing">See pricing</button>
+            </div>
+          </div>
+        </div>
+        <div class="legal-nav reveal">
+          <button class="btn btn-ghost" data-route="website-design">Website Design</button>
+          <button class="btn btn-ghost" data-route="google-business">Google Business Profile</button>
+          <button class="btn btn-ghost" data-route="seo">SEO Optimization</button>
+          <button class="btn btn-ghost" data-route="services">All services</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ============================= SERVICE: GOOGLE BUSINESS PROFILE ============================= -->
+    <section class="page" id="page-google-business" aria-label="Google Business Profile service">
+      <div class="section-pad"><div class="wrap">
+        <div class="head-block reveal">
+          <span class="eyebrow">Our services &mdash; Google Business Profile</span>
+          <h1 style="font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:16px;">Be the business they find <span class="grad-text">on Google Maps</span></h1>
+          <p class="lead">When someone nearby searches "plumber near me" or "salon in Pretoria", Google shows a
+            map with three businesses first. We set up and optimise your Google Business Profile so one of
+            them is you &mdash; with photos, reviews, hours and a tap-to-call button.</p>
+        </div>
+        <div class="value-grid reveal d1">
+          <div class="value-card"><div class="ic" aria-hidden="true">📍</div><h4>Set up, verified, claimed</h4><p>We create or claim your profile, get it verified with Google, and make sure you own it — not a former employee or old agency.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">🗂️</div><h4>Every detail done right</h4><p>Correct categories, services, service areas, hours and description — the details Google uses to decide who shows up first.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">📸</div><h4>Photos that build trust</h4><p>Profiles with real photos of your work get dramatically more calls. We help you choose and load the right ones.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">⭐</div><h4>A plan for real reviews</h4><p>Reviews decide who gets the call. We give you a simple, honest routine for asking happy customers to leave one.</p></div>
+        </div>
+        <div class="cta-band" style="margin-top:clamp(48px,6vw,80px);">
+          <div class="cta-inner reveal">
+            <span class="eyebrow" style="justify-content:center;">Get on the map</span>
+            <h2>Your next customer is searching right now</h2>
+            <p class="lead">If your business is not on that map, the call goes to someone who is. Let us fix that this week.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" data-modal data-interest="Google Business Profile">Get me on Google</button>
+              <button class="btn btn-ghost" data-route="pricing">See pricing</button>
+            </div>
+          </div>
+        </div>
+        <div class="legal-nav reveal">
+          <button class="btn btn-ghost" data-route="website-design">Website Design</button>
+          <button class="btn btn-ghost" data-route="lead-capture">Lead Capture</button>
+          <button class="btn btn-ghost" data-route="seo">SEO Optimization</button>
+          <button class="btn btn-ghost" data-route="services">All services</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ============================= SERVICE: SEO OPTIMIZATION ============================= -->
+    <section class="page" id="page-seo" aria-label="SEO Optimization service">
+      <div class="section-pad"><div class="wrap">
+        <div class="head-block reveal">
+          <span class="eyebrow">Our services &mdash; SEO Optimization</span>
+          <h1 style="font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:16px;">Climb the search results, <span class="grad-text">month after month</span></h1>
+          <p class="lead">Having a website is not the same as being found. SEO is the steady work of making
+            Google trust your site enough to show it when your customers search. We do that work in plain
+            sight, and report on it in plain language.</p>
+        </div>
+        <div class="value-grid reveal d1">
+          <div class="value-card"><div class="ic" aria-hidden="true">🔑</div><h4>Keywords that matter</h4><p>We research what your customers actually type — "geyser repair Centurion", not industry jargon — and target those searches.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">📄</div><h4>Pages tuned to rank</h4><p>Titles, descriptions, headings and content optimised page by page, plus local landing pages for each area you serve.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">⚙️</div><h4>Technical health</h4><p>Speed, mobile performance, sitemaps and structured data — the behind-the-scenes signals Google rewards.</p></div>
+          <div class="value-card"><div class="ic" aria-hidden="true">📊</div><h4>Reports you can read</h4><p>No jargon dashboards. Each month you see what moved, what we did, and what comes next — in plain English.</p></div>
+        </div>
+        <div class="cta-band" style="margin-top:clamp(48px,6vw,80px);">
+          <div class="cta-inner reveal">
+            <span class="eyebrow" style="justify-content:center;">Start climbing</span>
+            <h2>Page two of Google is where businesses hide</h2>
+            <p class="lead">Every month you wait, competitors collect the searches that should be yours. Let us start the climb.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" data-modal data-interest="SEO Optimization">Boost my rankings</button>
+              <button class="btn btn-ghost" data-route="pricing">See pricing</button>
+            </div>
+          </div>
+        </div>
+        <div class="legal-nav reveal">
+          <button class="btn btn-ghost" data-route="website-design">Website Design</button>
+          <button class="btn btn-ghost" data-route="lead-capture">Lead Capture</button>
+          <button class="btn btn-ghost" data-route="google-business">Google Business Profile</button>
+          <button class="btn btn-ghost" data-route="services">All services</button>
+        </div>
+      </div></div>
     </section>
 
     <!-- ============================= TERMS OF SERVICE ============================= -->
@@ -2177,9 +2582,10 @@
         <div class="footer-col">
           <h5>Services</h5>
           <ul>
-            <li><button class="linklike" data-route="services">Website Designs</button></li>
-            <li><button class="linklike" data-route="services">Lead Capture</button></li>
-            <li><button class="linklike" data-route="services">Bookings</button></li>
+            <li><button class="linklike" data-route="website-design">Website Design</button></li>
+            <li><button class="linklike" data-route="lead-capture">Lead Capture</button></li>
+            <li><button class="linklike" data-route="google-business">Google Business Profile</button></li>
+            <li><button class="linklike" data-route="seo">SEO Optimization</button></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -2322,7 +2728,8 @@
                 <option value="New website">A new website</option>
                 <option value="Website revamp">A website revamp</option>
                 <option value="Lead capture">Lead capture / WhatsApp</option>
-                <option value="Bookings">A booking system</option>
+                <option value="Google Business Profile">Google Business Profile</option>
+                <option value="SEO Optimization">SEO / getting found on Google</option>
                 <option value="Not sure yet">Not sure yet, need advice</option>
               </select>
             </div>
@@ -2368,13 +2775,19 @@
     "use strict";
 
     /* ---------- Page routing ---------- */
-    var routes = ["home", "about", "services", "pricing", "contact", "terms", "privacy", "popia", "cookies"];
+    var routes = ["home", "about", "services", "pricing", "contact",
+                  "website-design", "lead-capture", "google-business", "seo",
+                  "terms", "privacy", "popia", "cookies"];
     var titles = {
       home:     "Veneer Digital Studio | Premium Websites & Lead Capture | South Africa",
       about:    "About | Veneer Digital Studio | Web Design South Africa",
-      services: "Services | Website Designs, Lead Capture & Bookings | Veneer Digital Studio",
+      services: "Services | Website Design, Google Business Profile & SEO | Veneer Digital Studio",
       pricing:  "Pricing | Veneer Digital Studio | Web Design South Africa",
       contact:  "Contact | Veneer Digital Studio | Pretoria, Johannesburg & Cape Town",
+      "website-design":  "Website Design | Veneer Digital Studio | South Africa",
+      "lead-capture":    "WhatsApp Lead Capture | Veneer Digital Studio | South Africa",
+      "google-business": "Google Business Profile Setup | Veneer Digital Studio | South Africa",
+      seo:               "SEO Optimization | Veneer Digital Studio | South Africa",
       terms:    "Terms and Conditions | Veneer Digital Studio",
       privacy:  "Privacy Policy | Veneer Digital Studio",
       popia:    "POPIA Compliance | Veneer Digital Studio",
@@ -2574,9 +2987,9 @@
       });
     });
 
-    // Step 1 completion when the Hostinger link is used
-    var hostingerLink = document.querySelector('[data-complete="1"]');
-    if (hostingerLink) hostingerLink.addEventListener("click", function () { markStep(1, true); });
+    // Step 4 completion when the Hostinger link is used (hosting is the final step)
+    var hostingerLink = document.querySelector('[data-complete="4"]');
+    if (hostingerLink) hostingerLink.addEventListener("click", function () { markStep(4, true); });
 
     function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
 
@@ -2743,11 +3156,11 @@
         promptEmpty.hidden = true;
         copyBtn.disabled = false;
 
-        // Advance progress and reveal step 3
-        markStep(3, true);
+        // Advance progress and reveal step 2 (the prompt)
+        markStep(2, true);
         if (!silentRebuild) {
-          var s3 = document.getElementById("step-3");
-          if (s3) s3.scrollIntoView({ behavior: "smooth", block: "start" });
+          var s2 = document.getElementById("step-2");
+          if (s2) s2.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       });
     }
@@ -2776,7 +3189,7 @@
       copyBtn.addEventListener("click", function () {
         var text = promptText.textContent;
         function done() {
-          markStep(4, true);
+          markStep(3, true);
           copiedFlag.classList.add("show");
           setTimeout(function () { copiedFlag.classList.remove("show"); }, 2200);
         }

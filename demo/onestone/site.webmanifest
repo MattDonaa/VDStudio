@@ -1,0 +1,10 @@
+{
+  "name": "OneStone Interior Design and Decor",
+  "short_name": "OneStone",
+  "description": "Premium bespoke interior design, decor, TV units, drywall ceilings, lighting and cabinetry.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#151413",
+  "theme_color": "#151413",
+  "icons": []
+}
