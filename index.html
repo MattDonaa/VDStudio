@@ -17,13 +17,13 @@
   <meta property="og:title" content="Veneer Digital Studio | Premium Websites &amp; Lead Capture">
   <meta property="og:description" content="Premium websites and WhatsApp lead-capture systems for South African businesses. Pretoria, Johannesburg and Cape Town.">
   <meta property="og:url" content="https://veneerdigital.co.za/">
-  <meta property="og:image" content="https://veneerdigital.co.za/assets/images/veneer-digital-studio-web-design-south-africa.jpg">
+  <meta property="og:image" content="https://veneerdigital.co.za/assets/images/vds-hero-premium-websites.jpg">
   <meta property="og:locale" content="en_ZA">
   <meta property="og:site_name" content="Veneer Digital Studio">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Veneer Digital Studio | Premium Websites &amp; Lead Capture">
   <meta name="twitter:description" content="Premium websites and WhatsApp lead-capture systems for South African businesses.">
-  <meta name="twitter:image" content="https://veneerdigital.co.za/assets/images/veneer-digital-studio-web-design-south-africa.jpg">
+  <meta name="twitter:image" content="https://veneerdigital.co.za/assets/images/vds-hero-premium-websites.jpg">
 
   <!-- Favicon: amber monogram, inline so nothing can break -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050505'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='40' font-weight='700' text-anchor='middle' fill='%23F27D26'%3EV%3C/text%3E%3C/svg%3E">
@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
 
   <!-- Preload the LCP hero image so it paints fast -->
-  <link rel="preload" as="image" href="assets/images/veneer-digital-studio-web-design-south-africa.jpg">
+  <link rel="preload" as="image" href="assets/images/vds-hero-premium-websites.jpg">
 
   <!-- Structured data: local business for South African SEO -->
   <script type="application/ld+json">
@@ -45,7 +45,7 @@
     "description": "Premium website design and WhatsApp lead-capture systems for South African businesses.",
     "url": "https://veneerdigital.co.za/",
     "email": "matt@veneerdigital.co.za",
-    "image": "https://veneerdigital.co.za/assets/images/veneer-digital-studio-web-design-south-africa.jpg",
+    "image": "https://veneerdigital.co.za/assets/images/vds-hero-premium-websites.jpg",
     "priceRange": "RRR",
     "areaServed": ["Pretoria", "Johannesburg", "Cape Town", "South Africa"],
     "address": {
@@ -162,6 +162,38 @@
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
     }
+    /* Quiet connector tone inside the hero headline (bright -> quiet -> gradient) */
+    .h1-soft { color: var(--text-3); font-weight: 600; }
+
+    /* Availability pill (hero trust signal) */
+    .avail-pill {
+      display: inline-flex; align-items: center;
+      background: var(--surface-2); border: 1px solid var(--line-2);
+      border-radius: 999px; padding: 8px 16px 8px 13px;
+      font-family: "Sora", sans-serif; font-size: 12.5px; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .avail-pill .seg1 {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--white); padding-right: 14px;
+    }
+    .avail-pill .seg2 {
+      color: var(--text-3); border-left: 1px solid var(--line-2); padding-left: 14px;
+    }
+    .avail-dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #34d399; flex: 0 0 auto; }
+    .avail-dot::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%; background: #34d399;
+      animation: avail-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes avail-ping {
+      0% { transform: scale(1); opacity: 0.75; }
+      75%, 100% { transform: scale(2.7); opacity: 0; }
+    }
+    @media (max-width: 400px) {
+      .avail-pill { font-size: 11.5px; padding: 7px 12px 7px 11px; }
+      .avail-pill .seg1 { padding-right: 10px; }
+      .avail-pill .seg2 { padding-left: 10px; }
+    }
 
     .lead { color: var(--text-2); font-size: clamp(1rem, 1.6vw, 1.15rem); max-width: 60ch; }
 
@@ -277,7 +309,7 @@
     .hero { position: relative; padding-top: clamp(40px, 6vw, 72px); }
     .hero-grid {
       display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 4vw, 64px);
-      align-items: center;
+      align-items: start;
     }
     .hero h1 { font-size: clamp(2.5rem, 5.6vw, 4.4rem); font-weight: 800; }
     .hero h1 .grad-text { display: inline-block; padding-bottom: 0.08em; }
@@ -298,18 +330,47 @@
                   linear-gradient(120deg, rgba(242,125,38,0.14), transparent 55%);
     }
     .hero-media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3.2; }
-    .hero-badge {
-      position: absolute; left: -14px; bottom: 24px; z-index: 3;
-      background: rgba(11, 11, 11, 0.86); backdrop-filter: blur(8px);
-      border: 1px solid var(--line-2); border-radius: 16px; padding: 14px 18px;
-      display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow);
+    /* Floating live stat cards over the hero device frame */
+    .stat-card {
+      position: absolute; z-index: 3;
+      background: #FDFCFA; color: #17130f;
+      border-radius: 16px; padding: 14px 18px;
+      box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(23, 19, 15, 0.06);
     }
-    .hero-badge .dot {
-      width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
-      background: var(--grad-soft); color: var(--brand-3);
+    .stat-traffic { left: -16px; bottom: 22px; padding: 18px 22px 16px; min-width: 230px; }
+    .stat-traffic .head { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+    .stat-traffic .head .ic {
+      width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+      background: rgba(242, 125, 38, 0.14); color: var(--brand);
     }
-    .hero-badge b { font-family: "Sora", sans-serif; font-size: 14px; color: var(--white); display: block; }
-    .hero-badge span { font-size: 12px; color: var(--text-3); }
+    .stat-traffic .head .t { font-family: "Sora", sans-serif; font-size: 12.5px; font-weight: 600; color: #57503f; }
+    .stat-live {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-family: "Sora", sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em;
+      color: #157f4f; background: rgba(52, 211, 153, 0.14); border-radius: 999px; padding: 4px 9px;
+    }
+    .stat-live .avail-dot { width: 6px; height: 6px; }
+    .stat-traffic .big {
+      font-family: "Sora", sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.1; font-variant-numeric: tabular-nums;
+    }
+    .stat-traffic .sub { font-size: 12px; color: #857c6e; margin-top: 2px; }
+    .stat-traffic .sub b { color: #157f4f; font-weight: 700; }
+    .stat-traffic svg.spark { display: block; width: 100%; height: 40px; margin-top: 10px; }
+    .stat-leads { right: -14px; top: 70px; display: flex; align-items: center; gap: 12px; }
+    .stat-leads .ic {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: rgba(52, 211, 153, 0.15); color: #157f4f;
+    }
+    .stat-leads .n { font-family: "Sora", sans-serif; font-size: 19px; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .stat-leads .l { font-size: 11.5px; color: #857c6e; }
+    .stat-rank { right: 26px; bottom: -18px; display: flex; align-items: center; gap: 12px; }
+    .stat-rank .ic {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: rgba(242, 125, 38, 0.14); color: var(--brand);
+    }
+    .stat-rank .n { font-family: "Sora", sans-serif; font-size: 19px; font-weight: 800; line-height: 1.1; }
+    .stat-rank .l { font-size: 11.5px; color: #857c6e; }
 
     /* ---------- Trust strip ---------- */
     .trust {
@@ -712,7 +773,8 @@
 
     /* Social icons (hero + footer) */
     .social-row { display: flex; gap: 10px; align-items: center; }
-    .social-row.hero-social { justify-content: flex-end; margin-bottom: 12px; }
+    .social-row.hero-social { justify-content: flex-end; margin-bottom: 10px; }
+    .hero-media { margin-top: -18px; }
     .social-link {
       width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
       background: var(--surface-2); border: 1px solid var(--line-2); color: var(--text-2);
@@ -941,9 +1003,24 @@
     .modal-actions .btn-back { flex: 0 0 auto; padding-left: 20px; padding-right: 20px; }
     .modal-success { display: none; text-align: center; padding: 10px 8px 12px; }
     .modal-success.show { display: block; animation: pageIn 0.4s var(--ease); }
-    .modal-success .tick { width: 64px; height: 64px; border-radius: 50%; background: var(--grad); color: var(--ink-900);
-      display: grid; place-items: center; margin: 4px auto 18px; box-shadow: var(--shadow-brand); }
-    .modal-success .tick svg { width: 32px; height: 32px; }
+    .modal-success .tick {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(52, 211, 153, 0.12); border: 1.5px solid rgba(52, 211, 153, 0.55);
+      color: #34d399; display: grid; place-items: center; margin: 4px auto 20px;
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.35);
+      animation: tick-pop 0.55s var(--ease) 0.05s both, tick-glow 1.6s var(--ease) 0.55s;
+    }
+    .modal-success .tick svg { width: 34px; height: 34px; }
+    .modal-success.show .tick svg path {
+      stroke-dasharray: 30; stroke-dashoffset: 30;
+      animation: tick-draw 0.45s ease-out 0.5s forwards;
+    }
+    @keyframes tick-pop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes tick-draw { to { stroke-dashoffset: 0; } }
+    @keyframes tick-glow {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.35); }
+      100% { box-shadow: 0 0 0 22px rgba(52, 211, 153, 0); }
+    }
     .modal-success h3 { font-size: 1.4rem; }
     .modal-success p { color: var(--text-2); font-size: 14px; margin-top: 10px; }
 
@@ -952,7 +1029,7 @@
        ========================================================= */
     @media (max-width: 960px) {
       .hero-grid { grid-template-columns: 1fr; }
-      .hero-media { order: -1; }
+      .hero-media { order: -1; margin-top: 0; }
       .hero-media img { aspect-ratio: 16 / 10; }
       .feat-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
       .svc-grid, .price-grid, .rev-grid { grid-template-columns: 1fr 1fr; }
@@ -980,7 +1057,9 @@
       .svc-grid, .price-grid, .rev-grid { grid-template-columns: 1fr; }
       .trust { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
-      .hero-badge { left: 8px; }
+      .stat-traffic { left: 8px; }
+      .stat-leads { right: 8px; }
+      .stat-rank { right: 12px; bottom: -14px; }
       .mstep.active { grid-template-columns: 1fr; }
       .modal-head, .modal-body { padding-left: 20px; padding-right: 20px; }
       .modal-progress, .modal-steplabel { margin-left: 20px; margin-right: 20px; padding-left: 0; padding-right: 0; }
@@ -991,7 +1070,10 @@
       .wrap { padding-left: 16px; padding-right: 16px; }
       .step-card { padding: 18px; }
       .legal-body, .legal-head, .prompt-box pre { overflow-wrap: anywhere; }
-      .hero-badge { display: none; }
+      .stat-leads, .stat-rank { display: none; }
+      .stat-traffic { padding: 13px 16px 12px; min-width: 180px; bottom: 12px; }
+      .stat-traffic .big { font-size: 24px; }
+      .stat-traffic svg.spark { height: 30px; }
       .g-rating { flex-wrap: wrap; justify-content: center; max-width: 100%; padding: 12px 16px; gap: 10px; }
       /* Keep the hero from clipping even if the webfont is slow and a wider fallback loads */
       .hero h1 { font-size: clamp(1.85rem, 8.5vw, 2.5rem); }
@@ -1049,8 +1131,11 @@
         <div class="wrap">
           <div class="hero-grid">
             <div class="hero-copy">
-              <span class="eyebrow reveal">Pretoria &bull; Johannesburg &bull; Cape Town</span>
-              <h1 class="reveal d1">Premium websites that <span class="grad-text">capture real leads</span> for your business</h1>
+              <span class="avail-pill reveal" role="status">
+                <span class="seg1"><span class="avail-dot" aria-hidden="true"></span>Available for work</span>
+                <span class="seg2">Across South Africa</span>
+              </span>
+              <h1 class="reveal d1">Premium web experiences <span class="h1-soft">crafted for</span> <span class="grad-text">ambitious brands.</span></h1>
               <p class="lead reveal d2">
                 Veneer Digital Studio designs modern websites and WhatsApp lead-capture
                 systems for South African businesses. Get a site that looks the part and
@@ -1080,15 +1165,37 @@
                 </a>
               </div>
               <div class="frame">
-                <img src="assets/images/veneer-digital-studio-web-design-south-africa.jpg"
+                <img src="assets/images/vds-hero-premium-websites.jpg"
                      width="1920" height="1280" fetchpriority="high" decoding="async"
-                     alt="Veneer Digital Studio designer building a website interface on screen">
+                     alt="Premium responsive website shown on desktop and mobile — designed by Veneer Digital Studio to convert visitors into customers">
               </div>
-              <div class="hero-badge" aria-hidden="true">
-                <span class="dot">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <!-- Live stat cards (illustrative) floating over the device frame -->
+              <div class="stat-card stat-traffic reveal d3" aria-hidden="true">
+                <div class="head">
+                  <span class="ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="t">Website Traffic</span>
+                  <span class="stat-live"><span class="avail-dot"></span>LIVE</span>
+                </div>
+                <div class="big"><span data-countup="2846">0</span></div>
+                <div class="sub">monthly visitors <b>+<span data-countup="63">0</span>%</b></div>
+                <svg class="spark" viewBox="0 0 200 44" preserveAspectRatio="none">
+                  <path d="M0,38 C30,36 48,33 72,29 C100,24 122,22 146,15 C166,10 186,8 200,5 L200,44 L0,44 Z" fill="rgba(242,125,38,0.12)"/>
+                  <path d="M0,38 C30,36 48,33 72,29 C100,24 122,22 146,15 C166,10 186,8 200,5" fill="none" stroke="#F27D26" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="stat-card stat-leads reveal d4" aria-hidden="true">
+                <span class="ic">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M18 8v6M15 11h6" stroke-linecap="round"/></svg>
                 </span>
-                <span><b>Lead-ready in days</b><span>Design, capture, get found</span></span>
+                <span><span class="n">+<span data-countup="12">0</span></span><span class="l" style="display:block;">new leads this week</span></span>
+              </div>
+              <div class="stat-card stat-rank reveal d4" aria-hidden="true">
+                <span class="ic">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5" stroke-linecap="round"/></svg>
+                </span>
+                <span><span class="n">#1</span><span class="l" style="display:block;">Google ranking</span></span>
               </div>
             </div>
           </div>
@@ -2754,8 +2861,9 @@
           <div class="tick" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h3>Thank you, we have your details</h3>
-          <p>We will be in touch shortly to confirm the next steps for your website. Prefer email? Reach us at
+          <h3>You're all set!</h3>
+          <p>Your details are safely on their way to Matt — expect a reply within one business day.
+            Prefer email in the meantime? Reach us at
             <a href="mailto:matt@veneerdigital.co.za" style="color:var(--brand-3);">matt@veneerdigital.co.za</a>.</p>
           <div class="modal-actions" style="margin-top:22px;">
             <button type="button" class="btn btn-primary" id="modalDone">Done</button>
@@ -2908,6 +3016,31 @@
 
     /* ---------- Footer year ---------- */
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* ---------- Hero stat count-up ---------- */
+    (function () {
+      var els = document.querySelectorAll("[data-countup]");
+      if (!els.length) return;
+      var fmt = function (n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      els.forEach(function (el) {
+        var target = parseInt(el.getAttribute("data-countup"), 10) || 0;
+        if (reduced) { el.textContent = fmt(target); return; }
+        var dur = 1600, t0 = null, done = false;
+        function tick(ts) {
+          if (done) return;
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+          el.textContent = fmt(Math.round(target * eased));
+          if (p < 1) requestAnimationFrame(tick); else done = true;
+        }
+        setTimeout(function () { requestAnimationFrame(tick); }, 550);
+        // Safety net: if rAF is throttled (hidden tab, low power), land on the
+        // final value anyway so the stats never sit at 0.
+        setTimeout(function () { if (!done) { done = true; el.textContent = fmt(target); } }, 2600);
+      });
+    })();
 
     /* ---------- Cookie consent (localStorage: vds_cookie_consent) ---------- */
     (function () {
