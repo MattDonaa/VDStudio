@@ -708,6 +708,36 @@
     .prose p { color: var(--text-2); margin-top: 18px; max-width: 62ch; }
     .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 40px; }
     .value-card { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+
+    /* ---------------------------------------------------------------
+       Service illustrations — blended to float on the dark page.
+       Identical treatment on all four so they read as one commissioned
+       set: cinematic ambient glow behind, cool colour grade, and edges
+       melted into the background instead of a hard white rectangle.
+       --------------------------------------------------------------- */
+    .svc-figure {
+      position: relative; isolation: isolate;
+      margin-top: clamp(30px, 4.5vw, 50px);
+    }
+    /* Ambient lighting behind the panel: soft blue key light + faint warm
+       rim in the brand accent, so the artwork sits in lit space rather
+       than being pasted onto the page. */
+    .svc-figure::before {
+      content: ""; position: absolute; z-index: -1; inset: -9% 0;
+      background:
+        radial-gradient(52% 52% at 38% 40%, rgba(104, 152, 235, 0.22), transparent 72%),
+        radial-gradient(40% 40% at 78% 68%, rgba(245, 158, 11, 0.12), transparent 74%);
+      filter: blur(52px);
+      pointer-events: none;
+    }
+    .svc-figure img {
+      display: block; width: 100%; height: auto;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      /* Cool, gently dimmed grade so white never glares against the dark UI */
+      filter: saturate(0.88) brightness(0.94) contrast(1.04);
+      box-shadow: 0 44px 90px -40px rgba(0, 0, 0, 0.8);
+    }
     .value-card .ic { font-size: 24px; margin-bottom: 12px; }
     .value-card h4 { font-size: 1.05rem; margin-bottom: 8px; }
     .value-card p { font-size: 14px; color: var(--text-2); }
@@ -1235,7 +1265,7 @@
                 <button class="btn btn-ghost" data-route="services">View our services</button>
               </div>
               <div class="hero-stats reveal d4">
-                <div class="hero-stat"><div class="n grad-text">3 cities</div><div class="l">Serviced across SA</div></div>
+                <div class="hero-stat"><div class="n grad-text">Nationwide</div><div class="l">One studio, every province</div></div>
                 <div class="hero-stat"><div class="n grad-text">4 steps</div><div class="l">From idea to live site</div></div>
                 <div class="hero-stat"><div class="n grad-text">Any industry</div><div class="l">Built around your business</div></div>
               </div>
@@ -2213,6 +2243,10 @@
             scratch around your business: what you do, where you work, and how you want customers to reach
             you. No templates, no fluff &mdash; a fast, professional site that turns visitors into enquiries.</p>
         </div>
+        <figure class="svc-figure reveal">
+          <img src="assets/images/services/website-design.jpg" width="1500" height="837" loading="lazy" decoding="async"
+               alt="A modern business website shown across desktop, tablet and mobile — designed by Veneer Digital Studio">
+        </figure>
         <div class="value-grid reveal d1">
           <div class="value-card"><div class="ic" aria-hidden="true">🎨</div><h4>Designed for your business</h4><p>Custom layout, colours and copy written around your actual services and service area — it looks like you, not a template.</p></div>
           <div class="value-card"><div class="ic" aria-hidden="true">📱</div><h4>Perfect on every phone</h4><p>Most of your customers browse on mobile data. Your site loads fast and reads clearly on any screen size.</p></div>
@@ -2249,6 +2283,10 @@
             your website so every enquiry lands somewhere you will actually see it &mdash; usually WhatsApp,
             the app you already check all day.</p>
         </div>
+        <figure class="svc-figure reveal">
+          <img src="assets/images/services/lead-capture.jpg" width="1500" height="837" loading="lazy" decoding="async"
+               alt="Website contact form feeding leads into a CRM with email, calendar booking and new-lead notifications">
+        </figure>
         <div class="value-grid reveal d1">
           <div class="value-card"><div class="ic" aria-hidden="true">🟢</div><h4>WhatsApp buttons everywhere</h4><p>One tap opens a chat with your business, often with the message already written. Customers reach you on the app they use daily.</p></div>
           <div class="value-card"><div class="ic" aria-hidden="true">📞</div><h4>Click-to-call and email</h4><p>Phone numbers that dial when tapped, email links that open ready to send. Zero friction between interest and contact.</p></div>
@@ -2285,6 +2323,10 @@
             map with three businesses first. We set up and optimise your Google Business Profile so one of
             them is you &mdash; with photos, reviews, hours and a tap-to-call button.</p>
         </div>
+        <figure class="svc-figure reveal">
+          <img src="assets/images/services/google-business.jpg" width="1500" height="837" loading="lazy" decoding="async"
+               alt="An optimised Google Business Profile on a phone with map location, five-star reviews and profile insights">
+        </figure>
         <div class="value-grid reveal d1">
           <div class="value-card"><div class="ic" aria-hidden="true">📍</div><h4>Set up, verified, claimed</h4><p>We create or claim your profile, get it verified with Google, and make sure you own it — not a former employee or old agency.</p></div>
           <div class="value-card"><div class="ic" aria-hidden="true">🗂️</div><h4>Every detail done right</h4><p>Correct categories, services, service areas, hours and description — the details Google uses to decide who shows up first.</p></div>
@@ -2321,6 +2363,10 @@
             Google trust your site enough to show it when your customers search. We do that work in plain
             sight, and report on it in plain language.</p>
         </div>
+        <figure class="svc-figure reveal">
+          <img src="assets/images/services/seo.jpg" width="1500" height="837" loading="lazy" decoding="async"
+               alt="A website ranking as the top search result, with rising performance charts and speed metrics">
+        </figure>
         <div class="value-grid reveal d1">
           <div class="value-card"><div class="ic" aria-hidden="true">🔑</div><h4>Keywords that matter</h4><p>We research what your customers actually type — "geyser repair Centurion", not industry jargon — and target those searches.</p></div>
           <div class="value-card"><div class="ic" aria-hidden="true">📄</div><h4>Pages tuned to rank</h4><p>Titles, descriptions, headings and content optimised page by page, plus local landing pages for each area you serve.</p></div>
