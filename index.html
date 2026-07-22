@@ -738,6 +738,12 @@
       filter: saturate(0.88) brightness(0.94) contrast(1.04);
       box-shadow: 0 44px 90px -40px rgba(0, 0, 0, 0.8);
     }
+    /* Transparent cutouts float freely: no frame, just a soft contact shadow
+       that follows the artwork's own shape. */
+    .svc-figure--float img {
+      border: none; border-radius: 0; box-shadow: none;
+      filter: drop-shadow(0 34px 44px rgba(0, 0, 0, 0.55));
+    }
     .value-card .ic { font-size: 24px; margin-bottom: 12px; }
     .value-card h4 { font-size: 1.05rem; margin-bottom: 8px; }
     .value-card p { font-size: 14px; color: var(--text-2); }
@@ -2243,8 +2249,8 @@
             scratch around your business: what you do, where you work, and how you want customers to reach
             you. No templates, no fluff &mdash; a fast, professional site that turns visitors into enquiries.</p>
         </div>
-        <figure class="svc-figure reveal">
-          <img src="assets/images/services/website-design.jpg" width="1500" height="837" loading="lazy" decoding="async"
+        <figure class="svc-figure svc-figure--float reveal">
+          <img src="assets/images/services/website-design.png" width="1484" height="834" loading="lazy" decoding="async"
                alt="A modern business website shown across desktop, tablet and mobile — designed by Veneer Digital Studio">
         </figure>
         <div class="value-grid reveal d1">
@@ -2283,8 +2289,8 @@
             your website so every enquiry lands somewhere you will actually see it &mdash; usually WhatsApp,
             the app you already check all day.</p>
         </div>
-        <figure class="svc-figure reveal">
-          <img src="assets/images/services/lead-capture.jpg" width="1500" height="837" loading="lazy" decoding="async"
+        <figure class="svc-figure svc-figure--float reveal">
+          <img src="assets/images/services/lead-capture.png" width="1500" height="843" loading="lazy" decoding="async"
                alt="Website contact form feeding leads into a CRM with email, calendar booking and new-lead notifications">
         </figure>
         <div class="value-grid reveal d1">
@@ -2323,8 +2329,8 @@
             map with three businesses first. We set up and optimise your Google Business Profile so one of
             them is you &mdash; with photos, reviews, hours and a tap-to-call button.</p>
         </div>
-        <figure class="svc-figure reveal">
-          <img src="assets/images/services/google-business.jpg" width="1500" height="837" loading="lazy" decoding="async"
+        <figure class="svc-figure svc-figure--float reveal">
+          <img src="assets/images/services/google-business.png" width="1500" height="817" loading="lazy" decoding="async"
                alt="An optimised Google Business Profile on a phone with map location, five-star reviews and profile insights">
         </figure>
         <div class="value-grid reveal d1">
